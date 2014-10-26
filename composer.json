@@ -25,7 +25,7 @@
     },
     "minimum-stability": "stable",
     "extra": {
-        "title": "Oxygen CRUD",
+        "title": "Oxygen Core Views",
         "readme": "oxygen.md",
         "changes": "changes.md",
         "icon": "icon.png",
