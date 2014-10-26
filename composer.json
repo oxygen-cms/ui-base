@@ -1,14 +1,21 @@
 {
     "name": "oxygen/core-views",
-    "description": "",
+    "description": "View Files and Rendering Code for the Core",
+    "license": "MIT",
+    "keywords": [
+        "cms",
+        "framework",
+        "OxygenExtension"
+    ],
     "authors": [
         {
             "name": "Chris Chamberlain",
-            "email": "neon64bit@gmail.com"
+            "email": "c.chamberlain@iinet.net.au"
         }
     ],
     "require": {
         "php": ">=5.4.0",
+        "oxygen/core": "dev-master",
         "illuminate/support": "4.2.*"
     },
     "autoload": {
@@ -16,5 +23,18 @@
             "Oxygen\\CoreViews\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "extra": {
+        "title": "Oxygen CRUD",
+        "readme": "oxygen.md",
+        "changes": "changes.md",
+        "icon": "icon.png",
+        "providers": [
+            {
+                "name": "Core Views",
+                "class": "Oxygen\\CoreViews\\CoreViewsServiceProvider",
+                "description": "Look and Feel of the Administration Section"
+            }
+        ]
+    }
 }
