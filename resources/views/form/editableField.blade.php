@@ -1,7 +1,7 @@
 <?php
 
     use Oxygen\Core\Html\Editor\Editor;
-    use Oxygen\Core\Form\Field;
+    use Oxygen\Core\Form\Field;use Oxygen\Core\Html\Form\EditableField;
 
     $meta = $field->getMeta();
 
@@ -134,6 +134,24 @@
                 break;
             case Field::TYPE_TAGS:
                 echo '<div data-tags-input-name="' . $meta->name . '" class="Form-taggable">' . implode(', ', (array) $field->getValue()). '</div>';
+                break;
+            case Field::TYPE_RELATIONSHIP:
+                $select = new Field($meta->name, Field::TYPE_SELECT, true);
+                $callable = $meta->options['items'];
+                $select->options = $callable();
+
+                if($field->getValue() === null) {
+                    if(isset($meta->options) && $meta->options['allowNull']) {
+                        $select->options[''] = 'Null';
+                    }
+                    $value = null;
+                } else {
+                    $value = $field->getValue()->getId();
+                }
+
+                $editable = new EditableField($select, $value);
+                echo $editable->render(['entireRow' => false]);
+
                 break;
             default:
                 echo Form::input($meta->type, $meta->name, $field->getValue(), $attributes);
