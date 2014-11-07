@@ -1,7 +1,3 @@
-<?php
-    use Oxygen\CoreViews\Renderer\Toolbar\ButtonToolbarItem;
-?>
-
 <div class="{{{ ($insideMainNav ? 'MainNav-item ' : '') . 'Dropdown-container' }}}">
     <button class="{{{ $insideMainNav ? 'MainNav-link' : 'Button Button-color--' . $toolbarItem->color . ' Dropdown-button' }}}">
         {{{ $toolbarItem->label }}}

@@ -50,6 +50,11 @@
             {{{ $header->getSubtitle() }}}
         </h2>
     @endif
+    @if($header->hasIcon())
+        <h2 class="Header-icon flex-item">
+            <span class="Icon Icon-{{{ $header->getIcon() }}}"></span>
+        </h2>
+    @endif
     <div class="Header-toolbar flex-item">
         <?php
             foreach($header->getToolbar()->getItems() as $item) {

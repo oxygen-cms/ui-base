@@ -2,7 +2,6 @@
     use Oxygen\Core\Action\Action;
 
     $method = $toolbarItem->action->getMethod();
-    $dialog = $toolbarItem->hasDialog() ? $toolbarItem->dialog->render() : '';
 
     $insideMainNav = isset($arguments['insideMainNav']) && $arguments['insideMainNav'] === true;
     $insideDropdown = isset($arguments['insideDropdown']) && $arguments['insideDropdown'] === true;

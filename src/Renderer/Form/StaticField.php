@@ -29,9 +29,9 @@ class StaticField implements RendererInterface {
     /**
      * Renders the Object.
      *
-     * @param object $object Object to render
-     * @param array arguments Extra arguments to customize the element.
-     * @return string Rendered HTML
+     * @param  object  $object Object to render
+     * @param  array   $arguments Extra arguments to customize the element.
+     * @return string  Rendered HTML
      */
 
     public function render($object, array $arguments) {
