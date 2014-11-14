@@ -15,6 +15,7 @@ use Oxygen\Core\Html\Editor\Editor;
 use Oxygen\Core\Html\Dialog\Dialog;
 use Oxygen\Core\Html\Navigation\Navigation;
 use Oxygen\Core\Html\Navigation\NavigationToggle;
+use Oxygen\Core\Html\Toolbar\VoidButtonToolbarItem;
 use Oxygen\CoreViews\Renderer\Toolbar\ButtonToolbarItem as ButtonToolbarItemRenderer;
 use Oxygen\CoreViews\Renderer\Toolbar\DropdownToolbarItem as DropdownToolbarItemRenderer;
 use Oxygen\CoreViews\Renderer\Toolbar\FormToolbarItem as FormToolbarItemRenderer;
@@ -28,6 +29,7 @@ use Oxygen\CoreViews\Renderer\Editor\Editor as EditorRenderer;
 use Oxygen\CoreViews\Renderer\Dialog\Dialog as DialogRenderer;
 use Oxygen\CoreViews\Renderer\Navigation\Navigation as NavigationRenderer;
 use Oxygen\CoreViews\Renderer\Navigation\NavigationToggle as NavigationToggleRenderer;
+use Oxygen\CoreViews\Renderer\Toolbar\VoidButtonToolbarItem as VoidButtonToolbarItemRenderer;
 
 class CoreViewsServiceProvider extends ServiceProvider {
 
@@ -50,6 +52,7 @@ class CoreViewsServiceProvider extends ServiceProvider {
 		$view = $this->app['view'];
         $auth = $this->app['auth'];
 		ButtonToolbarItem::setRenderer(new ButtonToolbarItemRenderer($view));
+        VoidButtonToolbarItem::setRenderer(new VoidButtonToolbarItemRenderer($view));
         FormToolbarItem::setRenderer(new FormToolbarItemRenderer($view));
         DropdownToolbarItem::setRenderer(new DropdownToolbarItemRenderer($view));
         SpacerToolbarItem::setRenderer(new SpacerToolbarItemRenderer());
