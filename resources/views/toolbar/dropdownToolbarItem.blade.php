@@ -1,27 +1,27 @@
 <div class="{{{ ($insideMainNav ? 'MainNav-item ' : '') . 'Dropdown-container' }}}">
-    <?php
-        $buttonClasses = ['Dropdown-button'];
-        if($insideMainNav) {
-            $buttonClasses[] = 'MainNav-link';
-        } else {
-            $buttonClasses[] = 'Button Button-color--' . $toolbarItem->color;
-        }
-    ?>
-    @if(is_string($toolbarItem->label))
-        <button class="{{{ implode(' ', $buttonClasses) }}}">
-            {{{ $toolbarItem->label }}}
-            <span class="Icon Icon-{{{ $toolbarItem->icon }}} Icon--pushLeft"></span>
-        </button>
-    @else
+    @if($toolbarItem->shouldRenderButton)
         <div class="ButtonTabGroup">
             <?php
-                echo $toolbarItem->label->render([
+                echo $toolbarItem->button->render([
                     'model'          => $model,
                     'insideMainNav'  => $insideMainNav
                 ]);
             ?>
             <span class="Icon Icon-{{{ $toolbarItem->icon }}} Icon--pushLeft Button Button-color--white"></span>
         </div>
+    @else
+        <?php
+            $buttonClasses = ['Dropdown-button'];
+            if($insideMainNav) {
+                $buttonClasses[] = 'MainNav-link';
+            } else {
+                $buttonClasses[] = 'Button Button-color--' . $toolbarItem->color;
+            }
+        ?>
+        <button class="{{{ implode(' ', $buttonClasses) }}}">
+            {{{ $toolbarItem->label }}}
+            <span class="Icon Icon-{{{ $toolbarItem->icon }}} Icon--pushLeft"></span>
+        </button>
     @endif
     <div class="{{{ (!$insideMainNav ? 'Dropdown--round ' : '') . 'Dropdown' }}}">
         <?php
