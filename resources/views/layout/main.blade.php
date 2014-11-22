@@ -1,7 +1,8 @@
 <?php
 
 // defaults
-$title = Lang::get('oxygen/core::app.name');
+$title = isset($title) ? $title . ' - ' : '';
+$title .= Lang::get('oxygen/core::app.name');
 $description = '';
 $tags = '';
 
