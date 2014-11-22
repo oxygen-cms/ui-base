@@ -28,6 +28,8 @@ if(!isset($usePage)) {
     $usePage = true;
 }
 
+Event::fire('oxygen.layout.headers');
+
 ?>
 <!DOCTYPE html>
 <html class="{{{ implode($htmlClasses, ' ') }}}"{{ isset($fontSize) ? ' style="font-size: ' . $fontSize . ';"' : ''}}>

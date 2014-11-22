@@ -3,7 +3,10 @@
 <nav id="navigation" class="MainNav">
 
     @foreach($lists as $list)
-        @if(!empty(Navigation::all($list)))
+        <?php
+            $items = Navigation::all($list)
+        ?>
+        @if(!empty($items))
             <ul class="MainNav-list MainNav-list--{{{ $list }}}">
                 @foreach(Navigation::all($list) as $toolbarItem)
                     <?php
