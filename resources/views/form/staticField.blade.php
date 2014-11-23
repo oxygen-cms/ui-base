@@ -24,7 +24,7 @@
             </a>
         </div>
     @elseif($field->isPretty())
-        <div class="Form-content flex-item">{{ $field->getPresentedValue() }}</div>
+        <div class="Form-content flex-item">{{ $field->getPrettyValue() }}</div>
     @else
         <pre class="Form-content flex-item">{{{ $field->getValue() }}}</pre>
     @endif
