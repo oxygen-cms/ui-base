@@ -103,7 +103,10 @@
                     $options['on'] = 'true';
                 }
 
-                echo Form::hidden($meta->name, $options['off'], $attributes);
+                $hiddenAttributes = $attributes;
+                unset($hiddenAttributes['id']);
+
+                echo Form::hidden($meta->name, $options['off'], $hiddenAttributes);
                 $attributes['class'] .= ' Form-toggle';
                 echo Form::checkbox($meta->name, $options['on'], $field->getValue(), $attributes);
 
