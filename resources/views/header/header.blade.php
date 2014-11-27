@@ -9,8 +9,18 @@
     if($header->getType() === Header::TYPE_SMALL) {
         $classes[] = 'Header--small';
     }
+    if($header->getType() === Header::TYPE_NORMAL) {
+        $classes[] = 'Header--normal';
+    }
     if($header->getType() === Header::TYPE_MAIN) {
         $classes[] = 'Header--main';
+    }
+    if($header->getType() === Header::TYPE_BLOCK) {
+        $classes[] = 'Header--block Block';
+        $arguments = $header->getArguments();
+        if(isset($arguments['span'])) {
+            $classes[] = 'Cell-' . $arguments['span'];
+        }
     }
 
     if(!function_exists('getHeading')) {
@@ -21,6 +31,7 @@
                     break;
                 case Header::TYPE_NORMAL:
                 case Header::TYPE_SMALL:
+                case Header::TYPE_BLOCK:
                     return 'heading-gamma';
                     break;
                 case Header::TYPE_TINY:
@@ -40,6 +51,11 @@
                 class="Button Button--back Link--smoothState">
                 @lang('oxygen/core-views::ui.back')
             </a>
+        </div>
+    @endif
+    @if($header->hasContent())
+        <div class="Header-content flex-item">
+            {{ $header->getContent() }}
         </div>
     @endif
     <h2 class="Header-title {{{ getHeading($header->getType()) }}} flex-item">
