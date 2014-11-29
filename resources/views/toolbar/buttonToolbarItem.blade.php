@@ -34,6 +34,7 @@
         $class = 'Form--sendAjax';
         if($insideMainNav)        { $class .= ' MainNav-item'; }
         else if($insideDropdown)  { $class .= ' Dropdown-itemContainer'; }
+        if(isset($arguments['inline']) && $arguments['inline'] === true) { $class .= ' Form--inline'; }
 
         $buttonAttributes = $toolbarItem->hasDialog() ? $toolbarItem->dialog->render() : [];
 
