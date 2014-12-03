@@ -143,7 +143,7 @@
                 $callable = $meta->options['items'];
                 $select->options = $callable();
 
-                if($field->getValue() === null) {
+                if($field->getValue() === null || $field->getValue() === '') {
                     if(isset($meta->options) && $meta->options['allowNull']) {
                         $select->options[''] = 'Null';
                     }

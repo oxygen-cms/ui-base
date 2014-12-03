@@ -4,7 +4,9 @@ use Oxygen\Auth\Preferences\UserLoader;
 
 Preferences::register('user.general', function($schema) {
     $schema->setTitle('General');
-    $schema->setLoader(new UserLoader(App::make('Oxygen\Auth\Repository\UserRepositoryInterface'), Auth::user()));
+    $schema->setLoader(new UserLoader(App::make('Oxygen\Auth\Repository\UserRepositoryInterface'), function() {
+        return Auth::user();
+    }));
 
     $schema->makeFields([
         '' => [
