@@ -62,7 +62,7 @@ class Editor implements RendererInterface {
      * Renders the element.
      *
      * @param object $object Object to render
-     * @param array arguments Extra arguments to customize the element.
+     * @param array $arguments Extra arguments to customize the element.
      * @return string Rendered HTML
      */
 

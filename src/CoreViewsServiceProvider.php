@@ -50,7 +50,7 @@ class CoreViewsServiceProvider extends ServiceProvider {
 		$this->package('oxygen/core-views', 'oxygen/core-views', __DIR__ . '/../resources');
 
 		$view = $this->app['view'];
-        $auth = $this->app['auth'];
+        $app = $this->app;
 		ButtonToolbarItem::setRenderer(new ButtonToolbarItemRenderer($view));
         VoidButtonToolbarItem::setRenderer(new VoidButtonToolbarItemRenderer($view));
         FormToolbarItem::setRenderer(new FormToolbarItemRenderer($view));
@@ -61,7 +61,9 @@ class CoreViewsServiceProvider extends ServiceProvider {
         StaticField::setRenderer(new StaticFieldRenderer($view));
         EditableField::setRenderer(new EditableFieldRenderer($view));
         Footer::setRenderer(new FooterRenderer($view));
-        Editor::setRenderer(new EditorRenderer($view, $auth->check() ? $auth->user()->getPreferences() : null));
+        Editor::setRenderer(function() use($app, $view) {
+            return new EditorRenderer($view, $app['auth']->user()->getPreferences());
+        });
         Dialog::setRenderer(new DialogRenderer());
         Navigation::setRenderer(new NavigationRenderer($view));
         NavigationToggle::setRenderer(new NavigationToggleRenderer($view));

@@ -4,9 +4,9 @@ use Oxygen\Auth\Preferences\UserLoader;
 
 Preferences::register('user.editor', function($schema) {
     $schema->setTitle('Editor');
-    $schema->setLoader(new UserLoader(App::make('Oxygen\Auth\Repository\UserRepositoryInterface'), function() {
-        return Auth::user();
-    }));
+    $schema->setLoader(function() {
+        return new UserLoader(App::make('Oxygen\Auth\Repository\UserRepositoryInterface'), Auth::user());
+    });
 
     $schema->makeFields([
         '' => [
