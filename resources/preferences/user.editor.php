@@ -124,11 +124,11 @@ Preferences::register('user.editor', function($schema) {
                     'type'          => 'select',
                     'options'       => [
                         'Dark' => [
-                            '../../../js/vendor/ckeditor/skins/moono-dark' => 'Moono Dark',
+                            '../../../vendor/ckeditor-skins/moono-dark' => 'Moono Dark',
                         ],
                         'Light' => [
-                            '../../../js/vendor/ckeditor/skins/bootstrapck' => 'BootstrapCK',
-                            '../../../js/vendor/ckeditor/skins/office2013' => 'Office 2013',
+                            '../../../vendor/ckeditor-skins/bootstrapck' => 'BootstrapCK',
+                            '../../../vendor/ckeditor-skins/office2013' => 'Office 2013',
                             'moono' => 'Moono'
                         ]
                     ]
