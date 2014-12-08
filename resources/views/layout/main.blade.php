@@ -23,7 +23,7 @@ if(!isset($bodyClasses) || !is_array($bodyClasses)) {
 if(!isset($pageClasses) || !is_array($pageClasses)) {
     $pageClasses = [];
 }
-$pageClasses[] = 'Page';
+$pageClasses[] = 'Page Page--isEntering';
 
 if(!isset($usePage)) {
     $usePage = true;
@@ -52,7 +52,7 @@ Event::fire('oxygen.layout.headers');
     <?php Event::fire('oxygen.layout.body.before'); ?>
 
     @if($usePage)
-        <div class="{{{ implode($pageClasses, ' ') }}}">
+        <div class="{{{ implode($pageClasses, ' ') }}}" id="page">
     @endif
 
         <?php Event::fire('oxygen.layout.page.before'); ?>
