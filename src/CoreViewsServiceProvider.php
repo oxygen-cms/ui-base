@@ -68,10 +68,6 @@ class CoreViewsServiceProvider extends ServiceProvider {
         Navigation::setRenderer(new NavigationRenderer($view));
         NavigationToggle::setRenderer(new NavigationToggleRenderer($view));
 
-        $this->app['oxygen.preferences']->loadDirectory(__DIR__ . '/../resources/preferences', [
-            'user.general', 'user.editor'
-        ]);
-
         $this->addNavigationToLayout();
         $this->addNoticesToLayout();
         $this->addNotificationsToLayout();

@@ -9,12 +9,6 @@ $tags = '';
 if(!isset($htmlClasses) || !is_array($htmlClasses)) {
     $htmlClasses = [];
 }
-$htmlClasses[] = 'no-js';
-$htmlClasses[] = 'no-flexbox';
-
-if(Auth::check() && Auth::user()->getPreferences()->get('fontSize') !== '87.5%') {
-    $fontSize = Auth::user()->getPreferences()->get('fontSize');
-}
 
 if(!isset($bodyClasses) || !is_array($bodyClasses)) {
     $bodyClasses = [];
@@ -23,7 +17,6 @@ if(!isset($bodyClasses) || !is_array($bodyClasses)) {
 if(!isset($pageClasses) || !is_array($pageClasses)) {
     $pageClasses = [];
 }
-$pageClasses[] = 'Page Page--isEntering';
 
 if(!isset($usePage)) {
     $usePage = true;
@@ -31,9 +24,17 @@ if(!isset($usePage)) {
 
 Event::fire('oxygen.layout.headers');
 
+Event::fire('oxygen.layout.classes', [&$htmlClasses, &$bodyClasses, &$pageClasses]);
+
+$htmlAttributes = empty($htmlClasses) ? [] : ['class' => implode(' ', $htmlClasses)];
+$bodyAttributes = empty($bodyClasses) ? [] : ['class' => implode(' ', $bodyClasses)];
+$pageAttributes = empty($pageClasses) ? [] : ['class' => implode(' ', $pageClasses)];
+
+Event::fire('oxygen.layout.attributes', [&$htmlAttributes, &$bodyAttributes, &$pageAttributes]);
+
 ?>
 <!DOCTYPE html>
-<html class="{{{ implode($htmlClasses, ' ') }}}"{{ isset($fontSize) ? ' style="font-size: ' . $fontSize . ';"' : ''}}>
+<html {{ Html::attributes($htmlAttributes) }}>
 
 <head>
 
@@ -47,12 +48,12 @@ Event::fire('oxygen.layout.headers');
 
 </head>
 
-<body class="{{{ implode($bodyClasses, ' ') }}}">
+<body {{ Html::attributes($bodyAttributes) }}>
 
     <?php Event::fire('oxygen.layout.body.before'); ?>
 
     @if($usePage)
-        <div class="{{{ implode($pageClasses, ' ') }}}" id="page">
+        <div {{ Html::attributes($pageAttributes) }}>
     @endif
 
         <?php Event::fire('oxygen.layout.page.before'); ?>
