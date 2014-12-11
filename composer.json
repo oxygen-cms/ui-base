@@ -29,6 +29,11 @@
         "readme": "oxygen.md",
         "changes": "changes.md",
         "icon": "icon.png",
+        "images": [
+            "https://raw.githubusercontent.com/oxygen-cms/core-views/master/docs/buttons.png",
+            "https://raw.githubusercontent.com/oxygen-cms/core-views/master/docs/code-view.png",
+            "https://raw.githubusercontent.com/oxygen-cms/core-views/master/docs/design-view.png"
+        ],
         "providers": [
             {
                 "name": "Core Views",
