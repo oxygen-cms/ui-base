@@ -2,7 +2,8 @@
     use Oxygen\Core\Html\Header\Header;
     use Oxygen\Core\Html\Toolbar\ButtonToolbarItem;
 
-    $classes = ['Header'];
+    $classes = $header->getClasses();
+    $classes[] = 'Header';
     if($header->getType() === Header::TYPE_TINY) {
         $classes[] = 'Header--tiny';
     }
@@ -43,7 +44,7 @@
 
 ?>
 
-<div class="{{{ implode(' ', $classes) }}}">
+<div class="{{{ implode(' ', $classes) }}}"<?php if($header->getIndex() !== null) { echo 'data-index="' . $header->getIndex() . '"'; } ?>>
     @if($header->getBackLink() !== null)
         <div class="Header-back flex-item">
             <a
