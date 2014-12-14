@@ -33,10 +33,6 @@
         $addMargins($arguments, $attributes);
     }
 
-    if($toolbarItem->action->useSmoothState) {
-        $attributes['class'] .= ' Link--smoothState';
-    }
-
     echo '<button ' . HTML::attributes($attributes) . '>';
     echo $renderLabel();
     echo '</button>';
