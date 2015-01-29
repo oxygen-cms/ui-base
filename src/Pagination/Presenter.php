@@ -15,7 +15,7 @@ class Presenter extends BasePresenter {
      */
 
     public function getActivePageWrapper($text) {
-        return '<li><a href="#" class="Button Button-color--white">'.$text.'</a></li>';
+        return '<div class="Pagination-element"><a href="#" class="Button Button-color--white">'.$text.'</a></div>';
     }
 
     /**
@@ -33,7 +33,7 @@ class Presenter extends BasePresenter {
             'disabled'
         ];
         $this->addBackAndForward($attributes, $rel);
-        return '<li><a ' . HTML::attributes($attributes) . '>'.$text.'</a></li>';
+        return '<div class="Pagination-element"><a ' . HTML::attributes($attributes) . '>'.$text.'</a></div>';
     }
 
     /**
@@ -54,7 +54,7 @@ class Presenter extends BasePresenter {
             $attributes['rel'] = $rel;
         }
         $this->addBackAndForward($attributes, $rel);
-        return '<li><a ' . HTML::attributes($attributes) . '>'.$page.'</a></li>';
+        return '<div class="Pagination-element"><a ' . HTML::attributes($attributes) . '>'.$page.'</a></div>';
     }
 
     /**
