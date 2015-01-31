@@ -156,6 +156,8 @@
                 echo $editable->render(['entireRow' => false]);
 
                 break;
+            case Field::TYPE_DATE:
+                echo Form::input($meta->type, $meta->name, $field->getValue()->format('Y-m-d'), $attributes);
             default:
                 echo Form::input($meta->type, $meta->name, $field->getValue(), $attributes);
         endswitch;
