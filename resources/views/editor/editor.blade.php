@@ -59,7 +59,7 @@
                 'id' => $editor->name . '-editor',
                 'class' => 'Editor-textarea',
                 'rows' => $rows
-            )) . '>' . $editor->value . '</textarea>';
+            )) . '>' . htmlspecialchars($editor->value) . '</textarea>';
         ?>
     </div>
     @if($editor->type == Editor::TYPE_MAIN)

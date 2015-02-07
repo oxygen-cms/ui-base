@@ -1,7 +1,8 @@
 <?php namespace Oxygen\CoreViews;
 
 use Illuminate\Support\ServiceProvider;
-
+use Oxygen\Core\Html\Form\Label;
+use Oxygen\Core\Html\Form\Row;
 use Oxygen\Core\Html\Toolbar\ButtonToolbarItem;
 use Oxygen\Core\Html\Toolbar\DropdownToolbarItem;
 use Oxygen\Core\Html\Toolbar\FormToolbarItem;
@@ -16,14 +17,28 @@ use Oxygen\Core\Html\Dialog\Dialog;
 use Oxygen\Core\Html\Navigation\Navigation;
 use Oxygen\Core\Html\Navigation\NavigationToggle;
 use Oxygen\Core\Html\Toolbar\VoidButtonToolbarItem;
+use Oxygen\CoreViews\Renderer\Form\Display\DatetimeField;
+use Oxygen\CoreViews\Renderer\Form\Editable\CheckboxField;
+use Oxygen\CoreViews\Renderer\Form\Editable\EditorField;
+use Oxygen\CoreViews\Renderer\Form\Editable\GenericField;
+use Oxygen\CoreViews\Renderer\Form\Editable\RadioField;
+use Oxygen\CoreViews\Renderer\Form\Editable\RelationshipField;
+use Oxygen\CoreViews\Renderer\Form\Editable\SelectField;
+use Oxygen\CoreViews\Renderer\Form\Editable\TagsField;
+use Oxygen\CoreViews\Renderer\Form\Editable\TextareaField;
+use Oxygen\CoreViews\Renderer\Form\Editable\ToggleField;
+use Oxygen\CoreViews\Renderer\Form\Row as RowRenderer;
+use Oxygen\CoreViews\Renderer\Form\Label as LabelRenderer;
+use Oxygen\CoreViews\Renderer\Form\Display\GenericField as StaticGenericField;
+use Oxygen\CoreViews\Renderer\Form\Display\RelationshipField as StaticRelationshipField;
+use Oxygen\CoreViews\Renderer\Form\Display\SelectField as StaticSelectField;
+use Oxygen\CoreViews\Renderer\Form\Display\TextareaField as StaticTextareaField;
 use Oxygen\CoreViews\Renderer\Toolbar\ButtonToolbarItem as ButtonToolbarItemRenderer;
 use Oxygen\CoreViews\Renderer\Toolbar\DropdownToolbarItem as DropdownToolbarItemRenderer;
 use Oxygen\CoreViews\Renderer\Toolbar\FormToolbarItem as FormToolbarItemRenderer;
 use Oxygen\CoreViews\Renderer\Toolbar\SpacerToolbarItem as SpacerToolbarItemRenderer;
 use Oxygen\CoreViews\Renderer\Toolbar\DisabledToolbarItem as DisabledToolbarItemRenderer;
 use Oxygen\CoreViews\Renderer\Header\Header as HeaderRenderer;
-use Oxygen\CoreViews\Renderer\Form\StaticField as StaticFieldRenderer;
-use Oxygen\CoreViews\Renderer\Form\EditableField as EditableFieldRenderer;
 use Oxygen\CoreViews\Renderer\Form\Footer as FooterRenderer;
 use Oxygen\CoreViews\Renderer\Editor\Editor as EditorRenderer;
 use Oxygen\CoreViews\Renderer\Dialog\Dialog as DialogRenderer;
@@ -58,8 +73,6 @@ class CoreViewsServiceProvider extends ServiceProvider {
         SpacerToolbarItem::setRenderer(new SpacerToolbarItemRenderer());
         DisabledToolbarItem::setRenderer(new DisabledToolbarItemRenderer());
         Header::setRenderer(new HeaderRenderer($view));
-        StaticField::setRenderer(new StaticFieldRenderer($view));
-        EditableField::setRenderer(new EditableFieldRenderer($view));
         Footer::setRenderer(new FooterRenderer($view));
         Editor::setRenderer(function() use($app, $view) {
             return new EditorRenderer($view, $app['auth']->user()->getPreferences());
@@ -67,6 +80,30 @@ class CoreViewsServiceProvider extends ServiceProvider {
         Dialog::setRenderer(new DialogRenderer());
         Navigation::setRenderer(new NavigationRenderer($view));
         NavigationToggle::setRenderer(new NavigationToggleRenderer($view));
+
+        EditableField::setFallbackRenderer(new GenericField());
+        EditableField::setRenderer('checkbox', new CheckboxField());
+        EditableField::setRenderer('toggle', new ToggleField());
+        EditableField::setRenderer('editor', new EditorField());
+        EditableField::setRenderer('editor-mini', new EditorField());
+        EditableField::setRenderer('radio', new RadioField());
+        EditableField::setRenderer('relationship', new RelationshipField());
+        EditableField::setRenderer('select', new SelectField());
+        EditableField::setRenderer('tags', new TagsField());
+        EditableField::setRenderer('textarea', new TextareaField());
+        EditableField::setRenderer('toggle', new ToggleField());
+
+        StaticField::setFallbackRenderer(new StaticGenericField());
+        StaticField::setRenderer('relationship', new StaticRelationshipField($app['oxygen.blueprintManager'], $app['url']));
+        StaticField::setRenderer('date', new DatetimeField());
+        StaticField::setRenderer('datetime', new DatetimeField());
+        StaticField::setRenderer('select', new StaticSelectField());
+        StaticField::setRenderer('textarea', new StaticTextareaField());
+        StaticField::setRenderer('editor', new StaticTextareaField());
+        StaticField::setRenderer('editor-mini', new StaticTextareaField());
+
+        Row::setRenderer(new RowRenderer());
+        Label::setRenderer(new LabelRenderer($app['html']));
 
         $this->addNavigationToLayout();
         $this->addNoticesToLayout();

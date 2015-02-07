@@ -12,7 +12,9 @@
 @foreach($toolbarItem->fields as $fieldMeta)
     <?php
         $field = new EditableField($fieldMeta, Input::get($fieldMeta->name), '');
-        echo $field->render(['entireRow' => false]);
+        if($field->getMeta()->editable) {
+            echo $field->render();
+        }
     ?>
 @endforeach
 
