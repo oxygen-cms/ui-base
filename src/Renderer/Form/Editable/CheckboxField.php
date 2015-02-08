@@ -23,7 +23,7 @@ class CheckboxField extends BaseField {
         $attributes = $this->getFieldAttributes($field->getMeta());
 
         return
-            Form::input('hidden', $field->getMeta()->name, $options['off'], $field->getValue(), $attributes) .
+            Form::input('hidden', $field->getMeta()->name, $options['off'], array_merge($attributes, ['id' => null])) .
             Form::checkbox($field->getMeta()->name, $options['on'], $field->getValue(), $attributes) .
             Form::label($field->getMeta()->name, $field->getMeta()->label, ['class' => 'Form-checkbox-label flex-item']);
     }
