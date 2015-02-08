@@ -13,13 +13,14 @@ class Row implements RendererInterface {
      * @param array  $arguments Extra arguments to customize the element.
      * @return string
      */
+
     public function render($row, array $arguments) {
         $return = '';
 
-        $return .= '<div class="Row">';
+        $return .= '<div class="Row' . ($row->isFooter ? ' Form-footer' : '') . '">';
 
-        foreach($row->getCells() as $cell) {
-            $return .= $cell->render([]);
+        foreach($row->getItems() as $item) {
+            $return .= $item->render([]);
         }
 
         $return .= '</div>';

@@ -74,11 +74,7 @@
     @endif
     <div class="Header-toolbar flex-item">
         <?php
-            foreach($header->getToolbar()->getItems() as $item) {
-                if($item->shouldRender($header->getArguments())) {
-                    echo $item->render($header->getArguments());
-                }
-            }
+            echo $header->getToolbar()->render($header->getArguments());
         ?>
     </div>
 </div>

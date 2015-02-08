@@ -16,6 +16,8 @@ use Oxygen\Core\Html\Editor\Editor;
 use Oxygen\Core\Html\Dialog\Dialog;
 use Oxygen\Core\Html\Navigation\Navigation;
 use Oxygen\Core\Html\Navigation\NavigationToggle;
+use Oxygen\Core\Html\Toolbar\SubmitToolbarItem;
+use Oxygen\Core\Html\Toolbar\Toolbar;
 use Oxygen\Core\Html\Toolbar\VoidButtonToolbarItem;
 use Oxygen\CoreViews\Renderer\Form\Display\DatetimeField;
 use Oxygen\CoreViews\Renderer\Form\Editable\CheckboxField;
@@ -38,6 +40,8 @@ use Oxygen\CoreViews\Renderer\Toolbar\DropdownToolbarItem as DropdownToolbarItem
 use Oxygen\CoreViews\Renderer\Toolbar\FormToolbarItem as FormToolbarItemRenderer;
 use Oxygen\CoreViews\Renderer\Toolbar\SpacerToolbarItem as SpacerToolbarItemRenderer;
 use Oxygen\CoreViews\Renderer\Toolbar\DisabledToolbarItem as DisabledToolbarItemRenderer;
+use Oxygen\CoreViews\Renderer\Toolbar\SubmitToolbarItem as SubmitToolbarItemRenderer;
+use Oxygen\CoreViews\Renderer\Toolbar\Toolbar as ToolbarRenderer;
 use Oxygen\CoreViews\Renderer\Header\Header as HeaderRenderer;
 use Oxygen\CoreViews\Renderer\Form\Footer as FooterRenderer;
 use Oxygen\CoreViews\Renderer\Editor\Editor as EditorRenderer;
@@ -66,14 +70,16 @@ class CoreViewsServiceProvider extends ServiceProvider {
 
 		$view = $this->app['view'];
         $app = $this->app;
-		ButtonToolbarItem::setRenderer(new ButtonToolbarItemRenderer($view));
-        VoidButtonToolbarItem::setRenderer(new VoidButtonToolbarItemRenderer($view));
+		ButtonToolbarItem::setRenderer(new ButtonToolbarItemRenderer($this->app['form'], $this->app['html'], $this->app['url']));
+        VoidButtonToolbarItem::setRenderer(new VoidButtonToolbarItemRenderer($this->app['html']));
         FormToolbarItem::setRenderer(new FormToolbarItemRenderer($view));
         DropdownToolbarItem::setRenderer(new DropdownToolbarItemRenderer($view));
         SpacerToolbarItem::setRenderer(new SpacerToolbarItemRenderer());
         DisabledToolbarItem::setRenderer(new DisabledToolbarItemRenderer());
+        SubmitToolbarItem::setRenderer(new SubmitToolbarItemRenderer());
         Header::setRenderer(new HeaderRenderer($view));
         Footer::setRenderer(new FooterRenderer($view));
+        Toolbar::setRenderer(new ToolbarRenderer());
         Editor::setRenderer(function() use($app, $view) {
             return new EditorRenderer($view, $app['auth']->user()->getPreferences());
         });
