@@ -11,7 +11,6 @@ use Oxygen\Core\Html\Toolbar\DisabledToolbarItem;
 use Oxygen\Core\Html\Header\Header;
 use Oxygen\Core\Html\Form\StaticField;
 use Oxygen\Core\Html\Form\EditableField;
-use Oxygen\Core\Html\Form\Footer;
 use Oxygen\Core\Html\Editor\Editor;
 use Oxygen\Core\Html\Dialog\Dialog;
 use Oxygen\Core\Html\Navigation\Navigation;
@@ -43,7 +42,6 @@ use Oxygen\CoreViews\Renderer\Toolbar\DisabledToolbarItem as DisabledToolbarItem
 use Oxygen\CoreViews\Renderer\Toolbar\SubmitToolbarItem as SubmitToolbarItemRenderer;
 use Oxygen\CoreViews\Renderer\Toolbar\Toolbar as ToolbarRenderer;
 use Oxygen\CoreViews\Renderer\Header\Header as HeaderRenderer;
-use Oxygen\CoreViews\Renderer\Form\Footer as FooterRenderer;
 use Oxygen\CoreViews\Renderer\Editor\Editor as EditorRenderer;
 use Oxygen\CoreViews\Renderer\Dialog\Dialog as DialogRenderer;
 use Oxygen\CoreViews\Renderer\Navigation\Navigation as NavigationRenderer;
@@ -78,7 +76,6 @@ class CoreViewsServiceProvider extends ServiceProvider {
         DisabledToolbarItem::setRenderer(new DisabledToolbarItemRenderer());
         SubmitToolbarItem::setRenderer(new SubmitToolbarItemRenderer());
         Header::setRenderer(new HeaderRenderer($view));
-        Footer::setRenderer(new FooterRenderer($view));
         Toolbar::setRenderer(new ToolbarRenderer());
         Editor::setRenderer(function() use($app, $view) {
             return new EditorRenderer($view, $app['auth']->user()->getPreferences());
