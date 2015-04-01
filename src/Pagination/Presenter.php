@@ -48,7 +48,7 @@ class Presenter extends BasePresenter {
     public function getPageLinkWrapper($url, $page, $rel = null) {
         $attributes = [
             'href' => $url,
-            'class' => 'Button Button-color--white'
+            'class' => 'Button Button-color--white Link--smoothState'
         ];
         if($rel !== null) {
             $attributes['rel'] = $rel;
