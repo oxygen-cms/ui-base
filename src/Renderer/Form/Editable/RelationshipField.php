@@ -17,8 +17,10 @@ class RelationshipField extends BaseField {
      */
     public function render($field, array $arguments) {
         $select = new FieldMetadata($field->getMeta()->name, 'select', true);
-        $callable = $field->getMeta()->options['items'];
-        $select->options = $callable();
+
+        $repo = $field->getMeta()->options['repository'];
+        $repo = is_callable($repo) ? $repo() : $repo;
+        $select->options = $repo->listKeysAndValues('id', isset($field->getMeta()->options['nameField']) ? $field->getMeta()->options['nameField'] : 'name');
 
         if($field->getValue() === null || $field->getValue() === '') {
             if(isset($field->getMeta()->options) && $field->getMeta()->options['allowNull']) {
