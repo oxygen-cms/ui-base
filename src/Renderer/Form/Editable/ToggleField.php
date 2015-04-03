@@ -14,6 +14,8 @@ class ToggleField extends BaseField {
      * @return string
      */
     public function render($field, array $arguments) {
+        $attributes = $this->getFieldAttributes($field->getMeta());
+
         $labels = isset($attributes['labels']) ? $attributes['labels'] : ['on' => 'On', 'off' => 'Off'];
         unset($attributes['labels']);
 
