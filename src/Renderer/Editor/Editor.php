@@ -31,7 +31,6 @@ class Editor implements RendererInterface {
      * @param View $view View Environment
      * @param Preferences $preferences Preferences Repository
      */
-
     public function __construct(View $view, Preferences $preferences = null) {
         $this->view = $view;
         $this->preferences = $preferences;
@@ -43,7 +42,6 @@ class Editor implements RendererInterface {
      * @param object $object Object to be rendered
      * @return void
      */
-
     public function addDefaultAttributes($object) {
         if(isset($object->attributes['class'])) {
             $object->attributes['class'] .= ' Editor';
@@ -65,7 +63,6 @@ class Editor implements RendererInterface {
      * @param array $arguments Extra arguments to customize the element.
      * @return string Rendered HTML
      */
-
     public function render($object, array $arguments) {
         $this->addDefaultAttributes($object);
         return $this->view->make(

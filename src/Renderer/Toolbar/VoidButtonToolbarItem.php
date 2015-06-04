@@ -22,7 +22,6 @@ class VoidButtonToolbarItem implements RendererInterface {
      *
      * @param HtmlBuilder $html
      */
-
     public function __construct(HtmlBuilder $html) {
         $this->html = $html;
     }
@@ -34,7 +33,6 @@ class VoidButtonToolbarItem implements RendererInterface {
      * @param array $arguments Extra arguments to customize the element.
      * @return string Rendered HTML
      */
-
     public function render($toolbarItem, array $arguments) {
         $insideMainNav = isset($arguments['insideMainNav']) && $arguments['insideMainNav'] === true;
         $insideDropdown = isset($arguments['insideDropdown']) && $arguments['insideDropdown'] === true;

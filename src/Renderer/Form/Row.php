@@ -13,7 +13,6 @@ class Row implements RendererInterface {
      * @param array  $arguments Extra arguments to customize the element.
      * @return string
      */
-
     public function render($row, array $arguments) {
         $return = '';
 

@@ -13,7 +13,6 @@ class Presenter extends BasePresenter {
      * @param string $text
      * @return string
      */
-
     public function getActivePageWrapper($text) {
         return '<div class="Pagination-element"><a href="#" class="Button Button-color--white">'.$text.'</a></div>';
     }
@@ -25,7 +24,6 @@ class Presenter extends BasePresenter {
      * @param string $rel
      * @return string
      */
-
     public function getDisabledTextWrapper($text, $rel = null) {
         $attributes = [
             'href' => '#',
@@ -44,7 +42,6 @@ class Presenter extends BasePresenter {
      * @param string $rel
      * @return string
      */
-
     public function getPageLinkWrapper($url, $page, $rel = null) {
         $attributes = [
             'href' => $url,
@@ -79,7 +76,6 @@ class Presenter extends BasePresenter {
      * @param  string  $text
      * @return string
      */
-
     public function getPrevious($text = '&laquo;') {
         // If the current page is less than or equal to one, it means we can't go any
         // further back in the pages, so we will render a disabled previous button
@@ -99,7 +95,6 @@ class Presenter extends BasePresenter {
      * @param  string  $text
      * @return string
      */
-
     public function getNext($text = '&raquo;') {
         // If the current page is greater than or equal to the last page, it means we
         // can't go any further into the pages, as we're already on this last page

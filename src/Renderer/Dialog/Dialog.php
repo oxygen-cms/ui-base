@@ -13,7 +13,6 @@ class Dialog implements RendererInterface {
      * @param array arguments Extra arguments to customize the element.
      * @return string Rendered HTML
      */
-
     public function render($object, array $arguments) {
         return [
             'data-dialog-type' => $object->type,

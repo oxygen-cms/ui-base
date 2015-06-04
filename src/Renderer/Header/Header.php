@@ -21,7 +21,6 @@ class Header implements RendererInterface {
      *
      * @param View $view View Environment
      */
-
     public function __construct(View $view) {
         $this->view = $view;
     }
@@ -33,7 +32,6 @@ class Header implements RendererInterface {
      * @param array arguments Extra arguments to customize the element.
      * @return string Rendered HTML
      */
-
     public function render($object, array $arguments) {
         return $this->view->make('oxygen/core-views::header.header', array(
             'header' => $object

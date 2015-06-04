@@ -12,7 +12,6 @@ class Label implements RendererInterface {
      *
      * @param HtmlBuilder $builder
      */
-
     public function __construct(HtmlBuilder $builder) {
         $this->html = $builder;
     }
@@ -24,7 +23,6 @@ class Label implements RendererInterface {
      * @param array  $arguments Extra arguments to customize the element.
      * @return string
      */
-
     public function render($label, array $arguments) {
         $return = '';
 

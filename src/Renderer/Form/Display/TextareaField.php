@@ -11,7 +11,6 @@ class TextareaField extends GenericField {
      * @param array  $arguments Extra arguments to customize the element.
      * @return string
      */
-
     public function render($field, array $arguments) {
         $value = e($field->getMeta()->getType()->transformOutput($field->getMeta(), $field->getValue()));
 

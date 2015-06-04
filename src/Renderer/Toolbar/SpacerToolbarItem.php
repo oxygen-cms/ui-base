@@ -13,7 +13,6 @@ class SpacerToolbarItem implements RendererInterface {
      * @param array arguments Extra arguments to customize the element.
      * @return string Rendered HTML
      */
-
     public function render($object, array $arguments) {
         return '<span class="MainNav-item MainNav-border"></span>';
     }

@@ -18,7 +18,6 @@ class ButtonToolbarItem implements RendererInterface {
      * @param HtmlBuilder $html the laravel HTML builder
      * @param UrlGenerator $url the URL generator
      */
-
     public function __construct(FormBuilder $form, HtmlBuilder $html, UrlGenerator $url) {
         $this->form = $form;
         $this->html = $html;
@@ -32,7 +31,6 @@ class ButtonToolbarItem implements RendererInterface {
      * @param array  $arguments Extra arguments to customize the element.
      * @return string Rendered HTML
      */
-
     public function render($toolbarItem, array $arguments) {
         $method = $toolbarItem->action->getMethod();
 
