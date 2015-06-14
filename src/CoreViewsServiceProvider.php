@@ -1,6 +1,7 @@
 <?php namespace Oxygen\CoreViews;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 use Oxygen\Core\Html\Form\Label;
 use Oxygen\Core\Html\Form\Row;
 use Oxygen\Core\Html\Toolbar\ButtonToolbarItem;
@@ -18,6 +19,7 @@ use Oxygen\Core\Html\Navigation\NavigationToggle;
 use Oxygen\Core\Html\Toolbar\SubmitToolbarItem;
 use Oxygen\Core\Html\Toolbar\Toolbar;
 use Oxygen\Core\Html\Toolbar\VoidButtonToolbarItem;
+use Oxygen\CoreViews\Pagination\Presenter;
 use Oxygen\CoreViews\Renderer\Form\Display\DatetimeField;
 use Oxygen\CoreViews\Renderer\Form\Editable\CheckboxField;
 use Oxygen\CoreViews\Renderer\Form\Editable\EditorField;
@@ -107,6 +109,10 @@ class CoreViewsServiceProvider extends ServiceProvider {
 
         Row::setRenderer(new RowRenderer());
         Label::setRenderer(new LabelRenderer($app['html']));
+
+        Paginator::presenter(function($paginator) {
+            new Presenter($paginator, $this->app['lang'], $this->app['input']);
+        });
 
         $this->addNavigationToLayout();
         $this->addNoticesToLayout();

@@ -2,19 +2,42 @@
 
 namespace Oxygen\CoreViews\Pagination;
 
-use HTML;
-use Illuminate\Pagination\Presenter as BasePresenter;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\Presenter as PresenterContract;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\AbstractPaginator;
+use Symfony\Component\Translation\TranslatorInterface;
 
-class Presenter extends BasePresenter {
+class Presenter implements PresenterContract {
 
     /**
-     * Returns the HTML to display the active page.
+     * The paginator implementation.
      *
-     * @param string $text
-     * @return string
+     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getActivePageWrapper($text) {
-        return '<div class="Pagination-element"><a href="#" class="Button Button-color--white">'.$text.'</a></div>';
+    protected $paginator;
+
+    /**
+     * The translation component.
+     *
+     * @var \Symfony\Component\Translation\TranslatorInterface
+     */
+    protected $lang;
+
+    /**
+     * Create a new Bootstrap presenter instance.
+     *
+     * @param  \Illuminate\Contracts\Pagination\LengthAwarePaginator $paginator
+     */
+    public function __construct(LengthAwarePaginator $paginator, TranslatorInterface $lang, Request $request) {
+        $this->paginator = $paginator;
+        $this->lang = $lang;
+
+        // append the current query string
+        if($paginator instanceof AbstractPaginator) {
+            $queryString = array_except($request->query(), $paginator->getPageName());
+            $this->paginator->appends($queryString);
+        }
     }
 
     /**
@@ -31,14 +54,14 @@ class Presenter extends BasePresenter {
             'disabled'
         ];
         $this->addBackAndForward($attributes, $rel);
-        return '<div class="Pagination-element"><a ' . HTML::attributes($attributes) . '>'.$text.'</a></div>';
+        return '<div class="Pagination-element"><a ' . html_attributes($attributes) . '>'.$text.'</a></div>';
     }
 
     /**
      * Returns the HTML to display a generic link.
      *
      * @param string $url
-     * @param string $text
+     * @param string $page
      * @param string $rel
      * @return string
      */
@@ -51,7 +74,7 @@ class Presenter extends BasePresenter {
             $attributes['rel'] = $rel;
         }
         $this->addBackAndForward($attributes, $rel);
-        return '<div class="Pagination-element"><a ' . HTML::attributes($attributes) . '>'.$page.'</a></div>';
+        return '<div class="Pagination-element"><a ' . html_attributes($attributes) . '>'.$page.'</a></div>';
     }
 
     /**
@@ -76,15 +99,15 @@ class Presenter extends BasePresenter {
      * @param  string  $text
      * @return string
      */
-    public function getPrevious($text = '&laquo;') {
+    public function getPreviousButton($text = '&laquo;') {
         // If the current page is less than or equal to one, it means we can't go any
         // further back in the pages, so we will render a disabled previous button
         // when that is the case. Otherwise, we will give it an active "status".
-        if ($this->currentPage <= 1) {
+        if ($this->paginator->currentPage() <= 1) {
             return $this->getDisabledTextWrapper($text, 'prev');
         }
 
-        $url = $this->paginator->getUrl($this->currentPage - 1);
+        $url = $this->paginator->url($this->paginator->currentPage() - 1);
 
         return $this->getPageLinkWrapper($url, $text, 'prev');
     }
@@ -95,17 +118,45 @@ class Presenter extends BasePresenter {
      * @param  string  $text
      * @return string
      */
-    public function getNext($text = '&raquo;') {
+    public function getNextButton($text = '&raquo;') {
         // If the current page is greater than or equal to the last page, it means we
         // can't go any further into the pages, as we're already on this last page
         // that is available, so we will make it the "next" link style disabled.
-        if ($this->currentPage >= $this->lastPage) {
+        if(!$this->paginator->hasMorePages()) {
             return $this->getDisabledTextWrapper($text, 'next');
         }
 
-        $url = $this->paginator->getUrl($this->currentPage + 1);
+        $url = $this->paginator->url($this->paginator->currentPage() + 1);
 
         return $this->getPageLinkWrapper($url, $text, 'next');
     }
 
+    /**
+     * Render the given paginator.
+     *
+     * @return string
+     */
+    public function render() {
+        if ($this->hasPages()) {
+            return sprintf(
+                '<div class="Pagination">%s <div class="Pagination-message">%s</div> %s</ul>',
+                $this->getPreviousButton($this->lang->get('pagination.previous')),
+                $this->lang->get('pagination.message', [
+                    'current' => $this->paginator->currentPage(),
+                    'total' => $this->paginator->lastPage()
+                ]),
+                $this->getNextButton($this->lang->get('pagination.next'))
+            );
+        }
+        return '';
+    }
+
+    /**
+     * Determine if the underlying paginator being presented has pages to show.
+     *
+     * @return bool
+     */
+    public function hasPages() {
+        return $this->paginator->hasPages();
+    }
 }
