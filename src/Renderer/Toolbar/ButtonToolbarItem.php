@@ -8,6 +8,7 @@ use Illuminate\Html\HtmlBuilder;
 use Illuminate\Routing\UrlGenerator;
 use Oxygen\Core\Action\Action;
 use Oxygen\Core\Html\RendererInterface;
+use Oxygen\Core\Http\Method;
 
 class ButtonToolbarItem implements RendererInterface {
 
@@ -60,7 +61,7 @@ class ButtonToolbarItem implements RendererInterface {
             }
         };
 
-        if($method !== Action::METHOD_GET) {
+        if($method !== Method::GET) {
 
             $route = array_merge(
                 [$toolbarItem->action->getName()],
