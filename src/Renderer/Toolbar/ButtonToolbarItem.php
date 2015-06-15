@@ -1,12 +1,10 @@
 <?php
 
-namespace Oxygen\CoreViews\Renderer\Toolbar;
+namespace Oxygen\UiBase\Renderer\Toolbar;
 
 use Illuminate\Html\FormBuilder;
-use Illuminate\Html\HtmlBuilder;
 
 use Illuminate\Routing\UrlGenerator;
-use Oxygen\Core\Action\Action;
 use Oxygen\Core\Html\RendererInterface;
 use Oxygen\Core\Http\Method;
 
@@ -16,12 +14,10 @@ class ButtonToolbarItem implements RendererInterface {
      * Injects dependencies into the Renderer.
      *
      * @param FormBuilder $form the laravel form builder
-     * @param HtmlBuilder $html the laravel HTML builder
      * @param UrlGenerator $url the URL generator
      */
-    public function __construct(FormBuilder $form, HtmlBuilder $html, UrlGenerator $url) {
+    public function __construct(FormBuilder $form, UrlGenerator $url) {
         $this->form = $form;
-        $this->html = $html;
         $this->url = $url;
     }
 
@@ -101,7 +97,7 @@ class ButtonToolbarItem implements RendererInterface {
                 'class' => $class
             ]);
 
-            $return .= '<button ' . $this->html->attributes($buttonAttributes) . '>';
+            $return .= '<button ' . html_attributes($buttonAttributes) . '>';
             $return .= $renderLabel();
             $return .= '</button>';
 
@@ -131,7 +127,7 @@ class ButtonToolbarItem implements RendererInterface {
                 $linkAttributes['class'] .= ' Link--smoothState';
             }
 
-            $return .= '<a ' . $this->html->attributes($linkAttributes) . '>';
+            $return .= '<a ' . html_attributes($linkAttributes) . '>';
             $return .= $renderLabel();
             $return .= '</a>';
 

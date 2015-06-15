@@ -1,4 +1,4 @@
-<?php namespace Oxygen\CoreViews;
+<?php namespace Oxygen\UiBase;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
@@ -19,39 +19,39 @@ use Oxygen\Core\Html\Navigation\NavigationToggle;
 use Oxygen\Core\Html\Toolbar\SubmitToolbarItem;
 use Oxygen\Core\Html\Toolbar\Toolbar;
 use Oxygen\Core\Html\Toolbar\VoidButtonToolbarItem;
-use Oxygen\CoreViews\Http\NotificationPresenter;
-use Oxygen\CoreViews\Pagination\Presenter;
-use Oxygen\CoreViews\Renderer\Form\Display\DatetimeField;
-use Oxygen\CoreViews\Renderer\Form\Editable\CheckboxField;
-use Oxygen\CoreViews\Renderer\Form\Editable\EditorField;
-use Oxygen\CoreViews\Renderer\Form\Editable\GenericField;
-use Oxygen\CoreViews\Renderer\Form\Editable\RadioField;
-use Oxygen\CoreViews\Renderer\Form\Editable\RelationshipField;
-use Oxygen\CoreViews\Renderer\Form\Editable\SelectField;
-use Oxygen\CoreViews\Renderer\Form\Editable\TagsField;
-use Oxygen\CoreViews\Renderer\Form\Editable\TextareaField;
-use Oxygen\CoreViews\Renderer\Form\Editable\ToggleField;
-use Oxygen\CoreViews\Renderer\Form\Row as RowRenderer;
-use Oxygen\CoreViews\Renderer\Form\Label as LabelRenderer;
-use Oxygen\CoreViews\Renderer\Form\Display\GenericField as StaticGenericField;
-use Oxygen\CoreViews\Renderer\Form\Display\RelationshipField as StaticRelationshipField;
-use Oxygen\CoreViews\Renderer\Form\Display\SelectField as StaticSelectField;
-use Oxygen\CoreViews\Renderer\Form\Display\TextareaField as StaticTextareaField;
-use Oxygen\CoreViews\Renderer\Toolbar\ButtonToolbarItem as ButtonToolbarItemRenderer;
-use Oxygen\CoreViews\Renderer\Toolbar\DropdownToolbarItem as DropdownToolbarItemRenderer;
-use Oxygen\CoreViews\Renderer\Toolbar\FormToolbarItem as FormToolbarItemRenderer;
-use Oxygen\CoreViews\Renderer\Toolbar\SpacerToolbarItem as SpacerToolbarItemRenderer;
-use Oxygen\CoreViews\Renderer\Toolbar\DisabledToolbarItem as DisabledToolbarItemRenderer;
-use Oxygen\CoreViews\Renderer\Toolbar\SubmitToolbarItem as SubmitToolbarItemRenderer;
-use Oxygen\CoreViews\Renderer\Toolbar\Toolbar as ToolbarRenderer;
-use Oxygen\CoreViews\Renderer\Header\Header as HeaderRenderer;
-use Oxygen\CoreViews\Renderer\Editor\Editor as EditorRenderer;
-use Oxygen\CoreViews\Renderer\Dialog\Dialog as DialogRenderer;
-use Oxygen\CoreViews\Renderer\Navigation\Navigation as NavigationRenderer;
-use Oxygen\CoreViews\Renderer\Navigation\NavigationToggle as NavigationToggleRenderer;
-use Oxygen\CoreViews\Renderer\Toolbar\VoidButtonToolbarItem as VoidButtonToolbarItemRenderer;
+use Oxygen\UiBase\Http\NotificationPresenter;
+use Oxygen\UiBase\Pagination\Presenter;
+use Oxygen\UiBase\Renderer\Form\Display\DatetimeField;
+use Oxygen\UiBase\Renderer\Form\Editable\CheckboxField;
+use Oxygen\UiBase\Renderer\Form\Editable\EditorField;
+use Oxygen\UiBase\Renderer\Form\Editable\GenericField;
+use Oxygen\UiBase\Renderer\Form\Editable\RadioField;
+use Oxygen\UiBase\Renderer\Form\Editable\RelationshipField;
+use Oxygen\UiBase\Renderer\Form\Editable\SelectField;
+use Oxygen\UiBase\Renderer\Form\Editable\TagsField;
+use Oxygen\UiBase\Renderer\Form\Editable\TextareaField;
+use Oxygen\UiBase\Renderer\Form\Editable\ToggleField;
+use Oxygen\UiBase\Renderer\Form\Row as RowRenderer;
+use Oxygen\UiBase\Renderer\Form\Label as LabelRenderer;
+use Oxygen\UiBase\Renderer\Form\Display\GenericField as StaticGenericField;
+use Oxygen\UiBase\Renderer\Form\Display\RelationshipField as StaticRelationshipField;
+use Oxygen\UiBase\Renderer\Form\Display\SelectField as StaticSelectField;
+use Oxygen\UiBase\Renderer\Form\Display\TextareaField as StaticTextareaField;
+use Oxygen\UiBase\Renderer\Toolbar\ButtonToolbarItem as ButtonToolbarItemRenderer;
+use Oxygen\UiBase\Renderer\Toolbar\DropdownToolbarItem as DropdownToolbarItemRenderer;
+use Oxygen\UiBase\Renderer\Toolbar\FormToolbarItem as FormToolbarItemRenderer;
+use Oxygen\UiBase\Renderer\Toolbar\SpacerToolbarItem as SpacerToolbarItemRenderer;
+use Oxygen\UiBase\Renderer\Toolbar\DisabledToolbarItem as DisabledToolbarItemRenderer;
+use Oxygen\UiBase\Renderer\Toolbar\SubmitToolbarItem as SubmitToolbarItemRenderer;
+use Oxygen\UiBase\Renderer\Toolbar\Toolbar as ToolbarRenderer;
+use Oxygen\UiBase\Renderer\Header\Header as HeaderRenderer;
+use Oxygen\UiBase\Renderer\Editor\Editor as EditorRenderer;
+use Oxygen\UiBase\Renderer\Dialog\Dialog as DialogRenderer;
+use Oxygen\UiBase\Renderer\Navigation\Navigation as NavigationRenderer;
+use Oxygen\UiBase\Renderer\Navigation\NavigationToggle as NavigationToggleRenderer;
+use Oxygen\UiBase\Renderer\Toolbar\VoidButtonToolbarItem as VoidButtonToolbarItemRenderer;
 
-class CoreViewsServiceProvider extends ServiceProvider {
+class UiBaseServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.

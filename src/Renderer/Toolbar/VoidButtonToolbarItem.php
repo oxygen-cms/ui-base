@@ -1,30 +1,10 @@
 <?php
 
-namespace Oxygen\CoreViews\Renderer\Toolbar;
-
-use Illuminate\Html\HtmlBuilder;
-use Illuminate\View\Factory as View;
+namespace Oxygen\UiBase\Renderer\Toolbar;
 
 use Oxygen\Core\Html\RendererInterface;
 
 class VoidButtonToolbarItem implements RendererInterface {
-
-    /**
-     * The Laravel HTML Builder
-     *
-     * @var HtmlBuilder
-     */
-
-    protected $html;
-
-    /**
-     * Injects dependencies into the Renderer.
-     *
-     * @param HtmlBuilder $html
-     */
-    public function __construct(HtmlBuilder $html) {
-        $this->html = $html;
-    }
 
     /**
      * Renders the element.
@@ -72,7 +52,7 @@ class VoidButtonToolbarItem implements RendererInterface {
 
         $return = '';
 
-        $return .= '<button ' . $this->html->attributes($attributes) . '>';
+        $return .= '<button ' . html_attributes($attributes) . '>';
         $return .= $renderLabel();
         $return .= '</button>';
 

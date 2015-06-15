@@ -1,6 +1,6 @@
 <?php
 
-namespace Oxygen\CoreViews\Renderer\Form;
+namespace Oxygen\UiBase\Renderer\Form;
 
 use Oxygen\Core\Html\RendererInterface;
 

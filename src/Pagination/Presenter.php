@@ -1,6 +1,6 @@
 <?php
 
-namespace Oxygen\CoreViews\Pagination;
+namespace Oxygen\UiBase\Pagination;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Presenter as PresenterContract;

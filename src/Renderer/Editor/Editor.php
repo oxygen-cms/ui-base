@@ -1,8 +1,8 @@
 <?php
 
-namespace Oxygen\CoreViews\Renderer\Editor;
+namespace Oxygen\UiBase\Renderer\Editor;
 
-use Illuminate\View\Factory as View;
+use Illuminate\Contracts\View\Factory as View;
 
 use Oxygen\Core\Html\RendererInterface;
 use Oxygen\Preferences\Repository as Preferences;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Oxygen\CoreViews\Renderer\Dialog;
+namespace Oxygen\UiBase\Renderer\Dialog;
 
 use Oxygen\Core\Html\RendererInterface;
 

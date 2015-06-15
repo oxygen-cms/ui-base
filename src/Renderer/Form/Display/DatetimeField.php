@@ -1,7 +1,6 @@
 <?php
 
-
-namespace Oxygen\CoreViews\Renderer\Form\Display;
+namespace Oxygen\UiBase\Renderer\Form\Display;
 
 class DatetimeField extends GenericField {
 

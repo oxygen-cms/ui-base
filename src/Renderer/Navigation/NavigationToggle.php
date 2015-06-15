@@ -1,8 +1,8 @@
 <?php
 
-namespace Oxygen\CoreViews\Renderer\Navigation;
+namespace Oxygen\UiBase\Renderer\Navigation;
 
-use Illuminate\View\Factory as View;
+use Illuminate\Contracts\View\Factory as View;
 
 use Oxygen\Core\Html\RendererInterface;
 

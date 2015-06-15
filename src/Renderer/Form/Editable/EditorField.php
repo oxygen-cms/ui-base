@@ -1,6 +1,6 @@
 <?php
 
-namespace Oxygen\CoreViews\Renderer\Form\Editable;
+namespace Oxygen\UiBase\Renderer\Form\Editable;
 
 use Oxygen\Core\Html\Editor\Editor;
 

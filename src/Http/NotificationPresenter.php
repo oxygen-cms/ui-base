@@ -1,6 +1,6 @@
 <?php
 
-namespace Oxygen\CoreViews\Http;
+namespace Oxygen\UiBase\Http;
 
 use Illuminate\Session\Store as Session;
 use Illuminate\Http\Request;

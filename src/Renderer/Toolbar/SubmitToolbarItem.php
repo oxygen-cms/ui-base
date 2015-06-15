@@ -1,6 +1,6 @@
 <?php
 
-namespace Oxygen\CoreViews\Renderer\Toolbar;
+namespace Oxygen\UiBase\Renderer\Toolbar;
 
 use Oxygen\Core\Html\RendererInterface;
 

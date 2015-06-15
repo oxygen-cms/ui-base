@@ -1,6 +1,6 @@
 <?php
 
-namespace Oxygen\CoreViews\Renderer\Form;
+namespace Oxygen\UiBase\Renderer\Form;
 
 use Illuminate\Html\HtmlBuilder;
 use Oxygen\Core\Html\RendererInterface;
@@ -34,10 +34,10 @@ class Label implements RendererInterface {
         $labelAttributes['for'] = $label->getMeta()->name;
 
         if($label->getMeta()->hasDescription()) {
-            $return .= '<span ' . $this->html->attributes(['class' => 'Form-label Tooltip flex-item', 'data-tooltip' => $label->getMeta()->description]) . '>';
+            $return .= '<span ' . html_attributes(['class' => 'Form-label Tooltip flex-item', 'data-tooltip' => $label->getMeta()->description]) . '>';
         }
 
-        $return .= '<label ' . $this->html->attributes($labelAttributes) . '>' . $label->getMeta()->label . '</label>';
+        $return .= '<label ' . html_attributes($labelAttributes) . '>' . $label->getMeta()->label . '</label>';
 
         if($label->getMeta()->hasDescription()) {
             $return .= '</span>';

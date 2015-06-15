@@ -1,8 +1,6 @@
 <?php
 
-namespace Oxygen\CoreViews\Renderer\Toolbar;
-
-use HTML;
+namespace Oxygen\UiBase\Renderer\Toolbar;
 
 use Oxygen\Core\Html\RendererInterface;
 
@@ -12,7 +10,7 @@ class DisabledToolbarItem implements RendererInterface {
      * Renders the element.
      *
      * @param object $object Object to render
-     * @param array arguments Extra arguments to customize the element.
+     * @param array $arguments Extra arguments to customize the element.
      * @return string Rendered HTML
      */
     public function render($object, array $arguments) {
@@ -29,7 +27,7 @@ class DisabledToolbarItem implements RendererInterface {
             }
         }
 
-        return '<button ' . HTML::attributes($attributes) . '>' . $object->label . '</button>';
+        return '<button ' . html_attributes($attributes) . '>' . $object->label . '</button>';
     }
 
 }

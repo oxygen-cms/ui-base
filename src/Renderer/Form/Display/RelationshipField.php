@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Oxygen\CoreViews\Renderer\Form\Display;
+namespace Oxygen\UiBase\Renderer\Form\Display;
 
 use Illuminate\Routing\UrlGenerator;
 use Oxygen\Core\Blueprint\Manager;
