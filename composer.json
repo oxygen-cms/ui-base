@@ -1,6 +1,6 @@
 {
-    "name": "oxygen/core-views",
-    "description": "View Files and Rendering Code for the Core",
+    "name": "oxygen/ui-base",
+    "description": "View Files and Rendering Code",
     "license": "MIT",
     "keywords": [
         "cms",
@@ -16,7 +16,6 @@
     "require": {
         "php": ">=5.4.0",
         "oxygen/core": "dev-master",
-        "oxygen/preferences": "dev-master",
         "illuminate/pagination": "~5.1",
         "illuminate/support": "~5.1"
     },

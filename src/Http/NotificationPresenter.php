@@ -1,6 +1,6 @@
 <?php
 
-namespace Oxygen\Core\Http;
+namespace Oxygen\CoreViews\Http;
 
 use Illuminate\Session\Store as Session;
 use Illuminate\Http\Request;
@@ -10,32 +10,32 @@ use Illuminate\Routing\Redirector as Redirect;
 use Illuminate\Routing\UrlGenerator as URL;
 
 use Oxygen\Core\Contracts\Http\NotificationPresenter as NotificationPresenterContract;
-use Oxygen\Preferences\Repository;
+use Oxygen\Core\Http\Notification;
 
 class NotificationPresenter implements NotificationPresenterContract {
 
     /**
      * Dependencies for the NotificationResponseCreator.
      */
-    protected $session, $request, $response, $redirect, $url, $preferences;
+    protected $session, $request, $response, $redirect, $url, $useSmoothState;
 
     /**
      * Injects dependencies for the NotificationResponseCreator.
      *
-     * @param Session $session
-     * @param Request $request
+     * @param Session  $session
+     * @param Request  $request
      * @param Response $response
      * @param Redirect $redirect
-     * @param URL $url
-     * @param Repository $preferences
+     * @param URL      $url
+     * @param bool     $useSmoothState
      */
-    public function __construct(Session $session, Request $request, Response $response, Redirect $redirect, URL $url, Repository $preferences = null) {
+    public function __construct(Session $session, Request $request, Response $response, Redirect $redirect, URL $url, $useSmoothState) {
         $this->session = $session;
         $this->request = $request;
         $this->response = $response;
         $this->redirect = $redirect;
         $this->url = $url;
-        $this->preferences = $preferences;
+        $this->useSmoothState = $useSmoothState;
     }
 
     /**
@@ -74,7 +74,6 @@ class NotificationPresenter implements NotificationPresenterContract {
      * @param boolean   $refresh        Whether to refresh
      * @return Response
      */
-
     protected function createJsonRedirectResponse($notification, $parameters, $refresh = false) {
         if($refresh) {
             $url = $this->url->previous();
@@ -92,7 +91,7 @@ class NotificationPresenter implements NotificationPresenterContract {
         }
 
         // display the message on the new page
-        if(($this->preferences === null || $this->preferences->get('smoothState.enabled', true) === true) && !isset($hardRedirect)) {
+        if($this->useSmoothState && !isset($hardRedirect)) {
             $return = array_merge($return, $notification);
         } else {
             $this->session->flash('adminMessage', $notification);
@@ -109,7 +108,6 @@ class NotificationPresenter implements NotificationPresenterContract {
      * @param array     $parameters     Extra parameters
      * @return Response
      */
-
     private function createJsonSmoothResponse($notification, $parameters) {
         return $this->makeCustomResponse($this->response->json($notification), $parameters);
     }
@@ -142,7 +140,6 @@ class NotificationPresenter implements NotificationPresenterContract {
      * @param mixed $route
      * @return array
      */
-
     protected function urlFromRoute($route) {
         if(is_array($route)) {
             return $this->url->route($route[0], $route[1]);
@@ -157,7 +154,6 @@ class NotificationPresenter implements NotificationPresenterContract {
      * @param mixed $notification
      * @return array
      */
-
     protected function arrayFromNotification($notification) {
         if(!is_array($notification)) {
             return $notification->toArray();
@@ -172,7 +168,6 @@ class NotificationPresenter implements NotificationPresenterContract {
      * @param array $parameters
      * @return boolean
      */
-
     protected function wantsRedirect($parameters) {
         return isset($parameters['redirect']);
     }
@@ -183,7 +178,6 @@ class NotificationPresenter implements NotificationPresenterContract {
      * @param array $parameters
      * @return boolean
      */
-
     protected function wantsRefresh($parameters) {
         return isset($parameters['refresh']) && $parameters['refresh'] === true;
     }
@@ -195,7 +189,6 @@ class NotificationPresenter implements NotificationPresenterContract {
      * @param array $parameters
      * @return Response
      */
-
     protected function makeCustomResponse(Response $response, $parameters) {
         if(isset($parameters['input']) && $parameters['input'] === true && !($response instanceof JsonResponse)) {
             return $response->withInput();

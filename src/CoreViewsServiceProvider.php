@@ -19,6 +19,7 @@ use Oxygen\Core\Html\Navigation\NavigationToggle;
 use Oxygen\Core\Html\Toolbar\SubmitToolbarItem;
 use Oxygen\Core\Html\Toolbar\Toolbar;
 use Oxygen\Core\Html\Toolbar\VoidButtonToolbarItem;
+use Oxygen\CoreViews\Http\NotificationPresenter;
 use Oxygen\CoreViews\Pagination\Presenter;
 use Oxygen\CoreViews\Renderer\Form\Display\DatetimeField;
 use Oxygen\CoreViews\Renderer\Form\Editable\CheckboxField;
@@ -174,7 +175,17 @@ class CoreViewsServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function register() {
-
+        // bind response creator
+        $this->app->singleton(['Oxygen\Contracts\Http\NotificationPresenter'], function($app) {
+            return new NotificationPresenter(
+                $app['Illuminate\Session\Store'],
+                $app['Illuminate\Http\Request'],
+                $app['Illuminate\Support\Facades\Response'],
+                $app['Illuminate\Routing\Redirector'],
+                $app['Illuminate\Routing\UrlGenerator'],
+                true
+            );
+        });
 	}
 
 	/**
