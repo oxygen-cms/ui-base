@@ -34,7 +34,7 @@ class NavigationToggle implements RendererInterface {
      */
     public function render($object, array $arguments) {
         return $this->view->make(
-            'oxygen/core-views::navigation.navigationToggle'
+            'oxygen/ui-base::navigation.navigationToggle'
         )->render();
     }
 

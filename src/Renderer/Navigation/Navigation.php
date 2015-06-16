@@ -34,7 +34,7 @@ class Navigation implements RendererInterface {
      */
     public function render($object, array $arguments) {
         return $this->view->make(
-            'oxygen/core-views::navigation.navigation',
+            'oxygen/ui-base::navigation.navigation',
             ['navigation'   => $object]
         )->render();
     }

@@ -34,7 +34,7 @@ class FormToolbarItem implements RendererInterface {
      */
     public function render($object, array $arguments) {
         return $this->view->make(
-            'oxygen/core-views::toolbar.formToolbarItem',
+            'oxygen/ui-base::toolbar.formToolbarItem',
             [
                 'toolbarItem'    => $object,
                 'arguments'      => $arguments

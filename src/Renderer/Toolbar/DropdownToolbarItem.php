@@ -38,7 +38,7 @@ class DropdownToolbarItem implements RendererInterface {
         }
 
         return $this->view->make(
-            'oxygen/core-views::toolbar.dropdownToolbarItem',
+            'oxygen/ui-base::toolbar.dropdownToolbarItem',
             [
                 'toolbarItem'   => $object,
                 'model'         => isset($arguments['model']) ? $arguments['model'] : null,

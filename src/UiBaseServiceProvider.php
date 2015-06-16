@@ -2,6 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Oxygen\Core\Blueprint\BlueprintManager;
 use Oxygen\Core\Html\Form\Label;
 use Oxygen\Core\Html\Form\Row;
 use Oxygen\Core\Html\Toolbar\ButtonToolbarItem;
@@ -67,12 +68,18 @@ class UiBaseServiceProvider extends ServiceProvider {
 	 */
 
 	public function boot() {
-		$this->package('oxygen/core-views', 'oxygen/core-views', __DIR__ . '/../resources');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'oxygen/ui-base');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'oxygen/ui-base');
+
+        $this->publishes([
+            __DIR__.'/../resources/views' => base_path('resources/views/vendor/oxygen/ui-base'),
+            __DIR__.'/../resources/lang' => base_path('resources/lang/vendor/oxygen/ui-base'),
+        ]);
 
 		$view = $this->app['view'];
         $app = $this->app;
-		ButtonToolbarItem::setRenderer(new ButtonToolbarItemRenderer($this->app['form'], $this->app['html'], $this->app['url']));
-        VoidButtonToolbarItem::setRenderer(new VoidButtonToolbarItemRenderer($this->app['html']));
+		ButtonToolbarItem::setRenderer(new ButtonToolbarItemRenderer($this->app['form'], $this->app['url']));
+        VoidButtonToolbarItem::setRenderer(new VoidButtonToolbarItemRenderer());
         FormToolbarItem::setRenderer(new FormToolbarItemRenderer($view));
         DropdownToolbarItem::setRenderer(new DropdownToolbarItemRenderer($view));
         SpacerToolbarItem::setRenderer(new SpacerToolbarItemRenderer());
@@ -100,7 +107,7 @@ class UiBaseServiceProvider extends ServiceProvider {
         EditableField::setRenderer('toggle', new ToggleField());
 
         StaticField::setFallbackRenderer(new StaticGenericField());
-        StaticField::setRenderer('relationship', new StaticRelationshipField($app['oxygen.blueprintManager'], $app['url']));
+        StaticField::setRenderer('relationship', new StaticRelationshipField($app[BlueprintManager::class], $app['url']));
         StaticField::setRenderer('date', new DatetimeField());
         StaticField::setRenderer('datetime', new DatetimeField());
         StaticField::setRenderer('select', new StaticSelectField());
@@ -149,11 +156,11 @@ class UiBaseServiceProvider extends ServiceProvider {
 
     protected function addNoticesToLayout() {
         $this->app['events']->listen('oxygen.layout.body.before', function() {
-            echo $this->app['view']->make('oxygen/core-views::layout.element.notices')->render();
+            echo $this->app['view']->make('oxygen/ui-base::layout.element.notices')->render();
         });
 
         $this->app['events']->listen('oxygen.layout.body.after', function() {
-            echo $this->app['view']->make('oxygen/core-views::layout.element.noticesScript')->render();
+            echo $this->app['view']->make('oxygen/ui-base::layout.element.noticesScript')->render();
         });
     }
 
@@ -165,7 +172,7 @@ class UiBaseServiceProvider extends ServiceProvider {
 
     protected function addNotificationsToLayout() {
         $this->app['events']->listen('oxygen.layout.body.before', function() {
-            echo $this->app['view']->make('oxygen/core-views::layout.element.notifications')->render();
+            echo $this->app['view']->make('oxygen/ui-base::layout.element.notifications')->render();
         });
     }
 

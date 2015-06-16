@@ -66,7 +66,7 @@ class Editor implements RendererInterface {
     public function render($object, array $arguments) {
         $this->addDefaultAttributes($object);
         return $this->view->make(
-            'oxygen/core-views::editor.editor',
+            'oxygen/ui-base::editor.editor',
             ['editor' => $object]
         )->render();
     }

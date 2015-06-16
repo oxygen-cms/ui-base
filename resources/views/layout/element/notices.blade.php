@@ -1,13 +1,13 @@
 <!--[if lte IE 8]>
     <div class="Notice Notice--ie">
-            @lang('oxygen/core-views::notices.ie')
+            @lang('oxygen/ui-base::notices.ie')
     </div>
 <![endif]-->
 
 <div class="Notice Notice--jsDisabled">
-    @lang('oxygen/core-views::notices.jsDisabled')
+    @lang('oxygen/ui-base::notices.jsDisabled')
 </div>
 
 <div class="Notice Notice--jsError Notice--isHidden">
-    @lang('oxygen/core-views::notices.jsError')
+    @lang('oxygen/ui-base::notices.jsError')
 </div>

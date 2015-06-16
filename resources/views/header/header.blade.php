@@ -50,7 +50,7 @@
             <a
                 href="{{{ $header->getBackLink() }}}"
                 class="Button Button--back Link--smoothState">
-                @lang('oxygen/core-views::ui.back')
+                @lang('oxygen/ui-base::ui.back')
             </a>
         </div>
     @endif

@@ -33,7 +33,7 @@ class Header implements RendererInterface {
      * @return string Rendered HTML
      */
     public function render($object, array $arguments) {
-        return $this->view->make('oxygen/core-views::header.header', array(
+        return $this->view->make('oxygen/ui-base::header.header', array(
             'header' => $object
         ))->render();
     }
