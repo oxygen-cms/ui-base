@@ -5,6 +5,7 @@ namespace Oxygen\UiBase\Renderer\Toolbar;
 use Illuminate\Html\FormBuilder;
 
 use Illuminate\Routing\UrlGenerator;
+use Oxygen\Core\Form\Form;
 use Oxygen\Core\Html\RendererInterface;
 use Oxygen\Core\Http\Method;
 
@@ -13,11 +14,9 @@ class ButtonToolbarItem implements RendererInterface {
     /**
      * Injects dependencies into the Renderer.
      *
-     * @param FormBuilder $form the laravel form builder
      * @param UrlGenerator $url the URL generator
      */
-    public function __construct(FormBuilder $form, UrlGenerator $url) {
-        $this->form = $form;
+    public function __construct(UrlGenerator $url) {
         $this->url = $url;
     }
 
@@ -30,8 +29,6 @@ class ButtonToolbarItem implements RendererInterface {
      */
     public function render($toolbarItem, array $arguments) {
         $method = $toolbarItem->action->getMethod();
-
-        $return = '';
 
         $insideMainNav = isset($arguments['insideMainNav']) && $arguments['insideMainNav'] === true;
         $insideDropdown = isset($arguments['insideDropdown']) && $arguments['insideDropdown'] === true;
@@ -59,21 +56,16 @@ class ButtonToolbarItem implements RendererInterface {
 
         if($method !== Method::GET) {
 
-            $route = array_merge(
-                [$toolbarItem->action->getName()],
-                $toolbarItem->action->getRouteParameters($arguments)
-            );
-
-            $class = 'Form--sendAjax';
+            $form = new Form($toolbarItem->action);
+            $form->setAsynchronous(true);
             if($insideMainNav) {
-                $class .= ' MainNav-item';
-            } else {
-                if($insideDropdown) {
-                    $class .= ' Dropdown-itemContainer';
-                }
+                $form->addClass('MainNav-item');
+            } else if($insideDropdown) {
+                $form->addClass('Dropdown-itemContainer');
             }
+
             if(isset($arguments['inline']) && $arguments['inline'] === true) {
-                $class .= ' Form--inline';
+                $form->addClass('Form--inline');
             }
 
             $buttonAttributes = $toolbarItem->hasDialog() ? $toolbarItem->dialog->render() : [];
@@ -91,18 +83,9 @@ class ButtonToolbarItem implements RendererInterface {
                 }
             }
 
-            $return .= $this->form->open([
-                'route' => $route,
-                'method' => $method,
-                'class' => $class
-            ]);
+            $form->addContent('<button ' . html_attributes($buttonAttributes) . '>' . $renderLabel() . '</button>');
 
-            $return .= '<button ' . html_attributes($buttonAttributes) . '>';
-            $return .= $renderLabel();
-            $return .= '</button>';
-
-            $return .= $this->form->close();
-
+            return $form->render();
         } else {
 
             $linkAttributes = $toolbarItem->hasDialog() ? $toolbarItem->dialog->render() : [];
@@ -127,13 +110,8 @@ class ButtonToolbarItem implements RendererInterface {
                 $linkAttributes['class'] .= ' Link--smoothState';
             }
 
-            $return .= '<a ' . html_attributes($linkAttributes) . '>';
-            $return .= $renderLabel();
-            $return .= '</a>';
-
+            return '<a ' . html_attributes($linkAttributes) . '>' . $renderLabel() . '</a>';
         }
-
-        return $return;
     }
 
 }

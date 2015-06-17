@@ -3,7 +3,7 @@
 
 namespace Oxygen\UiBase\Renderer\Form\Display;
 
-use Illuminate\Routing\UrlGenerator;
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Oxygen\Core\Blueprint\BlueprintManager;
 
 class RelationshipField extends GenericField {
@@ -18,7 +18,7 @@ class RelationshipField extends GenericField {
      * @param \Oxygen\Core\Blueprint\BlueprintManager   $manager
      * @param \Illuminate\Routing\UrlGenerator $url
      */
-    public function __construct(BlueprintManager $manager, URLGenerator $url) {
+    public function __construct(BlueprintManager $manager, UrlGenerator $url) {
         $this->blueprints = $manager;
         $this->url = $url;
     }

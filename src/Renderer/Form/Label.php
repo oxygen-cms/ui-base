@@ -2,19 +2,9 @@
 
 namespace Oxygen\UiBase\Renderer\Form;
 
-use Illuminate\Html\HtmlBuilder;
 use Oxygen\Core\Html\RendererInterface;
 
 class Label implements RendererInterface {
-
-    /**
-     * Constructs the label renderer.
-     *
-     * @param HtmlBuilder $builder
-     */
-    public function __construct(HtmlBuilder $builder) {
-        $this->html = $builder;
-    }
 
     /**
      * Renders the element.

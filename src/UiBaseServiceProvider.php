@@ -3,6 +3,7 @@
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Oxygen\Core\Blueprint\BlueprintManager;
+use Oxygen\Core\Form\Form;
 use Oxygen\Core\Html\Form\Label;
 use Oxygen\Core\Html\Form\Row;
 use Oxygen\Core\Html\Toolbar\ButtonToolbarItem;
@@ -34,6 +35,7 @@ use Oxygen\UiBase\Renderer\Form\Editable\TextareaField;
 use Oxygen\UiBase\Renderer\Form\Editable\ToggleField;
 use Oxygen\UiBase\Renderer\Form\Row as RowRenderer;
 use Oxygen\UiBase\Renderer\Form\Label as LabelRenderer;
+use Oxygen\UiBase\Renderer\Form\Form as FormRenderer;
 use Oxygen\UiBase\Renderer\Form\Display\GenericField as StaticGenericField;
 use Oxygen\UiBase\Renderer\Form\Display\RelationshipField as StaticRelationshipField;
 use Oxygen\UiBase\Renderer\Form\Display\SelectField as StaticSelectField;
@@ -78,7 +80,7 @@ class UiBaseServiceProvider extends ServiceProvider {
 
 		$view = $this->app['view'];
         $app = $this->app;
-		ButtonToolbarItem::setRenderer(new ButtonToolbarItemRenderer($this->app['form'], $this->app['url']));
+		ButtonToolbarItem::setRenderer(new ButtonToolbarItemRenderer($this->app['url']));
         VoidButtonToolbarItem::setRenderer(new VoidButtonToolbarItemRenderer());
         FormToolbarItem::setRenderer(new FormToolbarItemRenderer($view));
         DropdownToolbarItem::setRenderer(new DropdownToolbarItemRenderer($view));
@@ -116,7 +118,8 @@ class UiBaseServiceProvider extends ServiceProvider {
         StaticField::setRenderer('editor-mini', new StaticTextareaField());
 
         Row::setRenderer(new RowRenderer());
-        Label::setRenderer(new LabelRenderer($app['html']));
+        Form::setRenderer(new FormRenderer($app['url'], $app['session']));
+        Label::setRenderer(new LabelRenderer());
 
         Paginator::presenter(function($paginator) {
             new Presenter($paginator, $this->app['lang'], $this->app['input']);
