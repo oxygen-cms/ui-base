@@ -5,7 +5,7 @@ namespace Oxygen\UiBase\Renderer\Toolbar;
 use Illuminate\Contracts\View\Factory as View;
 
 use Input;
-use Oxygen\Core\Form\Form;
+use Oxygen\Core\Html\Form\Form;
 use Oxygen\Core\Html\Form\EditableField;
 use Oxygen\Core\Html\RendererInterface;
 

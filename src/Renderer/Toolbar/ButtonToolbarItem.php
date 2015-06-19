@@ -5,7 +5,7 @@ namespace Oxygen\UiBase\Renderer\Toolbar;
 use Illuminate\Html\FormBuilder;
 
 use Illuminate\Routing\UrlGenerator;
-use Oxygen\Core\Form\Form;
+use Oxygen\Core\Html\Form\Form;
 use Oxygen\Core\Html\RendererInterface;
 use Oxygen\Core\Http\Method;
 
