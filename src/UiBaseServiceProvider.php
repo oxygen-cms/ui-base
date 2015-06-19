@@ -78,23 +78,19 @@ class UiBaseServiceProvider extends ServiceProvider {
             __DIR__.'/../resources/lang' => base_path('resources/lang/vendor/oxygen/ui-base'),
         ]);
 
-		$view = $this->app['view'];
-        $app = $this->app;
-		ButtonToolbarItem::setRenderer(new ButtonToolbarItemRenderer($this->app['url']));
+		ButtonToolbarItem::setRenderer(function() { new ButtonToolbarItemRenderer($this->app['url']); });
         VoidButtonToolbarItem::setRenderer(new VoidButtonToolbarItemRenderer());
-        FormToolbarItem::setRenderer(new FormToolbarItemRenderer($view));
-        DropdownToolbarItem::setRenderer(new DropdownToolbarItemRenderer($view));
+        FormToolbarItem::setRenderer(function() { return new FormToolbarItemRenderer($this->app['view']); });
+        DropdownToolbarItem::setRenderer(function() { return new DropdownToolbarItemRenderer($this->app['view']); });
         SpacerToolbarItem::setRenderer(new SpacerToolbarItemRenderer());
         DisabledToolbarItem::setRenderer(new DisabledToolbarItemRenderer());
         SubmitToolbarItem::setRenderer(new SubmitToolbarItemRenderer());
-        Header::setRenderer(new HeaderRenderer($view));
+        Header::setRenderer(function() { return new HeaderRenderer($this->app['view']); });
         Toolbar::setRenderer(new ToolbarRenderer());
-        Editor::setRenderer(function() use($app, $view) {
-            return new EditorRenderer($view, $app['auth']->user()->getPreferences());
-        });
+        Editor::setRenderer(function() { return new EditorRenderer($this->app['view'], $this->app['auth']->user()->getPreferences()); });
         Dialog::setRenderer(new DialogRenderer());
-        Navigation::setRenderer(new NavigationRenderer($view));
-        NavigationToggle::setRenderer(new NavigationToggleRenderer($view));
+        Navigation::setRenderer(function() { return new NavigationRenderer($this->app['view']); });
+        NavigationToggle::setRenderer(function() { return new NavigationToggleRenderer($this->app['view']); });
 
         EditableField::setFallbackRenderer(new GenericField());
         EditableField::setRenderer('checkbox', new CheckboxField());
@@ -109,7 +105,7 @@ class UiBaseServiceProvider extends ServiceProvider {
         EditableField::setRenderer('toggle', new ToggleField());
 
         StaticField::setFallbackRenderer(new StaticGenericField());
-        StaticField::setRenderer('relationship', new StaticRelationshipField($app[BlueprintManager::class], $app['url']));
+        StaticField::setRenderer('relationship', function() { return new StaticRelationshipField($this->app[BlueprintManager::class], $this->app['url']); });
         StaticField::setRenderer('date', new DatetimeField());
         StaticField::setRenderer('datetime', new DatetimeField());
         StaticField::setRenderer('select', new StaticSelectField());
@@ -118,7 +114,7 @@ class UiBaseServiceProvider extends ServiceProvider {
         StaticField::setRenderer('editor-mini', new StaticTextareaField());
 
         Row::setRenderer(new RowRenderer());
-        Form::setRenderer(new FormRenderer($app['url'], $app['session']));
+        Form::setRenderer(function() { return new FormRenderer($this->app['url'], $this->app['session']); });
         Label::setRenderer(new LabelRenderer());
 
         Paginator::presenter(function($paginator) {

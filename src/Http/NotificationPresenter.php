@@ -6,7 +6,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Session\Store as Session;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Routing\Redirector as Redirect;
 use Illuminate\Contracts\Routing\UrlGenerator;
 
 use Oxygen\Core\Contracts\Http\NotificationPresenter as NotificationPresenterContract;
