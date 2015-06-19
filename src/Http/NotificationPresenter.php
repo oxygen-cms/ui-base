@@ -2,38 +2,37 @@
 
 namespace Oxygen\UiBase\Http;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Session\Store as Session;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Routing\Redirector as Redirect;
-use Illuminate\Routing\UrlGenerator as URL;
+use Illuminate\Contracts\Routing\UrlGenerator;
 
 use Oxygen\Core\Contracts\Http\NotificationPresenter as NotificationPresenterContract;
 use Oxygen\Core\Http\Notification;
+use Symfony\Component\HttpFoundation\Response;
 
 class NotificationPresenter implements NotificationPresenterContract {
 
     /**
      * Dependencies for the NotificationResponseCreator.
      */
-    protected $session, $request, $response, $redirect, $url, $useSmoothState;
+    protected $session, $request, $response, $url, $useSmoothState;
 
     /**
      * Injects dependencies for the NotificationResponseCreator.
      *
      * @param Session  $session
      * @param Request  $request
-     * @param Response $response
-     * @param Redirect $redirect
-     * @param URL      $url
+     * @param ResponseFactory $response
+     * @param UrlGenerator $url
      * @param bool     $useSmoothState
      */
-    public function __construct(Session $session, Request $request, Response $response, Redirect $redirect, URL $url, $useSmoothState) {
+    public function __construct(Session $session, Request $request, ResponseFactory $response, UrlGenerator $url, $useSmoothState) {
         $this->session = $session;
         $this->request = $request;
         $this->response = $response;
-        $this->redirect = $redirect;
         $this->url = $url;
         $this->useSmoothState = $useSmoothState;
     }
@@ -117,7 +116,7 @@ class NotificationPresenter implements NotificationPresenterContract {
      *
      * @param mixed $notification Flash message to display.
      * @param array $parameters
-     * @return \Illuminate\Support\Facades\Response
+     * @return Response
      */
     public function createBasicResponse($notification, $parameters) {
         if($this->wantsRedirect($parameters)) {
@@ -131,7 +130,7 @@ class NotificationPresenter implements NotificationPresenterContract {
         // flash data to the session
         $this->session->flash('adminMessage', $notification);
 
-        return $this->makeCustomResponse($this->redirect->to($url), $parameters);
+        return $this->makeCustomResponse($this->response->redirectTo($url), $parameters);
     }
 
     /**
@@ -190,7 +189,7 @@ class NotificationPresenter implements NotificationPresenterContract {
      * @return Response
      */
     protected function makeCustomResponse(Response $response, $parameters) {
-        if(isset($parameters['input']) && $parameters['input'] === true && !($response instanceof JsonResponse)) {
+        if(isset($parameters['input']) && $parameters['input'] === true && $response instanceof RedirectResponse) {
             return $response->withInput();
         } else if(isset($parameters['customResponse'])) {
             return $parameters['customResponse']();

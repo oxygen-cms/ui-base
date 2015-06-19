@@ -190,9 +190,8 @@ class UiBaseServiceProvider extends ServiceProvider {
             return new NotificationPresenter(
                 $app['Illuminate\Session\Store'],
                 $app['Illuminate\Http\Request'],
-                $app['Illuminate\Support\Facades\Response'],
-                $app['Illuminate\Routing\Redirector'],
-                $app['Illuminate\Routing\UrlGenerator'],
+                $app['Illuminate\Contracts\Routing\ResponseFactory'],
+                $app['Illuminate\Contracts\Routing\UrlGenerator'],
                 true
             );
         });
