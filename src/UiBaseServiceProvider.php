@@ -188,7 +188,7 @@ class UiBaseServiceProvider extends ServiceProvider {
                 $app['Illuminate\Http\Request'],
                 $app['Illuminate\Contracts\Routing\ResponseFactory'],
                 $app['Illuminate\Contracts\Routing\UrlGenerator'],
-                true
+                $app['auth']->check() ? $app['auth']->user()->getPreferences()->get('smoothState.enabled') : true
             );
         });
 	}

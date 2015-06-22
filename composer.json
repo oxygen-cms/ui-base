@@ -16,6 +16,7 @@
     "require": {
         "php": ">=5.4.0",
         "oxygen/core": "dev-master",
+        "oxygen/auth": "dev-master",
         "illuminate/pagination": "~5.1",
         "illuminate/support": "~5.1"
     },
