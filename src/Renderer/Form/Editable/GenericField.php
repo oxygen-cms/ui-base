@@ -2,8 +2,6 @@
 
 namespace Oxygen\UiBase\Renderer\Form\Editable;
 
-use Form;
-
 class GenericField extends BaseField {
 
     /**
@@ -16,7 +14,11 @@ class GenericField extends BaseField {
     public function render($field, array $arguments) {
         return
             $this->getPrefix($field->getMeta()) .
-            Form::input($field->getMeta()->type, $field->getMeta()->name, $field->getMeta()->getType()->transformOutput($field->getMeta(), $field->getValue()), $this->getFieldAttributes($field->getMeta()));
+            $this->getInputTag(
+                $field->getMeta()->type, // eg: text
+                $field->getTransformedOutputValue(),
+                html_attributes($this->getFieldAttributes($field->getMeta()))
+            );
     }
 
 }

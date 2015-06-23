@@ -16,10 +16,21 @@ class Row implements RendererInterface {
     public function render($row, array $arguments) {
         $return = '';
 
-        $return .= '<div class="Row' . ($row->isFooter ? ' Form-footer' : '') . '">';
+        $classes = ['Row'];
+        if($row->isFooter) {
+            $classes[] = 'Form-footer';
+        }
+        foreach($row->getExtraClasses() as $class) {
+            $classes[] = $class;
+        }
+
+        $attributes = ['class' => implode(' ', $classes)];
+
+        $return .= '<div ' . html_attributes($attributes) . '>';
 
         foreach($row->getItems() as $item) {
-            $return .= $item->render([]);
+
+            $return .= is_string($item) ? $item : $item->render([]);
         }
 
         $return .= '</div>';

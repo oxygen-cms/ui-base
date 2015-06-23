@@ -76,7 +76,7 @@ class Form implements RendererInterface {
             $classes[] = 'Form--submitOnKeydown';
         }
 
-        $attributes['class'] = implode($classes, ' ');
+        $attributes['class'] = implode(' ', $classes);
 
         // Finally, we will concatenate all of the attributes into a single string so
         // we can build out the final form open statement. We'll also append on an

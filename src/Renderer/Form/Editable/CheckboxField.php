@@ -2,7 +2,7 @@
 
 namespace Oxygen\UiBase\Renderer\Form\Editable;
 
-use Form;
+use Oxygen\Core\Html\Form\Field;
 
 class CheckboxField extends BaseField {
 
@@ -23,8 +23,9 @@ class CheckboxField extends BaseField {
         $attributes = $this->getFieldAttributes($field->getMeta());
 
         return
-            Form::input('hidden', $field->getMeta()->name, $options['off'], array_merge($attributes, ['id' => null])) .
-            Form::checkbox($field->getMeta()->name, $options['on'], $field->getValue(), $attributes) .
-            Form::label($field->getMeta()->name, $field->getMeta()->label, ['class' => 'Form-checkbox-label flex-item']);
+            $this->getInputTag('hidden', $options['off'], array_merge($attributes, ['id' => null])) .
+            $this->getInputTag('checkbox', $options['on'], array_merge($attributes, ['checked' => $this->isSelected($field, $options['on'])]) .
+            $this->getLabelTag($field->getMeta()->name, $field->getMeta()->label, ['class' => 'Form-checkbox-label flex-item']));
     }
+
 }

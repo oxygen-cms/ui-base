@@ -17,6 +17,6 @@ class TextareaField extends BaseField {
     public function render($field, array $arguments) {
         return
             $this->getPrefix($field->getMeta()) .
-            Form::textarea($field->getMeta()->name, $field->getMeta()->getType()->transformOutput($field->getMeta(), $field->getValue()), $this->getFieldAttributes($field->getMeta()));
+            $this->getTextareaTag($field->getTransformedOutputValue(), $this->getFieldAttributes($field->getMeta()));
     }
 }

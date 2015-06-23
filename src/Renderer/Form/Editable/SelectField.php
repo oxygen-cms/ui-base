@@ -20,7 +20,7 @@ class SelectField extends BaseField {
             $options = $options();
         }
 
-        return Form::select($field->getMeta()->name, $options, $field->getValue(), $this->getFieldAttributes($field->getMeta()));
+        return $this->getSelectTag($options, $field->getValue(), $this->getFieldAttributes($field->getMeta()));
     }
 
 }

@@ -16,7 +16,7 @@ class EditorField extends BaseField {
     public function render($field, array $arguments) {
         $editor = new Editor(
             $field->getMeta()->name,
-            $field->getMeta()->getType()->transformOutput($field->getMeta(), $field->getValue()),
+            $field->getTransformedOutputValue(),
             $field->getMeta()->type,
             $this->getFieldAttributes($field->getMeta()),
             $field->getMeta()->options

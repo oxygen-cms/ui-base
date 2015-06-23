@@ -12,7 +12,7 @@ class TextareaField extends GenericField {
      * @return string
      */
     public function render($field, array $arguments) {
-        $value = e($field->getMeta()->getType()->transformOutput($field->getMeta(), $field->getValue()));
+        $value = $field->getTransformedOutputValue();
 
         if(empty($value)) {
             return $this->beginContainer() . '<small><i>None</i></small>' . $this->endContainer();
@@ -21,7 +21,7 @@ class TextareaField extends GenericField {
         return
             $this->beginContainer() .
             '<pre><code>' .
-            $value .
+            e($value) .
             '</pre></code>' .
             $this->endContainer();
     }

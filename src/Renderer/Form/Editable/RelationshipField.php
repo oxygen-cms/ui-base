@@ -4,7 +4,7 @@
 namespace Oxygen\UiBase\Renderer\Form\Editable;
 
 use Oxygen\Core\Form\FieldMetadata;
-use Oxygen\Core\Html\Form\EditableField;
+
 
 class RelationshipField extends BaseField {
 
@@ -31,7 +31,6 @@ class RelationshipField extends BaseField {
             $value = $field->getValue()->getId();
         }
 
-        $editable = new EditableField($select, $value);
-        return $editable->render();
+        return $this->getSelectTag($select->options, $value, $this->getFieldAttributes($select));
     }
 }

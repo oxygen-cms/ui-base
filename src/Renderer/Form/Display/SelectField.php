@@ -12,7 +12,7 @@ class SelectField extends GenericField {
      * @return string
      */
     public function render($field, array $arguments) {
-        $value = $field->getMeta()->getType()->transformOutput($field->getMeta(), $field->getValue());
+        $value = $field->getTransformedOutputValue();
         $value = isset($field->getMeta()->options[$value]) ? $field->getMeta()->options[$value] : $value;
 
         return

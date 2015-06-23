@@ -2,8 +2,6 @@
 
 namespace Oxygen\UiBase\Renderer\Form\Editable;
 
-use Form;
-
 class ToggleField extends BaseField {
 
     /**
@@ -30,9 +28,9 @@ class ToggleField extends BaseField {
 
         $return = '';
 
-        $return .= Form::input('hidden', $field->getMeta()->name, $options['off'], $hiddenAttributes);
+        $return .= $this->getInputTag('hidden', $options['off'], $hiddenAttributes);
         $attributes['class'] .= ' Form-toggle';
-        $return .= Form::checkbox($field->getMeta()->name, $options['on'], $field->getValue(), $attributes);
+        $return .= $this->getInputTag('checkbox', $options['on'], array_merge($attributes, ['checked' => $this->isSelected($field, $options['on'])]));
 
         $return .= '<label for="' . $field->getMeta()->name . '" class="Form-toggle-label">';
         $return .= '<span class="on">' . $labels['on'] . '</span>';

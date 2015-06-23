@@ -14,10 +14,11 @@ class SubmitToolbarItem implements RendererInterface {
      * @return string
      */
     public function render($button, array $arguments) {
-        return '<button
-                  type="submit"
-                  class="Button Button-color--' . e($button->color) . ' Form-submit">
-                ' . e($button->label) . '
-                </button>';
+        $classes = ['Button', 'Button-color--' . $button->color, 'Form-submit'];
+        if($button->stretch) {
+            $classes[] = ['Button--stretch'];
+        }
+        $attributes = ['type' => 'submit', 'class' => implode(' ', $classes)];
+        return '<button ' . html_attributes($attributes) . '>' . e($button->label) . '</button>';
     }
 }

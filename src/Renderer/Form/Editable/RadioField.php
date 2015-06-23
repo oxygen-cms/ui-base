@@ -2,8 +2,6 @@
 
 namespace Oxygen\UiBase\Renderer\Form\Editable;
 
-use Form;
-
 class RadioField extends BaseField {
 
     /**
@@ -23,8 +21,8 @@ class RadioField extends BaseField {
 
         foreach($options as $value => $label) {
             $attributes['id'] = $field->getMeta()->name . '.' . $value;
-            $return .= Form::radio($field->getMeta()->name, $value, $field->getValue() === $value, $attributes);
-            $return .= Form::label($field->getMeta()->name . '.' . $value, $label);
+            $return .= $this->getInputTag('radio', $value, array_merge($attributes, ['checked' => $this->isSelected($field, $value)]));
+            $return .= $this->getLabelTag($field->getMeta()->name . '.' . $value, $label, ['class' => 'flex-item']);
             $return .= '<br>';
         }
 

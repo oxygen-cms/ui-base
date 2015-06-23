@@ -15,8 +15,8 @@ class RelationshipField extends GenericField {
     /**
      * Constructs the renderer.
      *
-     * @param \Oxygen\Core\Blueprint\BlueprintManager   $manager
-     * @param \Illuminate\Routing\UrlGenerator $url
+     * @param \Oxygen\Core\Blueprint\BlueprintManager    $manager
+     * @param \Illuminate\Contracts\Routing\UrlGenerator $url
      */
     public function __construct(BlueprintManager $manager, UrlGenerator $url) {
         $this->blueprints = $manager;
