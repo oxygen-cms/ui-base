@@ -114,7 +114,7 @@ class UiBaseServiceProvider extends ServiceProvider {
         StaticField::setRenderer('editor-mini', new StaticTextareaField());
 
         Row::setRenderer(new RowRenderer());
-        Form::setRenderer(function() { return new FormRenderer($this->app['url'], $this->app['session']); });
+        Form::setRenderer(function() { return new FormRenderer($this->app['url'], $this->app['session.store']); });
         Label::setRenderer(new LabelRenderer());
 
         Paginator::presenter(function($paginator) {
