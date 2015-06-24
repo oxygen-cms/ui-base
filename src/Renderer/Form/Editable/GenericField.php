@@ -17,7 +17,7 @@ class GenericField extends BaseField {
             $this->getInputTag(
                 $field->getMeta()->type, // eg: text
                 $field->getTransformedOutputValue(),
-                html_attributes($this->getFieldAttributes($field->getMeta()))
+                $this->getFieldAttributes($field->getMeta())
             );
     }
 
