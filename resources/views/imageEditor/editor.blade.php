@@ -2,7 +2,7 @@
     use Oxygen\Core\Html\ImageEditor\ImageEditor;
 ?>
 
-<div {{ HTML::attributes($editor->attributes) }}>
+<div {{ html_attributes($editor->attributes) }}>
     @if($editor->type == ImageEditor::TYPE_MAIN)
         <div class="ImageEditor-toolbar">
             <button

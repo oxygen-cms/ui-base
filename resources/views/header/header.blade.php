@@ -44,7 +44,7 @@
 
 ?>
 
-<div class="{{{ implode(' ', $classes) }}}"<?php if($header->getIndex() !== null) { echo 'data-index="' . $header->getIndex() . '"'; } ?>>
+<div class="{{{ implode(' ', $classes) }}}"<?php if($header->getIndex() !== null) { echo 'data-index="' . e($header->getIndex()) . '"'; } ?>>
     @if($header->getBackLink() !== null)
         <div class="Header-back flex-item">
             <a
@@ -56,7 +56,7 @@
     @endif
     @if($header->hasContent())
         <div class="Header-content flex-item">
-            {{ $header->getContent() }}
+            {!! $header->getContent() !!}
         </div>
     @endif
     <h2 class="Header-title {{{ getHeading($header->getType()) }}} flex-item">
@@ -73,8 +73,6 @@
         </h2>
     @endif
     <div class="Header-toolbar flex-item">
-        <?php
-            echo $header->getToolbar()->render($header->getArguments());
-        ?>
+        {!! $header->getToolbar()->render($header->getArguments()); !!}
     </div>
 </div>
