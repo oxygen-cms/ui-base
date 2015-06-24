@@ -34,7 +34,7 @@ Event::fire('oxygen.layout.attributes', [&$htmlAttributes, &$bodyAttributes, &$p
 
 ?>
 <!DOCTYPE html>
-<html {{ HTML::attributes($htmlAttributes) }}>
+<html {{ html_attributes($htmlAttributes) }}>
 
 <head>
 
@@ -48,12 +48,12 @@ Event::fire('oxygen.layout.attributes', [&$htmlAttributes, &$bodyAttributes, &$p
 
 </head>
 
-<body {{ HTML::attributes($bodyAttributes) }}>
+<body {{ html_attributes($bodyAttributes) }}>
 
     <?php Event::fire('oxygen.layout.body.before'); ?>
 
     @if($usePage)
-        <div {{ HTML::attributes($pageAttributes) }}>
+        <div {{ html_attributes($pageAttributes) }}>
     @endif
 
         <?php Event::fire('oxygen.layout.page.before'); ?>
