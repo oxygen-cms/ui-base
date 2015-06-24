@@ -39,18 +39,14 @@ class Form implements RendererInterface {
         $attributes = [];
         $classes =  $form->getExtraClasses();
 
-        // creates route parameters for the form `action`
-        // for example my-website.com/update/{id}
-        $route = array_merge(
-            [$form->getAction()->getName()],
-            $form->getAction()->getRouteParameters($form->getRouteParameters())
-        );
-
         // We need to extract the proper method from the attributes. If the method is
         // something other than GET or POST we'll use POST since we will spoof the
         // actual method since forms don't support the reserved methods in HTML.
         $attributes['method'] = $this->getSupportedMethod($method);
-        $attributes['action'] = $this->url->route($route);
+
+        // Generates the URL for the form
+        $attributes['action'] = $this->url->route($form->getAction()->getName(), $form->getAction()->getRouteParameters($form->getRouteParameters()));
+
         $attributes['accept-charset'] = 'UTF-8';
 
         // If the method is PUT, PATCH or DELETE we will need to add a spoofer hidden
