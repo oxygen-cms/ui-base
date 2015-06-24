@@ -24,8 +24,8 @@ class CheckboxField extends BaseField {
 
         return
             $this->getInputTag('hidden', $options['off'], array_merge($attributes, ['id' => null])) .
-            $this->getInputTag('checkbox', $options['on'], array_merge($attributes, ['checked' => $this->isSelected($field, $options['on'])]) .
-            $this->getLabelTag($field->getMeta()->name, $field->getMeta()->label, ['class' => 'Form-checkbox-label flex-item']));
+            $this->getInputTag('checkbox', $options['on'], array_merge($attributes, ['checked' => $this->isSelected($field, $options['on'])])) .
+            $this->getLabelTag($field->getMeta()->name, $field->getMeta()->label, ['class' => 'Form-checkbox-label flex-item']);
     }
 
 }

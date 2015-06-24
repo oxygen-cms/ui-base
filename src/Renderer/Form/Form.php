@@ -84,7 +84,7 @@ class Form implements RendererInterface {
             if(is_string($row)) {
                 $content .= $row;
             } else {
-                $content = $row->render();
+                $content .= $row->render();
             }
         }
 

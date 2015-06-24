@@ -16,7 +16,7 @@ class SubmitToolbarItem implements RendererInterface {
     public function render($button, array $arguments) {
         $classes = ['Button', 'Button-color--' . $button->color, 'Form-submit'];
         if($button->stretch) {
-            $classes[] = ['Button--stretch'];
+            $classes[] = 'Button--stretch';
         }
         $attributes = ['type' => 'submit', 'class' => implode(' ', $classes)];
         return '<button ' . html_attributes($attributes) . '>' . e($button->label) . '</button>';
