@@ -54,7 +54,7 @@ class Form implements RendererInterface {
         // different method than it actually is, for convenience from the forms.
         $append = $this->getAppendage($method);
 
-        if ($form->needsFiles()) {
+        if ($form->useMultiPartFormData()) {
             $options['enctype'] = 'multipart/form-data';
         }
 
