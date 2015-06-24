@@ -53,6 +53,7 @@ use Oxygen\UiBase\Renderer\Dialog\Dialog as DialogRenderer;
 use Oxygen\UiBase\Renderer\Navigation\Navigation as NavigationRenderer;
 use Oxygen\UiBase\Renderer\Navigation\NavigationToggle as NavigationToggleRenderer;
 use Oxygen\UiBase\Renderer\Toolbar\VoidButtonToolbarItem as VoidButtonToolbarItemRenderer;
+use Oxygen\Core\Contracts\Http\NotificationPresenter as NotificationPresenterContract;
 
 class UiBaseServiceProvider extends ServiceProvider {
 
@@ -182,7 +183,7 @@ class UiBaseServiceProvider extends ServiceProvider {
 	 */
 	public function register() {
         // bind response creator
-        $this->app->singleton(['Oxygen\Contracts\Http\NotificationPresenter'], function($app) {
+        $this->app->singleton([NotificationPresenterContract::class], function($app) {
             return new NotificationPresenter(
                 $app['Illuminate\Session\Store'],
                 $app['Illuminate\Http\Request'],
