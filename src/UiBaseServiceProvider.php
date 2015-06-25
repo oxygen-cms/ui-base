@@ -141,7 +141,7 @@ class UiBaseServiceProvider extends ServiceProvider {
     protected function addNavigationToLayout() {
         $this->app['events']->listen('oxygen.layout.body.before', function() {
             if($this->app['auth']->check()) {
-                echo $this->app['oxygen.navigation']->render();
+                echo $this->app[Navigation::class]->render();
             }
         });
 
