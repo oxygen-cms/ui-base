@@ -1,8 +1,12 @@
 <?php namespace Oxygen\UiBase;
 
+use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Http\Request;
+use Illuminate\Session\Store;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Oxygen\Core\Blueprint\BlueprintManager;
+use Oxygen\Core\Contracts\Routing\ResponseFactory;
 use Oxygen\Core\Html\Form\Form;
 use Oxygen\Core\Html\Form\Label;
 use Oxygen\Core\Html\Form\Row;
@@ -119,7 +123,7 @@ class UiBaseServiceProvider extends ServiceProvider {
         Label::setRenderer(new LabelRenderer());
 
         Paginator::presenter(function($paginator) {
-            new Presenter($paginator, $this->app['lang'], $this->app['input']);
+            new Presenter($paginator, $this->app['lang'], $this->app['request']);
         });
 
         $this->addNavigationToLayout();
@@ -185,10 +189,10 @@ class UiBaseServiceProvider extends ServiceProvider {
         // bind response creator
         $this->app->singleton([NotificationPresenterContract::class], function($app) {
             return new NotificationPresenter(
-                $app['Illuminate\Session\Store'],
-                $app['Illuminate\Http\Request'],
-                $app['Illuminate\Contracts\Routing\ResponseFactory'],
-                $app['Illuminate\Contracts\Routing\UrlGenerator'],
+                $app[Store::class],
+                $app[Request::class],
+                $app[ResponseFactory::class],
+                $app[UrlGenerator::class],
                 $app['auth']->check() ? $app['auth']->user()->getPreferences()->get('smoothState.enabled') : true
             );
         });
