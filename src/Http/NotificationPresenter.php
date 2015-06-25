@@ -2,10 +2,11 @@
 
 namespace Oxygen\UiBase\Http;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store as Session;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Routing\UrlGenerator;
 
 use Oxygen\Core\Contracts\Http\NotificationPresenter as NotificationPresenterContract;
@@ -17,21 +18,21 @@ class NotificationPresenter implements NotificationPresenterContract {
     /**
      * Dependencies for the NotificationResponseCreator.
      */
-    protected $session, $request, $response, $url, $useSmoothState;
+    protected $session, $request, $redirector, $url, $useSmoothState;
 
     /**
      * Injects dependencies for the NotificationResponseCreator.
      *
      * @param Session  $session
      * @param Request  $request
-     * @param ResponseFactory $response
+     * @param Redirector $redirector
      * @param UrlGenerator $url
      * @param bool     $useSmoothState
      */
-    public function __construct(Session $session, Request $request, ResponseFactory $response, UrlGenerator $url, $useSmoothState) {
+    public function __construct(Session $session, Request $request, Redirector $redirector, UrlGenerator $url, $useSmoothState) {
         $this->session = $session;
         $this->request = $request;
-        $this->response = $response;
+        $this->redirect = $redirector;
         $this->url = $url;
         $this->useSmoothState = $useSmoothState;
     }
@@ -96,7 +97,7 @@ class NotificationPresenter implements NotificationPresenterContract {
         }
 
         // send the redirect command
-        return $this->makeCustomResponse($this->response->json($return), $parameters);
+        return $this->makeCustomResponse(new JsonResponse($return), $parameters);
     }
 
     /**
@@ -107,7 +108,7 @@ class NotificationPresenter implements NotificationPresenterContract {
      * @return Response
      */
     private function createJsonSmoothResponse($notification, $parameters) {
-        return $this->makeCustomResponse($this->response->json($notification), $parameters);
+        return $this->makeCustomResponse(new JsonResponse($notification), $parameters);
     }
 
     /**
@@ -129,7 +130,7 @@ class NotificationPresenter implements NotificationPresenterContract {
         // flash data to the session
         $this->session->flash('adminMessage', $notification);
 
-        return $this->makeCustomResponse($this->response->redirectTo($url), $parameters);
+        return $this->makeCustomResponse($this->redirect->to($url), $parameters);
     }
 
     /**

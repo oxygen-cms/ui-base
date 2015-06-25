@@ -2,6 +2,7 @@
 
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
@@ -191,7 +192,7 @@ class UiBaseServiceProvider extends ServiceProvider {
             return new NotificationPresenter(
                 $app[Store::class],
                 $app[Request::class],
-                $app[ResponseFactory::class],
+                $app[Redirector::class],
                 $app[UrlGenerator::class],
                 $app['auth']->check() ? $app['auth']->user()->getPreferences()->get('smoothState.enabled') : true
             );
