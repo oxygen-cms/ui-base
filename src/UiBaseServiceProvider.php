@@ -84,7 +84,7 @@ class UiBaseServiceProvider extends ServiceProvider {
             __DIR__.'/../resources/lang' => base_path('resources/lang/vendor/oxygen/ui-base'),
         ]);
 
-		ButtonToolbarItem::setRenderer(function() { new ButtonToolbarItemRenderer($this->app['url']); });
+		ButtonToolbarItem::setRenderer(function() { return new ButtonToolbarItemRenderer($this->app['url']); });
         VoidButtonToolbarItem::setRenderer(new VoidButtonToolbarItemRenderer());
         FormToolbarItem::setRenderer(function() { return new FormToolbarItemRenderer($this->app['view']); });
         DropdownToolbarItem::setRenderer(function() { return new DropdownToolbarItemRenderer($this->app['view']); });
