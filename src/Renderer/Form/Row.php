@@ -16,7 +16,11 @@ class Row implements RendererInterface {
     public function render($row, array $arguments) {
         $return = '';
 
-        $classes = ['Row'];
+
+        $classes = [];
+        if($row->useDefaults) {
+            $classes[] = 'Row';
+        }
         if($row->isFooter) {
             $classes[] = 'Form-footer';
         }
