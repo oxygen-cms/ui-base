@@ -7,7 +7,6 @@ use Illuminate\Session\Store;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Oxygen\Core\Blueprint\BlueprintManager;
-use Oxygen\Core\Contracts\Routing\ResponseFactory;
 use Oxygen\Core\Html\Form\Form;
 use Oxygen\Core\Html\Form\Label;
 use Oxygen\Core\Html\Form\Row;
@@ -124,7 +123,7 @@ class UiBaseServiceProvider extends ServiceProvider {
         Label::setRenderer(new LabelRenderer());
 
         Paginator::presenter(function($paginator) {
-            new Presenter($paginator, $this->app['translator'], $this->app['request']);
+            return new Presenter($paginator, $this->app['translator'], $this->app['request']);
         });
 
         $this->addNavigationToLayout();

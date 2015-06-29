@@ -137,7 +137,7 @@ class Presenter implements PresenterContract {
      * @return string
      */
     public function render() {
-        if ($this->hasPages()) {
+        if($this->hasPages()) {
             return sprintf(
                 '<div class="Pagination">%s <div class="Pagination-message">%s</div> %s</ul>',
                 $this->getPreviousButton($this->lang->get('pagination.previous')),
