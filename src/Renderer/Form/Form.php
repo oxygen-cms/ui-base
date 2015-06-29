@@ -45,7 +45,7 @@ class Form implements RendererInterface {
         $attributes['method'] = $this->getSupportedMethod($method);
 
         // Generates the URL for the form
-        $attributes['action'] = $this->url->route($form->getAction()->getName(), $form->getAction()->getRouteParameters($form->getRouteParameters()));
+        $attributes['action'] = $this->url->route($form->getAction()->getName(), $form->getAction()->getRouteParameters($form->getRouteParameterArguments()));
 
         $attributes['accept-charset'] = 'UTF-8';
 
