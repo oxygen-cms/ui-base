@@ -71,4 +71,4 @@
     @endif
 </div>
 
-{{ $editor->getCreateScript() }}
+{!! $editor->getCreateScript() !!}
