@@ -57,7 +57,7 @@ class ButtonToolbarItem implements RendererInterface {
         if($method !== Method::GET) {
 
             $form = new Form($toolbarItem->action);
-            $form->setRouteParameters($toolbarItem->action->getRouteParameters($arguments));
+            $form->setRouteParameterArguments($arguments);
             $form->setAsynchronous(true);
             if($insideMainNav) {
                 $form->addClass('MainNav-item');
