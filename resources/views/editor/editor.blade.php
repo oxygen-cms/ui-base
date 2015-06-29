@@ -2,7 +2,7 @@
     use Oxygen\Core\Html\Editor\Editor;
 ?>
 
-<div {{ HTML::attributes($editor->attributes) }}>
+<div {{ html_attributes($editor->attributes) }}>
     @if($editor->type == Editor::TYPE_MAIN)
         <div class="Editor-header">
             <button
@@ -54,7 +54,7 @@
                 $rows = ($editor->type == Editor::TYPE_MAIN) ? 20 : 5;
             }
 
-            echo '<textarea ' . HTML::attributes(array(
+            echo '<textarea ' . html_attributes(array(
                 'name' => $editor->name,
                 'id' => $editor->name . '-editor',
                 'class' => 'Editor-textarea',
