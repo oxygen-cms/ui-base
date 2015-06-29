@@ -2,7 +2,7 @@
     use Oxygen\Core\Html\Editor\Editor;
 ?>
 
-<div {{ html_attributes($editor->attributes) }}>
+<div {!! html_attributes($editor->attributes) !!}>
     @if($editor->type == Editor::TYPE_MAIN)
         <div class="Editor-header">
             <button
