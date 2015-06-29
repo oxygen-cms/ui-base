@@ -124,7 +124,7 @@ class UiBaseServiceProvider extends ServiceProvider {
         Label::setRenderer(new LabelRenderer());
 
         Paginator::presenter(function($paginator) {
-            new Presenter($paginator, $this->app['lang'], $this->app['request']);
+            new Presenter($paginator, $this->app['translator'], $this->app['request']);
         });
 
         $this->addNavigationToLayout();
