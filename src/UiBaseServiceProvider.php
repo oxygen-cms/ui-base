@@ -193,7 +193,7 @@ class UiBaseServiceProvider extends ServiceProvider {
                 $app[Request::class],
                 $app[Redirector::class],
                 $app[UrlGenerator::class],
-                $app['auth']->check() ? $app['auth']->user()->getPreferences()->get('smoothState.enabled') : true
+                $app['auth']->check() ? $app['auth']->user()->getPreferences()->get('pageLoad.smoothState.enabled') : true
             );
         });
 	}
