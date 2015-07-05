@@ -31,7 +31,7 @@ class FormToolbarItem implements RendererInterface {
     /**
      * Renders the element.
      *
-     * @param object $object Object to render
+     * @param object $toolbarItem Object to render
      * @param array $arguments Extra arguments to customize the element.
      * @return string Rendered HTML
      */
@@ -46,11 +46,11 @@ class FormToolbarItem implements RendererInterface {
 
         // Add all the fields
         foreach($toolbarItem->fields as $fieldMeta) {
-            $field = new EditableField($fieldMeta, Input::get($fieldMeta->name), '');
+            $field = new EditableField($fieldMeta, app('request'), Input::get($fieldMeta->name, ''));
             $form->addContent($field);
         }
 
-        echo $form->render();
+        return $form->render();
     }
 
 }
