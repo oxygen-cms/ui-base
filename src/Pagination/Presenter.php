@@ -36,7 +36,8 @@ class Presenter implements PresenterContract {
         // append the current query string
         if($paginator instanceof AbstractPaginator) {
             $queryString = array_except($request->query(), $paginator->getPageName());
-            $this->paginator->appends($queryString);
+            $paginator->appends($queryString);
+            $paginator->setPath('');
         }
     }
 
