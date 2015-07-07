@@ -79,7 +79,7 @@ class UiBaseServiceProvider extends ServiceProvider {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'oxygen/ui-base');
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'oxygen/ui-base');
 
-        $this->app[AutomaticMigrator::class]->loadMigrationsFrom(__DIR__ . '/../migrations');
+        $this->app[AutomaticMigrator::class]->loadMigrationsFrom(__DIR__ . '/../migrations', 'oxygen/ui-base');
 
         $this->publishes([
             __DIR__.'/../resources/views' => base_path('resources/views/vendor/oxygen/ui-base'),
