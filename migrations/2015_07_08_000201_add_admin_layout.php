@@ -3,8 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Oxygen\Preferences\PreferencesManager;
 
-use App;
-
 class AddAdminLayout extends Migration {
 
     /**
