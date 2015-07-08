@@ -27,14 +27,14 @@
     },
     "minimum-stability": "stable",
     "extra": {
-        "title": "Oxygen Core Views",
+        "title": "Oxygen - UI Base",
         "readme": "oxygen.md",
         "changes": "changes.md",
         "icon": "icon.png",
         "images": [
-            "https://raw.githubusercontent.com/oxygen-cms/core-views/master/docs/buttons.png",
-            "https://raw.githubusercontent.com/oxygen-cms/core-views/master/docs/code-view.png",
-            "https://raw.githubusercontent.com/oxygen-cms/core-views/master/docs/design-view.png"
+            "https://raw.githubusercontent.com/oxygen-cms/ui-base/master/docs/buttons.png",
+            "https://raw.githubusercontent.com/oxygen-cms/ui-base/master/docs/code-view.png",
+            "https://raw.githubusercontent.com/oxygen-cms/ui-base/master/docs/design-view.png"
         ],
         "providers": [
             {
