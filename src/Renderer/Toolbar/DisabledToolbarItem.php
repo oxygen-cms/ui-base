@@ -16,7 +16,7 @@ class DisabledToolbarItem implements RendererInterface {
     public function render($object, array $arguments) {
         $attributes = [
             'class' => 'Button',
-            'disabled'
+            'disabled' => true
         ];
 
         if(isset($arguments['margin'])) {

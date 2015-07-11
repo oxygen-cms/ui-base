@@ -52,7 +52,7 @@ class Presenter implements PresenterContract {
         $attributes = [
             'href' => '#',
             'class' => 'Button Button-color--white',
-            'disabled'
+            'disabled' => true
         ];
         $this->addBackAndForward($attributes, $rel);
         return '<div class="Pagination-element"><a ' . html_attributes($attributes) . '>'.$text.'</a></div>';
