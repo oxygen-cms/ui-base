@@ -9,13 +9,15 @@
         @if(!empty($items))
             <ul class="MainNav-list MainNav-list--{{{ $list }}}">
                 @foreach(Navigation::all($list) as $toolbarItem)
-                    <?php
-                        if($toolbarItem->shouldRender(['evenOnSamePage' => true])) {
-                            echo $toolbarItem->render([
-                                'insideMainNav' => true
-                            ]);
-                        }
-                    ?>
+                    <li>
+                        <?php
+                            if($toolbarItem->shouldRender(['evenOnSamePage' => true])) {
+                                echo $toolbarItem->render([
+                                    'insideMainNav' => true
+                                ]);
+                            }
+                        ?>
+                    </li>
                 @endforeach
             </ul>
         @endif

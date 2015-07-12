@@ -50,12 +50,12 @@ class Presenter implements PresenterContract {
      */
     public function getDisabledTextWrapper($text, $rel = null) {
         $attributes = [
-            'href' => '#',
             'class' => 'Button Button-color--white',
+            'type' => 'button',
             'disabled' => true
         ];
         $this->addBackAndForward($attributes, $rel);
-        return '<div class="Pagination-element"><a ' . html_attributes($attributes) . '>'.$text.'</a></div>';
+        return '<div class="Pagination-element"><button ' . html_attributes($attributes) . '>'.$text.'</button></div>';
     }
 
     /**
@@ -140,7 +140,7 @@ class Presenter implements PresenterContract {
     public function render() {
         if($this->hasPages()) {
             return sprintf(
-                '<div class="Pagination">%s <div class="Pagination-message">%s</div> %s</ul>',
+                '<div class="Pagination">%s <div class="Pagination-message">%s</div> %s</div>',
                 $this->getPreviousButton($this->lang->get('pagination.previous')),
                 $this->lang->get('pagination.message', [
                     'current' => $this->paginator->currentPage(),
