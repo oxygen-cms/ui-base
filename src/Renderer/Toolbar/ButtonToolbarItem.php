@@ -59,9 +59,7 @@ class ButtonToolbarItem implements RendererInterface {
             $form = new Form($toolbarItem->action);
             $form->setRouteParameterArguments($arguments);
             $form->setAsynchronous(true);
-            if($insideMainNav) {
-                $form->addClass('MainNav-item');
-            } else if($insideDropdown) {
+            if($insideDropdown) {
                 $form->addClass('Dropdown-itemContainer');
             }
 
@@ -97,7 +95,7 @@ class ButtonToolbarItem implements RendererInterface {
             );
 
             if($insideMainNav) {
-                $linkAttributes['class'] = 'MainNav-item MainNav-link';
+                $linkAttributes['class'] = 'MainNav-link';
             } else {
                 if($insideDropdown) {
                     $linkAttributes['class'] = 'Dropdown-itemContainer Dropdown-item';

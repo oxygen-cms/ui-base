@@ -42,7 +42,7 @@ class VoidButtonToolbarItem implements RendererInterface {
         $attributes['type'] = 'button';
 
         if($insideMainNav) {
-            $attributes['class'] = 'MainNav-item MainNav-link';
+            $attributes['class'] = 'MainNav-link';
         } else if($insideDropdown) {
             $attributes['class'] = 'Dropdown-itemContainer Dropdown-item';
         } else {

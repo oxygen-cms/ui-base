@@ -1,4 +1,4 @@
-<div class="{{{ ($insideMainNav ? 'MainNav-item ' : '') . 'Dropdown-container' }}}">
+<div class="Dropdown-container">
     @if($toolbarItem->shouldRenderButton)
         <div class="ButtonTabGroup">
             <?php
