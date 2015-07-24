@@ -140,7 +140,10 @@ class NotificationPresenter implements NotificationPresenterContract {
      * @return array
      */
     protected function urlFromRoute($route) {
-        if(is_array($route)) {
+        // determine if absolute URL already
+        if(parse_url($route, PHP_URL_SCHEME) != '')  {
+            return $route;
+        } else if(is_array($route)) {
             return $this->url->route($route[0], $route[1]);
         } else {
             return $this->url->route($route);
