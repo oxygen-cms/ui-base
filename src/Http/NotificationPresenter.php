@@ -49,8 +49,8 @@ class NotificationPresenter implements NotificationPresenterContract {
      */
     public function present(Notification $notification, array $parameters = []) {
         $notification = $this->arrayFromNotification($notification);
-
-        if($this->request->ajax()) {
+        
+        if($this->request->wantsJson()) {
             if($this->wantsRedirect($parameters)) {
                 return $this->createJsonRedirectResponse($notification, $parameters);
             } else if($this->wantsRefresh($parameters)) {
