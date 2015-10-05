@@ -49,17 +49,18 @@ class NotificationPresenter implements NotificationPresenterContract {
      */
     public function present(Notification $notification, array $parameters = []) {
         $notification = $this->arrayFromNotification($notification);
-        
+
+        $url = null;
+        if($this->wantsRedirect($parameters)) {
+            $url = $this->urlFromRoute($parameters['redirect']);
+        } else if($this->wantsRefresh($parameters)) {
+            $url = $this->url->previous();
+        }
+
         if($this->request->wantsJson()) {
-            if($this->wantsRedirect($parameters)) {
-                return $this->createJsonRedirectResponse($notification, $parameters);
-            } else if($this->wantsRefresh($parameters)) {
-                return $this->createJsonRedirectResponse($notification, $parameters, true);
-            } else {
-                return $this->createJsonSmoothResponse($notification, $parameters);
-            }
+            return $this->createJsonResponse($notification, $url, $parameters);
         } else {
-            return $this->createBasicResponse($notification, $parameters);
+            return $this->createBasicResponse($notification, $url, $parameters);
         }
     }
 
@@ -68,16 +69,14 @@ class NotificationPresenter implements NotificationPresenterContract {
      * If $refresh is true then the user will be sent to the previous page.
      * If $refresh is false then the user will be sent to the specified page.
      *
-     * @param mixed     $notification   Notification to display.
-     * @param array     $parameters     Extra parameters
-     * @param boolean   $refresh        Whether to refresh
-     * @return Response
+     * @param mixed $notification Notification to display.
+     * @param       $url          The URL to redirect to or null to just display the notification
+     * @param array $parameters   Extra parameters
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function createJsonRedirectResponse($notification, $parameters, $refresh = false) {
-        if($refresh) {
-            $url = $this->url->previous();
-        } else {
-            $url = $this->urlFromRoute($parameters['redirect']);
+    protected function createJsonResponse($notification, $url, $parameters) {
+        if($url == null) {
+            return $this->makeCustomResponse(new JsonResponse($notification), $parameters);
         }
 
         $return = [
@@ -101,29 +100,15 @@ class NotificationPresenter implements NotificationPresenterContract {
     }
 
     /**
-     * Returns a JSON response.
-     *
-     * @param mixed     $notification   Notification to display.
-     * @param array     $parameters     Extra parameters
-     * @return Response
-     */
-    private function createJsonSmoothResponse($notification, $parameters) {
-        return $this->makeCustomResponse(new JsonResponse($notification), $parameters);
-    }
-
-    /**
      * Returns a basic response.
      *
      * @param mixed $notification Flash message to display.
+     * @param       $url          The URL to redirect to or null to stay on the current page.
      * @param array $parameters
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function createBasicResponse($notification, $parameters) {
-        if($this->wantsRedirect($parameters)) {
-            $url = $this->urlFromRoute($parameters['redirect']);
-        } else if(isset($parameters['fallback'])) {
-            $url = $this->urlFromRoute($parameters['fallback']);
-        } else {
+    public function createBasicResponse($notification, $url, $parameters) {
+        if($url == null) {
             $url = $this->url->previous();
         }
 
@@ -140,12 +125,11 @@ class NotificationPresenter implements NotificationPresenterContract {
      * @return array
      */
     protected function urlFromRoute($route) {
-        // determine if absolute URL already
-        if(parse_url($route, PHP_URL_SCHEME) != '')  {
-            return $route;
-        } else if(is_array($route)) {
+        if(is_array($route)) { // ['routeName', ['param1', 3]]
             return $this->url->route($route[0], $route[1]);
-        } else {
+        } else if(parse_url($route, PHP_URL_SCHEME) != '')  { // determine if absolute URL already
+            return $route;
+        } else  { // 'routeName'
             return $this->url->route($route);
         }
     }
