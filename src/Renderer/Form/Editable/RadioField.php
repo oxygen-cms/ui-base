@@ -21,7 +21,7 @@ class RadioField extends BaseField {
 
         foreach($options as $value => $label) {
             $attributes['id'] = $field->getMeta()->name . '.' . $value;
-            $return .= $this->getInputTag('radio', $value, array_merge($attributes, ['checked' => $this->isSelected($field, $value)]));
+            $return .= $this->getInputTag('radio', $value, array_merge($attributes, ['name' => $field->getMeta()->name, 'checked' => $this->isSelected($field, $value)]));
             $return .= $this->getLabelTag($field->getMeta()->name . '.' . $value, $label, ['class' => 'flex-item']);
             $return .= '<br>';
         }
