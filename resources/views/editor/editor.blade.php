@@ -36,10 +36,12 @@
             <div class="align-right flex-item">
                 <button type="button" class="Button Button-color--white Editor--toggleFullscreen">
                     <span class="Toggle--ifDisabled">
-                        @lang('oxygen/ui-base::editor.fullscreen')
+                        <span class="Icon Icon-expand"></span>
+                        <span class="Text--hidden">@lang('oxygen/ui-base::editor.fullscreen')</span>
                     </span>
-                    <span class="Toggle--ifEnabled Toggle--isHidden">
-                        @lang('oxygen/ui-base::editor.exit')
+                    <span class="Toggle--ifEnabled">
+                        <span class="Icon Icon-times"></span>
+                        <span class="Text--hidden">@lang('oxygen/ui-base::editor.exit')</span>
                     </span>
                 </button>
             </div>
