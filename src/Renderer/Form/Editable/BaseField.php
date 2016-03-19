@@ -19,8 +19,12 @@ abstract class BaseField implements RendererInterface {
         } else {
             $attributes['class'] = $defaultClass;
         }
+        $name = $meta->name;
+        if(isset($attributes['multiple']) && $attributes['multiple'] == true) {
+            $name .= '[]'; // allow multiple values to be submitted.
+        }
         $attributes['id'] = $meta->name;
-        $attributes['name'] = $meta->name;
+        $attributes['name'] = $name;
         $attributes['placeholder'] = $meta->placeholder;
 
         if($meta->datalist !== null) {
