@@ -2,7 +2,6 @@
 
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
@@ -26,7 +25,6 @@ use Oxygen\Core\Html\Navigation\NavigationToggle;
 use Oxygen\Core\Html\Toolbar\SubmitToolbarItem;
 use Oxygen\Core\Html\Toolbar\Toolbar;
 use Oxygen\Core\Html\Toolbar\VoidButtonToolbarItem;
-use Oxygen\UiBase\Http\NotificationPresenter;
 use Oxygen\UiBase\Pagination\Presenter;
 use Oxygen\UiBase\Renderer\Form\Display\DatetimeField;
 use Oxygen\UiBase\Renderer\Form\Editable\CheckboxField;
@@ -58,7 +56,9 @@ use Oxygen\UiBase\Renderer\Dialog\Dialog as DialogRenderer;
 use Oxygen\UiBase\Renderer\Navigation\Navigation as NavigationRenderer;
 use Oxygen\UiBase\Renderer\Navigation\NavigationToggle as NavigationToggleRenderer;
 use Oxygen\UiBase\Renderer\Toolbar\VoidButtonToolbarItem as VoidButtonToolbarItemRenderer;
-use Oxygen\Core\Contracts\Http\NotificationPresenter as NotificationPresenterContract;
+use Illuminate\Contracts\Routing\ResponseFactory as ResponseFactoryContract;
+use Oxygen\UiBase\Routing\ResponseFactory;
+use Oxygen\Core\Contracts\Routing\ResponseFactory as ExtendedResponseFactoryContract;
 
 class UiBaseServiceProvider extends ServiceProvider {
 
@@ -189,14 +189,19 @@ class UiBaseServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function register() {
-        // bind response creator
-        $this->app->singleton([NotificationPresenterContract::class], function($app) {
-            return new NotificationPresenter(
+        $this->app->singleton(ResponseFactoryContract::class, ResponseFactory::class);
+        $this->app->singleton(ExtendedResponseFactoryContract::class, ResponseFactory::class);
+        $this->app->bind(ResponseFactory::class, function($app) {
+            // lazy load stuff
+            return new ResponseFactory(
+                $app['view'],
+                $app['redirect'],
+                $app['url'],
                 $app[Store::class],
                 $app[Request::class],
-                $app[Redirector::class],
-                $app[UrlGenerator::class],
-                $app['auth']->check() ? $app['auth']->user()->getPreferences()->get('pageLoad.smoothState.enabled') : true
+                function() {
+                    return $this->app['auth']->check() ? $this->app['auth']->user()->getPreferences()->get('pageLoad.smoothState.enabled') : true;
+                }
             );
         });
 	}

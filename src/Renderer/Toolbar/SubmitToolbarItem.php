@@ -18,7 +18,10 @@ class SubmitToolbarItem implements RendererInterface {
         if($button->stretch) {
             $classes[] = 'Button--stretch';
         }
-        $attributes = ['type' => 'submit', 'class' => implode(' ', $classes)];
+        $attributes = $button->hasDialog() ? $button->dialog->render() : [];
+
+        $attributes['type'] = 'submit';
+        $attributes['class'] = implode(' ', $classes);
         return '<button ' . html_attributes($attributes) . '>' . e($button->label) . '</button>';
     }
 }

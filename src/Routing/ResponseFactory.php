@@ -1,40 +1,41 @@
-<?php
+<?php namespace Oxygen\UiBase\Routing;
 
-namespace Oxygen\UiBase\Http;
-
+use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
-use Illuminate\Session\Store as Session;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Routing\UrlGenerator;
-
-use Oxygen\Core\Contracts\Http\NotificationPresenter as NotificationPresenterContract;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use Illuminate\Routing\Redirector;
+use Illuminate\Routing\ResponseFactory as BaseResponseFactory;
+use Illuminate\Routing\UrlGenerator;
+use Illuminate\Session\Store;
+use Oxygen\Core\Contracts\Routing\ResponseFactory as ResponseFactoryContract;
 use Oxygen\Core\Http\Notification;
-use Symfony\Component\HttpFoundation\Response;
 
-class NotificationPresenter implements NotificationPresenterContract {
+class ResponseFactory extends BaseResponseFactory implements ResponseFactoryContract {
 
     /**
      * Dependencies for the NotificationResponseCreator.
      */
-    protected $session, $request, $redirector, $url, $useSmoothState;
+    protected $session, $request, $url, $useSmoothStateCallback;
 
     /**
-     * Injects dependencies for the NotificationResponseCreator.
+     * Injects dependencies for the ResponseFactory.
      *
-     * @param Session  $session
-     * @param Request  $request
-     * @param Redirector $redirector
-     * @param UrlGenerator $url
-     * @param bool     $useSmoothState
+     * @param \Illuminate\Contracts\View\Factory $view
+     * @param \Illuminate\Routing\Redirector     $redirector
+     * @param \Illuminate\Routing\UrlGenerator   $url
+     * @param \Illuminate\Session\Store          $session
+     * @param \Illuminate\Http\Request           $request
+     * @param callable                           $useSmoothStateCallback
      */
-    public function __construct(Session $session, Request $request, Redirector $redirector, UrlGenerator $url, $useSmoothState) {
+    public function __construct(ViewFactory $view, Redirector $redirector, UrlGenerator $url, Store $session, Request $request, callable $useSmoothStateCallback) {
+        parent::__construct($view, $redirector);
         $this->session = $session;
         $this->request = $request;
-        $this->redirect = $redirector;
         $this->url = $url;
-        $this->useSmoothState = $useSmoothState;
+        $this->useSmoothStateCallback = $useSmoothStateCallback;
     }
 
     /**
@@ -45,16 +46,16 @@ class NotificationPresenter implements NotificationPresenterContract {
      *
      * @param Notification $notification   Notification to display.
      * @param array        $parameters     Extra parameters
-     * @return mixed
+     * @return Response
      */
-    public function present(Notification $notification, array $parameters = []) {
+    public function notification(Notification $notification, array $parameters = []) {
         $notification = $this->arrayFromNotification($notification);
 
         $url = null;
         if($this->wantsRedirect($parameters)) {
             $url = $this->urlFromRoute($parameters['redirect']);
         } else if($this->wantsRefresh($parameters)) {
-            $url = $this->url->previous();
+            $url = $this->redirector->getUrlGenerator()->previous();
         }
 
         if($this->request->wantsJson()) {
@@ -70,9 +71,9 @@ class NotificationPresenter implements NotificationPresenterContract {
      * If $refresh is false then the user will be sent to the specified page.
      *
      * @param mixed $notification Notification to display.
-     * @param       $url          The URL to redirect to or null to just display the notification
+     * @param string $url         The URL to redirect to or null to just display the notification
      * @param array $parameters   Extra parameters
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function createJsonResponse($notification, $url, $parameters) {
         if($url == null) {
@@ -89,7 +90,8 @@ class NotificationPresenter implements NotificationPresenterContract {
         }
 
         // display the message on the new page
-        if($this->useSmoothState && !isset($hardRedirect)) {
+        $callback = $this->useSmoothStateCallback;
+        if($callback() && !isset($hardRedirect)) {
             $return = array_merge($return, $notification);
         } else {
             $this->session->flash('adminMessage', $notification);
@@ -102,9 +104,9 @@ class NotificationPresenter implements NotificationPresenterContract {
     /**
      * Returns a basic response.
      *
-     * @param mixed $notification Flash message to display.
-     * @param       $url          The URL to redirect to or null to stay on the current page.
-     * @param array $parameters
+     * @param mixed  $notification Flash message to display.
+     * @param string $url          The URL to redirect to or null to stay on the current page.
+     * @param array  $parameters
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function createBasicResponse($notification, $url, $parameters) {
@@ -115,7 +117,7 @@ class NotificationPresenter implements NotificationPresenterContract {
         // flash data to the session
         $this->session->flash('adminMessage', $notification);
 
-        return $this->makeCustomResponse($this->redirect->to($url), $parameters);
+        return $this->makeCustomResponse($this->redirector->to($url), $parameters);
     }
 
     /**
@@ -171,11 +173,11 @@ class NotificationPresenter implements NotificationPresenterContract {
     /**
      * Runs the response through the custom response callback, if it exists.
      *
-     * @param Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      * @param array $parameters
      * @return Response
      */
-    protected function makeCustomResponse(Response $response, $parameters) {
+    protected function makeCustomResponse(SymfonyResponse $response, $parameters) {
         if(isset($parameters['input']) && $parameters['input'] === true && $response instanceof RedirectResponse) {
             return $response->withInput();
         } else if(isset($parameters['customResponse'])) {

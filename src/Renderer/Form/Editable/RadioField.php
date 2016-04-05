@@ -17,7 +17,7 @@ class RadioField extends BaseField {
             $options = $options();
         }
 
-        $return = '';
+        $return = '<div>';
 
         foreach($options as $value => $label) {
             $attributes['id'] = $field->getMeta()->name . '.' . $value;
@@ -25,6 +25,8 @@ class RadioField extends BaseField {
             $return .= $this->getLabelTag($field->getMeta()->name . '.' . $value, $label, ['class' => 'flex-item']);
             $return .= '<br>';
         }
+
+        $return .= '</div>';
 
         return $return;
     }
