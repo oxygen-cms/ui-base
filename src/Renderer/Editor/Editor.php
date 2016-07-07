@@ -53,7 +53,7 @@ class Editor implements RendererInterface {
             $object->attributes['class'] .= ' Editor--dark';
         }
 
-        $object->attributes['data-field'] = $object->name;
+        //$object->attributes['data-field'] = $object->name;
     }
 
     /**

@@ -165,10 +165,6 @@ class UiBaseServiceProvider extends ServiceProvider {
         $this->app['events']->listen('oxygen.layout.body.before', function() {
             echo $this->app['view']->make('oxygen/ui-base::layout.element.notices')->render();
         });
-
-        $this->app['events']->listen('oxygen.layout.body.after', function() {
-            echo $this->app['view']->make('oxygen/ui-base::layout.element.noticesScript')->render();
-        });
     }
 
     /**

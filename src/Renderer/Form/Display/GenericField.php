@@ -23,7 +23,7 @@ class GenericField implements RendererInterface {
     }
 
     protected function beginContainer() {
-        return '<div class="Form-content flex-item">';
+        return '<div class="flex-item">';
     }
 
     protected function endContainer() {

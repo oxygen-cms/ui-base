@@ -14,11 +14,18 @@ class EditorField extends BaseField {
      * @return string
      */
     public function render($field, array $arguments) {
+        $attributes = array_merge(
+            [
+                'id' => $field->getMeta()->name,
+                'class' => 'flex-item'
+            ],
+            $field->getMeta()->attributes
+        );
         $editor = new Editor(
             $field->getMeta()->name,
             $field->getTransformedOutputValue(),
             $field->getMeta()->type,
-            $this->getFieldAttributes($field->getMeta()),
+            $attributes,
             $field->getMeta()->options
         );
 
