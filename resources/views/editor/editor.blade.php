@@ -65,6 +65,9 @@
         ?>
     </div>
     @if($editor->type == Editor::TYPE_MAIN)
+        <input type="hidden" name="contentPreviewCSRFToken" value="{{{ Session::getToken() }}}">
+        <input type="hidden" name="contentPreviewURL" value="{{{ URL::route($blueprint->getAction('postContent')->getName()) }}}">
+        <input type="hidden" name="contentPreviewMethod" value="{{{ $blueprint->getAction('postContent')->getMethod() }}}">
         <div class="Editor-footer">
             <button type="submit" class="Button Button-color--green align-right Form-submit">
                 @lang('oxygen/ui-base::editor.save')
