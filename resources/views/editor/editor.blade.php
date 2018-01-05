@@ -9,10 +9,13 @@
               type="button"
               class="Button Button-color--white flex-item Editor--switchEditor"
               data-editor="design"
-              data-dialog-type="confirm"
-              data-dialog-message="@lang('oxygen/ui-base::editor.switchToDesign')">
+              >
                 @lang('oxygen/ui-base::editor.design')
             </button>
+            <!---
+                data-dialog-type="confirm"
+                data-dialog-message="@lang('oxygen/ui-base::editor.switchToDesign')">
+            -->
             <div class="ButtonTabGroup flex-item">
                 <button
                   type="button"
