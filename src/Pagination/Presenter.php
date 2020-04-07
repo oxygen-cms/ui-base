@@ -3,12 +3,16 @@
 namespace Oxygen\UiBase\Pagination;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Contracts\Pagination\Presenter as PresenterContract;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\AbstractPaginator;
-use Symfony\Component\Translation\TranslatorInterface;
+use Illuminate\Support\Arr;
 
-class Presenter implements PresenterContract {
+/**
+ * Class Presenter
+ * @package Oxygen\UiBase\Pagination
+ * @deprecated
+ */
+class Presenter {
 
     /**
      * The paginator implementation.
@@ -18,24 +22,16 @@ class Presenter implements PresenterContract {
     protected $paginator;
 
     /**
-     * The translation component.
-     *
-     * @var \Symfony\Component\Translation\TranslatorInterface
-     */
-    protected $lang;
-
-    /**
      * Create a new Bootstrap presenter instance.
      *
      * @param  \Illuminate\Contracts\Pagination\LengthAwarePaginator $paginator
      */
-    public function __construct(LengthAwarePaginator $paginator, TranslatorInterface $lang, Request $request) {
+    public function __construct(LengthAwarePaginator $paginator, Request $request) {
         $this->paginator = $paginator;
-        $this->lang = $lang;
 
         // append the current query string
         if($paginator instanceof AbstractPaginator) {
-            $queryString = array_except($request->query(), $paginator->getPageName());
+            $queryString = Arr::except($request->query(), $paginator->getPageName());
             $paginator->appends($queryString);
             $paginator->setPath('');
         }
@@ -141,12 +137,12 @@ class Presenter implements PresenterContract {
         if($this->hasPages()) {
             return sprintf(
                 '<div class="Pagination">%s <div class="Pagination-message">%s</div> %s</div>',
-                $this->getPreviousButton($this->lang->get('pagination.previous')),
-                $this->lang->get('pagination.message', [
+                $this->getPreviousButton(__('pagination.previous')),
+                __('pagination.message', [
                     'current' => $this->paginator->currentPage(),
                     'total' => $this->paginator->lastPage()
                 ]),
-                $this->getNextButton($this->lang->get('pagination.next'))
+                $this->getNextButton(__('pagination.next'))
             );
         }
         return '';

@@ -5,6 +5,7 @@ namespace Oxygen\UiBase\Renderer\Form\Editable;
 use Oxygen\Core\Form\FieldMetadata;
 use Oxygen\Core\Html\Form\Field;
 use Oxygen\Core\Html\RendererInterface;
+use Illuminate\Support\Arr;
 
 abstract class BaseField implements RendererInterface {
 
@@ -60,9 +61,9 @@ abstract class BaseField implements RendererInterface {
     /**
      * Renders the HTML for a select tag, complete with all its options and the current value selected
      *
-     * @param $options
-     * @param $selected
-     * @param $attributes
+     * @param array $options
+     * @param string $selected
+     * @param array $attributes
      * @return string
      */
     protected function getSelectTag(array $options, $selected, array $attributes) {
@@ -120,8 +121,8 @@ abstract class BaseField implements RendererInterface {
         // If the "size" attribute was not specified, we will just look for the regular
         // columns and rows attributes, using sane defaults if these do not exist on
         // the attributes array. We'll then return this entire options array back.
-        $cols = array_get($options, 'cols', 50);
-        $rows = array_get($options, 'rows', 10);
+        $cols = Arr::get($options, 'cols', 50);
+        $rows = Arr::get($options, 'rows', 10);
         return array_merge($options, compact('cols', 'rows'));
     }
 

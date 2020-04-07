@@ -1,6 +1,5 @@
 <?php namespace Oxygen\UiBase;
 
-use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store;
 use Illuminate\Support\ServiceProvider;
@@ -25,7 +24,6 @@ use Oxygen\Core\Html\Navigation\NavigationToggle;
 use Oxygen\Core\Html\Toolbar\SubmitToolbarItem;
 use Oxygen\Core\Html\Toolbar\Toolbar;
 use Oxygen\Core\Html\Toolbar\VoidButtonToolbarItem;
-use Oxygen\UiBase\Pagination\Presenter;
 use Oxygen\UiBase\Renderer\Form\Display\DatetimeField;
 use Oxygen\UiBase\Renderer\Form\Editable\CheckboxField;
 use Oxygen\UiBase\Renderer\Form\Editable\EditorField;
@@ -86,6 +84,9 @@ class UiBaseServiceProvider extends ServiceProvider {
             __DIR__.'/../resources/lang' => base_path('resources/lang/vendor/oxygen/ui-base'),
         ]);
 
+        Paginator::defaultView('oxygen/ui-base::pagination.default');
+        Paginator::defaultSimpleView('oxygen/ui-base::pagination.simple');
+
 		ButtonToolbarItem::setRenderer(function() { return new ButtonToolbarItemRenderer($this->app['url']); });
         VoidButtonToolbarItem::setRenderer(new VoidButtonToolbarItemRenderer());
         FormToolbarItem::setRenderer(function() { return new FormToolbarItemRenderer($this->app['view']); });
@@ -124,10 +125,6 @@ class UiBaseServiceProvider extends ServiceProvider {
         Row::setRenderer(new RowRenderer());
         Form::setRenderer(function() { return new FormRenderer($this->app['url'], $this->app['session.store']); });
         Label::setRenderer(new LabelRenderer());
-
-        Paginator::presenter(function($paginator) {
-            return new Presenter($paginator, $this->app['translator'], $this->app['request']);
-        });
 
         $this->addNavigationToLayout();
         $this->addNoticesToLayout();

@@ -2,7 +2,7 @@
 
 // defaults
 $title = isset($title) ? $title . ' - ' : '';
-$title .= Lang::get('oxygen/core::app.name');
+$title .= __('oxygen/core::app.name');
 $description = '';
 $tags = '';
 
@@ -22,15 +22,15 @@ if(!isset($usePage)) {
     $usePage = true;
 }
 
-Event::fire('oxygen.layout.headers');
+event('oxygen.layout.headers');
 
-Event::fire('oxygen.layout.classes', [&$htmlClasses, &$bodyClasses, &$pageClasses]);
+event('oxygen.layout.classes', [&$htmlClasses, &$bodyClasses, &$pageClasses]);
 
 $htmlAttributes = empty($htmlClasses) ? [] : ['class' => implode(' ', $htmlClasses)];
 $bodyAttributes = empty($bodyClasses) ? [] : ['class' => implode(' ', $bodyClasses)];
 $pageAttributes = empty($pageClasses) ? [] : ['class' => implode(' ', $pageClasses)];
 
-Event::fire('oxygen.layout.attributes', [&$htmlAttributes, &$bodyAttributes, &$pageAttributes]);
+event('oxygen.layout.attributes', [&$htmlAttributes, &$bodyAttributes, &$pageAttributes]);
 
 ?>
 <!DOCTYPE html>
@@ -44,29 +44,29 @@ Event::fire('oxygen.layout.attributes', [&$htmlAttributes, &$bodyAttributes, &$p
     <meta name="description" content="{{{ $description }}}">
     <meta name="keywords" content="{{{ $tags }}}">
 
-    <?php Event::fire('oxygen.layout.head'); ?>
+    <?php event(('oxygen.layout.head')); ?>
 
 </head>
 
 <body {!! html_attributes($bodyAttributes) !!}>
 
-    <?php Event::fire('oxygen.layout.body.before'); ?>
+    <?php event('oxygen.layout.body.before'); ?>
 
     @if($usePage)
         <div {!! html_attributes($pageAttributes) !!}>
     @endif
 
-        <?php Event::fire('oxygen.layout.page.before'); ?>
+        <?php event('oxygen.layout.page.before'); ?>
 
         @yield('content')
 
-        <?php Event::fire('oxygen.layout.page.after'); ?>
+        <?php event('oxygen.layout.page.after'); ?>
 
     @if($usePage)
         </div>
     @endif
 
-    <?php Event::fire('oxygen.layout.body.after'); ?>
+    <?php event('oxygen.layout.body.after'); ?>
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
-    use Oxygen\Core\Html\ImageEditor\ImageEditor;
+
+use Oxygen\Core\Html\ImageEditor\ImageEditor;
 ?>
 
 <div {{ html_attributes($editor->attributes) }}>
@@ -45,10 +46,10 @@
             if(isset($editor->attributes['rows'])) {
                 $rows = $editor->attributes['rows'];
             } else {
-                $rows = ($editor->type == Editor::TYPE_MAIN) ? 20 : 5;
+                $rows = ($editor->type == ImageEditor::TYPE_MAIN) ? 20 : 5;
             }
 
-            echo '<textarea ' . HTML::attributes(array(
+            echo '<textarea ' . html_attributes(array(
                 'name' => $editor->name,
                 'id' => $editor->name . '-editor',
                 'class' => 'Editor-textarea',

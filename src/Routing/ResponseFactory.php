@@ -46,7 +46,7 @@ class ResponseFactory extends BaseResponseFactory implements ResponseFactoryCont
      *
      * @param Notification $notification   Notification to display.
      * @param array        $parameters     Extra parameters
-     * @return Response
+     * @return SymfonyResponse
      */
     public function notification(Notification $notification, array $parameters = []) {
         $notification = $this->arrayFromNotification($notification);
@@ -73,7 +73,7 @@ class ResponseFactory extends BaseResponseFactory implements ResponseFactoryCont
      * @param mixed $notification Notification to display.
      * @param string $url         The URL to redirect to or null to just display the notification
      * @param array $parameters   Extra parameters
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function createJsonResponse($notification, $url, $parameters) {
         if($url == null) {
@@ -124,7 +124,7 @@ class ResponseFactory extends BaseResponseFactory implements ResponseFactoryCont
      * Decode the route argument into a URL.
      *
      * @param mixed $route
-     * @return array
+     * @return string
      */
     protected function urlFromRoute($route) {
         if(is_array($route)) { // ['routeName', ['param1', 3]]
@@ -175,7 +175,7 @@ class ResponseFactory extends BaseResponseFactory implements ResponseFactoryCont
      *
      * @param \Symfony\Component\HttpFoundation\Response $response
      * @param array $parameters
-     * @return Response
+     * @return RedirectResponse|Response|SymfonyResponse
      */
     protected function makeCustomResponse(SymfonyResponse $response, $parameters) {
         if(isset($parameters['input']) && $parameters['input'] === true && $response instanceof RedirectResponse) {

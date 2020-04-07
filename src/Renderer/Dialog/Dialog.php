@@ -10,8 +10,8 @@ class Dialog implements RendererInterface {
      * Renders the element.
      *
      * @param object $object Object to render
-     * @param array arguments Extra arguments to customize the element.
-     * @return string Rendered HTML
+     * @param array $arguments Extra arguments to customize the element.
+     * @return array
      */
     public function render($object, array $arguments) {
         return [

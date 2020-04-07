@@ -2,14 +2,16 @@
 
 namespace Oxygen\UiBase\Renderer\Toolbar;
 
-use Illuminate\Html\FormBuilder;
-
 use Illuminate\Routing\UrlGenerator;
 use Oxygen\Core\Html\Form\Form;
 use Oxygen\Core\Html\RendererInterface;
 use Oxygen\Core\Http\Method;
 
 class ButtonToolbarItem implements RendererInterface {
+    /**
+     * @var UrlGenerator
+     */
+    private $url;
 
     /**
      * Injects dependencies into the Renderer.
@@ -24,8 +26,9 @@ class ButtonToolbarItem implements RendererInterface {
      * Renders the element.
      *
      * @param object $toolbarItem Object to render
-     * @param array  $arguments Extra arguments to customize the element.
+     * @param array $arguments Extra arguments to customize the element.
      * @return string Rendered HTML
+     * @throws \Exception
      */
     public function render($toolbarItem, array $arguments) {
         $method = $toolbarItem->action->getMethod();
