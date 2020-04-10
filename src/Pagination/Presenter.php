@@ -10,7 +10,6 @@ use Illuminate\Support\Arr;
 /**
  * Class Presenter
  * @package Oxygen\UiBase\Pagination
- * @deprecated
  */
 class Presenter {
 
@@ -46,7 +45,7 @@ class Presenter {
      */
     public function getDisabledTextWrapper($text, $rel = null) {
         $attributes = [
-            'class' => 'Button Button-color--white',
+            'class' => 'Button',
             'type' => 'button',
             'disabled' => true
         ];
@@ -65,7 +64,7 @@ class Presenter {
     public function getPageLinkWrapper($url, $page, $rel = null) {
         $attributes = [
             'href' => $url,
-            'class' => 'Button Button-color--white Link--smoothState'
+            'class' => 'Button Link--smoothState'
         ];
         if($rel !== null) {
             $attributes['rel'] = $rel;
