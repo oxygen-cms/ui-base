@@ -11,7 +11,7 @@ abstract class BaseField implements RendererInterface {
 
     protected function getFieldAttributes(FieldMetadata $meta) {
         $defaultAttributes = [];
-        $defaultClass = 'flex-item';
+        $defaultClass = '';
 
         $attributes = array_merge($defaultAttributes, $meta->attributes);
 

@@ -1,5 +1,5 @@
 <div class="MainNav-mobileBar">
-    <a href="#navigation" class="MainNav-open Icon Icon-bars"></a>
+    <a href="#navigation" class="MainNav-open fa fa-bars"></a>
 </div>
 
 <div class="MainNav-spacer MainNav-spacer--mobile"></div>

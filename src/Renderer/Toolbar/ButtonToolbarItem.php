@@ -38,8 +38,8 @@ class ButtonToolbarItem implements RendererInterface {
 
         $renderLabel = function () use ($toolbarItem, $insideMainNav) {
             return
-                (($toolbarItem->icon !== null && !$insideMainNav)
-                    ? '<span class="Icon Icon-' . e($toolbarItem->icon) . ' Icon--pushRight"></span>'
+                (($toolbarItem->icon !== null)
+                    ? '<span class="fa fa-' . e($toolbarItem->icon) . ' Icon--pushRight"></span>'
                     : '')
                 . e($toolbarItem->label);
         };

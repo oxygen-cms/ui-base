@@ -36,14 +36,15 @@
                     @lang('oxygen/ui-base::editor.preview')
                 </button>
             </div>
-            <div class="align-right flex-item">
+            <div class="Row--spacer"></div>
+            <div class="flex-item">
                 <button type="button" class="Button Button-color--white Editor--toggleFullscreen">
                     <span class="Toggle--ifDisabled">
-                        <span class="Icon Icon-expand"></span>
+                        <span class="fas fa-expand"></span>
                         <span class="Text--hidden">@lang('oxygen/ui-base::editor.fullscreen')</span>
                     </span>
                     <span class="Toggle--ifEnabled">
-                        <span class="Icon Icon-times"></span>
+                        <span class="fas fa-times"></span>
                         <span class="Text--hidden">@lang('oxygen/ui-base::editor.exit')</span>
                     </span>
                 </button>
@@ -68,15 +69,16 @@
         ?>
     </div>
     @if($editor->type == Editor::TYPE_MAIN)
-        <input type="hidden" class="contentPreviewCSRFToken" value="{{{ Session::getToken() }}}">
+        <input type="hidden" class="contentPreviewCSRFToken" value="{{{ csrf_token() }}}">
         <input type="hidden" class="contentPreviewURL" value="{{{ URL::route($blueprint->getAction('postContent')->getName()) }}}">
         <input type="hidden" class="contentPreviewMethod" value="{{{ $blueprint->getAction('postContent')->getMethod() }}}">
         <div class="Editor-footer">
-            <button type="submit" class="Button Button-color--green align-right Form-submit">
+            <div class="Row--spacer"></div>
+            <button type="submit" class="Button Button-color--green Form-submit">
                 @lang('oxygen/ui-base::editor.save')
             </button>
         </div>
     @endif
 </div>
 
-{!! $editor->getCreateScript() !!}
+{!! $renderer->getCreateScript($editor) !!}

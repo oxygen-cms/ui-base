@@ -1,7 +1,7 @@
 <?php namespace Oxygen\UiBase;
 
 use Illuminate\Http\Request;
-use Illuminate\Session\Store;
+use Illuminate\Session\SessionManager;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Oxygen\Core\Blueprint\BlueprintManager;
@@ -96,7 +96,7 @@ class UiBaseServiceProvider extends ServiceProvider {
         SubmitToolbarItem::setRenderer(new SubmitToolbarItemRenderer());
         Header::setRenderer(function() { return new HeaderRenderer($this->app['view']); });
         Toolbar::setRenderer(new ToolbarRenderer());
-        Editor::setRenderer(function() { return new EditorRenderer($this->app['view'], $this->app['auth']->user()->getPreferences()); });
+        Editor::setRenderer(function() { return new EditorRenderer($this->app['view'], auth()->guard()->user()->getPreferences()); });
         Dialog::setRenderer(new DialogRenderer());
         Navigation::setRenderer(function() { return new NavigationRenderer($this->app['view']); });
         NavigationToggle::setRenderer(function() { return new NavigationToggleRenderer($this->app['view']); });
@@ -123,7 +123,7 @@ class UiBaseServiceProvider extends ServiceProvider {
         StaticField::setRenderer('editor-mini', new StaticTextareaField());
 
         Row::setRenderer(new RowRenderer());
-        Form::setRenderer(function() { return new FormRenderer($this->app['url'], $this->app['session.store']); });
+        Form::setRenderer(function() { return new FormRenderer($this->app['url']); });
         Label::setRenderer(new LabelRenderer());
 
         $this->addNavigationToLayout();
@@ -190,8 +190,7 @@ class UiBaseServiceProvider extends ServiceProvider {
                 $app['view'],
                 $app['redirect'],
                 $app['url'],
-                $app[Store::class],
-                $app[Request::class],
+                request(),
                 function() {
                     return $this->app['auth']->check() ? $this->app['auth']->user()->getPreferences()->get('pageLoad.smoothState.enabled') : true;
                 }

@@ -21,7 +21,7 @@ class VoidButtonToolbarItem implements RendererInterface {
             $return = '';
 
             if($toolbarItem->icon !== null && !$insideMainNav) {
-                $return .= '<span class="Icon Icon-' . e($toolbarItem->icon) . ' Icon--pushRight"></span>';
+                $return .= '<span class="fa fa-' . e($toolbarItem->icon) . ' Icon--pushRight"></span>';
             }
             $return .= e($toolbarItem->label);
             return $return;

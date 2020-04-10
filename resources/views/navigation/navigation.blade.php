@@ -8,7 +8,7 @@
         ?>
         @if(!empty($items))
             <ul class="MainNav-list MainNav-list--{{{ $list }}}">
-                @foreach(Navigation::all($list) as $toolbarItem)
+                @foreach($items as $toolbarItem)
                     <li class="MainNav-item">
                         <?php
                             if($toolbarItem->shouldRender(['evenOnSamePage' => true])) {

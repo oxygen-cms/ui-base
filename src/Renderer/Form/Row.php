@@ -33,7 +33,6 @@ class Row implements RendererInterface {
         $return .= '<div ' . html_attributes($attributes) . '>';
 
         foreach($row->getItems() as $item) {
-
             $return .= is_string($item) ? $item : $item->render([]);
         }
 

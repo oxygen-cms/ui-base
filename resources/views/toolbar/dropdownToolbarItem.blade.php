@@ -7,7 +7,7 @@
                     'insideMainNav'  => $insideMainNav
                 ]);
             ?>
-            <span class="Icon Icon-{{{ $toolbarItem->icon }}} Icon--pushLeft Button Button-color--white"></span>
+            <span class="fa fa-{{{ $toolbarItem->icon }}} Icon--pushLeft Button Button-color--white"></span>
         </div>
     @else
         <?php
@@ -20,7 +20,7 @@
         ?>
         <button class="{{{ implode(' ', $buttonClasses) }}}">
             {{{ $toolbarItem->label }}}
-            <span class="Icon Icon-{{{ $toolbarItem->icon }}} Icon--pushLeft"></span>
+            <span class="fa fa-{{{ $toolbarItem->icon }}} Icon--pushLeft"></span>
         </button>
     @endif
     <div class="{{{ (!$insideMainNav ? 'Dropdown--round ' : '') . 'Dropdown' }}}">

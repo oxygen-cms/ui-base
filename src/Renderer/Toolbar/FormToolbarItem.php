@@ -46,7 +46,7 @@ class FormToolbarItem implements RendererInterface {
 
         // Add all the fields
         foreach($toolbarItem->fields as $fieldMeta) {
-            $field = new EditableField($fieldMeta, app('request'), request()->get($fieldMeta->name, ''));
+            $field = new EditableField($fieldMeta, request()->get($fieldMeta->name, ''));
             $form->addContent($field);
         }
 

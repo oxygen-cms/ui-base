@@ -18,7 +18,7 @@ class Label implements RendererInterface {
 
         $labelAttributes = [];
         if(!$label->getMeta()->hasDescription()) {
-            $labelAttributes['class'] = 'Form-label flex-item';
+            $labelAttributes['class'] = 'Form-label';
         }
 
         $labelAttributes['for'] = $label->getMeta()->name;

@@ -1,7 +1,7 @@
 <?php
     use Oxygen\Core\Html\Header\Header;
     use Oxygen\Core\Html\Toolbar\ButtonToolbarItem;
-
+    
     $classes = $header->getClasses();
     $classes[] = 'Header';
     if($header->getType() === Header::TYPE_TINY) {
@@ -59,20 +59,20 @@
             {!! $header->getContent() !!}
         </div>
     @endif
-    <h2 class="Header-title {{{ getHeading($header->getType()) }}} flex-item">
+    <h2 class="Header-title {{{ getHeading($header->getType()) }}}">
         {{{ $header->getTitle() }}}
     </h2>
     @if($header->hasSubtitle())
-        <h2 class="Header-subtitle {{{ getHeading($header->getType()) }}} flex-item">
+        <h2 class="Header-subtitle {{{ getHeading($header->getType()) }}}">
             {{{ $header->getSubtitle() }}}
         </h2>
     @endif
     @if($header->hasIcon())
-        <h2 class="Header-icon flex-item">
-            <span class="Icon Icon-{{{ $header->getIcon() }}}"></span>
+        <h2 class="Header-icon">
+            <span class="fa fa-{{{ $header->getIcon() }}}"></span>
         </h2>
     @endif
-    <div class="Header-toolbar flex-item">
+    <div class="Header-toolbar">
         {!! $header->getToolbar()->render($header->getArguments()); !!}
     </div>
 </div>

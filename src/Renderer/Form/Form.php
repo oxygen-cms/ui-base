@@ -2,9 +2,9 @@
 
 namespace Oxygen\UiBase\Renderer\Form;
 
-use Illuminate\Session\Store;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Oxygen\Core\Html\RendererInterface;
+use Illuminate\Http\Request;
 
 class Form implements RendererInterface {
 
@@ -15,16 +15,18 @@ class Form implements RendererInterface {
      */
     protected $spoofedMethods = ['DELETE', 'PATCH', 'PUT'];
 
-    protected $url, $session;
+    /**
+     * @var UrlGenerator 
+     */
+    protected $url;
 
     /**
      * Constructs the Form renderer
      *
-     * @param \Illuminate\Contracts\Routing\UrlGenerator $url
+     * @param UrlGenerator $url
      */
-    public function __construct(UrlGenerator $url, Store $session) {
+    public function __construct(UrlGenerator $url) {
         $this->url = $url;
-        $this->session = $session;
     }
 
     /**
@@ -65,9 +67,6 @@ class Form implements RendererInterface {
         // Extra parameters
         if($form->isAsynchronous()) {
             $classes[] = 'Form--sendAjax';
-        }
-        if($form->shouldWarnBeforeExit()) {
-            $classes[] = 'Form--warnBeforeExit';
         }
         if($form->shouldWarnBeforeExit()) {
             $classes[] = 'Form--warnBeforeExit';
@@ -121,7 +120,7 @@ class Form implements RendererInterface {
         // CSRF token to the form, as this can't hurt and is convenient to simply
         // always have available on every form the developers creates for them.
         if ($method != 'GET') {
-            $appendage .= $this->getHidden('_token', $this->session->getToken());
+            $appendage .= $this->getHidden('_token', csrf_token());
         }
         return $appendage;
     }

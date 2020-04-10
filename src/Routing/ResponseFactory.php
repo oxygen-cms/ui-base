@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\ResponseFactory as BaseResponseFactory;
 use Illuminate\Routing\UrlGenerator;
-use Illuminate\Session\Store;
 use Oxygen\Core\Contracts\Routing\ResponseFactory as ResponseFactoryContract;
 use Oxygen\Core\Http\Notification;
 
@@ -18,21 +17,19 @@ class ResponseFactory extends BaseResponseFactory implements ResponseFactoryCont
     /**
      * Dependencies for the NotificationResponseCreator.
      */
-    protected $session, $request, $url, $useSmoothStateCallback;
+    protected $request, $url, $useSmoothStateCallback;
 
     /**
      * Injects dependencies for the ResponseFactory.
      *
-     * @param \Illuminate\Contracts\View\Factory $view
-     * @param \Illuminate\Routing\Redirector     $redirector
-     * @param \Illuminate\Routing\UrlGenerator   $url
-     * @param \Illuminate\Session\Store          $session
-     * @param \Illuminate\Http\Request           $request
-     * @param callable                           $useSmoothStateCallback
+     * @param ViewFactory $view
+     * @param Redirector $redirector
+     * @param UrlGenerator $url
+     * @param Request $request
+     * @param callable $useSmoothStateCallback
      */
-    public function __construct(ViewFactory $view, Redirector $redirector, UrlGenerator $url, Store $session, Request $request, callable $useSmoothStateCallback) {
+    public function __construct(ViewFactory $view, Redirector $redirector, UrlGenerator $url, Request $request, callable $useSmoothStateCallback) {
         parent::__construct($view, $redirector);
-        $this->session = $session;
         $this->request = $request;
         $this->url = $url;
         $this->useSmoothStateCallback = $useSmoothStateCallback;
@@ -73,7 +70,7 @@ class ResponseFactory extends BaseResponseFactory implements ResponseFactoryCont
      * @param mixed $notification Notification to display.
      * @param string $url         The URL to redirect to or null to just display the notification
      * @param array $parameters   Extra parameters
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return SymfonyResponse
      */
     protected function createJsonResponse($notification, $url, $parameters) {
         if($url == null) {
@@ -86,15 +83,14 @@ class ResponseFactory extends BaseResponseFactory implements ResponseFactoryCont
 
         if(isset($parameters['hardRedirect'])) {
             $return['hardRedirect'] = $parameters['hardRedirect'];
-            $hardRedirect = true;
         }
 
         // display the message on the new page
         $callback = $this->useSmoothStateCallback;
-        if($callback() && !isset($hardRedirect)) {
+        if($callback() && !isset($return['hardRedirect'])) {
             $return = array_merge($return, $notification);
         } else {
-            $this->session->flash('adminMessage', $notification);
+            $this->request->session()->flash('adminMessage', $notification);
         }
 
         // send the redirect command
@@ -107,7 +103,7 @@ class ResponseFactory extends BaseResponseFactory implements ResponseFactoryCont
      * @param mixed  $notification Flash message to display.
      * @param string $url          The URL to redirect to or null to stay on the current page.
      * @param array  $parameters
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return SymfonyResponse
      */
     public function createBasicResponse($notification, $url, $parameters) {
         if($url == null) {
@@ -115,7 +111,7 @@ class ResponseFactory extends BaseResponseFactory implements ResponseFactoryCont
         }
 
         // flash data to the session
-        $this->session->flash('adminMessage', $notification);
+        $this->request->session()->flash('adminMessage', $notification);
 
         return $this->makeCustomResponse($this->redirector->to($url), $parameters);
     }
@@ -173,7 +169,7 @@ class ResponseFactory extends BaseResponseFactory implements ResponseFactoryCont
     /**
      * Runs the response through the custom response callback, if it exists.
      *
-     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param SymfonyResponse $response
      * @param array $parameters
      * @return RedirectResponse|Response|SymfonyResponse
      */
