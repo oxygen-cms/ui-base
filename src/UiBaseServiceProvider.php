@@ -98,8 +98,8 @@ class UiBaseServiceProvider extends ServiceProvider {
         Toolbar::setRenderer(new ToolbarRenderer());
         Editor::setRenderer(function() { return new EditorRenderer($this->app['view'], auth()->guard()->user()->getPreferences()); });
         Dialog::setRenderer(new DialogRenderer());
-        Navigation::setRenderer(function() { return new NavigationRenderer($this->app['view']); });
-        NavigationToggle::setRenderer(function() { return new NavigationToggleRenderer($this->app['view']); });
+//        Navigation::setRenderer(function() { return new NavigationRenderer($this->app['view']); });
+//        NavigationToggle::setRenderer(function() { return new NavigationToggleRenderer($this->app['view']); });
 
         EditableField::setFallbackRenderer(new GenericField());
         EditableField::setRenderer('checkbox', new CheckboxField());
@@ -126,31 +126,9 @@ class UiBaseServiceProvider extends ServiceProvider {
         Form::setRenderer(function() { return new FormRenderer($this->app['url']); });
         Label::setRenderer(new LabelRenderer());
 
-        $this->addNavigationToLayout();
         $this->addNoticesToLayout();
         $this->addNotificationsToLayout();
 	}
-
-    /**
-     * Adds the navigation bar to the layout.
-     *
-     * @return void
-     */
-
-    protected function addNavigationToLayout() {
-        $this->app['events']->listen('oxygen.layout.body.before', function() {
-            if($this->app['auth']->check()) {
-                echo $this->app[Navigation::class]->render();
-            }
-        });
-
-        $this->app['events']->listen('oxygen.layout.page.before', function() {
-            if($this->app['auth']->check()) {
-                $toggle = new NavigationToggle();
-                echo $toggle->render();
-            }
-        });
-    }
 
     /**
      * Adds the notices to the layout.
