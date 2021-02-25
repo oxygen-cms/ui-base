@@ -15,8 +15,8 @@
     ],
     "require": {
         "php": ">=7.2.0",
-        "oxygen/core": "~0.8.0",
-        "oxygen/auth": "~0.5.2",
+        "oxygen/core": "~0.9.2",
+        "oxygen/auth": "~0.5.4",
         "illuminate/pagination": "~6.0",
         "illuminate/support": "~6.0",
         "ext-json": "*"
@@ -26,7 +26,12 @@
             "Oxygen\\UiBase\\": "src/"
         }
     },
-    "minimum-stability": "stable",
+    "config": {
+        "platform": {
+            "php": "7.2.15"
+        }
+    },
+    "minimum-stability": "dev",
     "extra": {
         "title": "Oxygen - UI Base",
         "readme": "oxygen.md",
