@@ -7,7 +7,7 @@
         <div class="Editor-header">
             <button
               type="button"
-              class="Button Button-color--white flex-item Editor--switchEditor"
+              class="Button Button-color--black flex-item Editor--switchEditor Editor-header-item"
               data-editor="design"
               >
                 @lang('oxygen/ui-base::editor.design')
@@ -16,39 +16,41 @@
                 data-dialog-type="confirm"
                 data-dialog-message="@lang('oxygen/ui-base::editor.switchToDesign')">
             -->
-            <div class="ButtonTabGroup flex-item">
+            <div class="ButtonTabGroup ButtonTabGroup--dark Editor-header-item">
                 <button
                   type="button"
-                  class="Button Button-color--white Editor--switchEditor"
+                  class="Button Button-color--black Editor--switchEditor"
                   data-editor="code">
                     @lang('oxygen/ui-base::editor.code')
                 </button>
                 <button
                   type="button"
-                  class="Button Button-color--white Editor--switchEditor"
+                  class="Button Button-color--black Editor--switchEditor"
                   data-editor="split">
                     @lang('oxygen/ui-base::editor.split')
                 </button>
                 <button
                   type="button"
-                  class="Button Button-color--white Editor--switchEditor"
+                  class="Button Button-color--black Editor--switchEditor"
                   data-editor="preview">
                     @lang('oxygen/ui-base::editor.preview')
                 </button>
             </div>
             <div class="Row--spacer"></div>
-            <div class="flex-item">
-                <button type="button" class="Button Button-color--white Editor--toggleFullscreen">
-                    <span class="Toggle--ifDisabled">
-                        <span class="fas fa-expand"></span>
-                        <span class="Text--hidden">@lang('oxygen/ui-base::editor.fullscreen')</span>
-                    </span>
-                    <span class="Toggle--ifEnabled">
-                        <span class="fas fa-times"></span>
-                        <span class="Text--hidden">@lang('oxygen/ui-base::editor.exit')</span>
-                    </span>
-                </button>
-            </div>
+            <button type="button" class="Button Button-color--black Editor--insertMediaItem Editor-header-item"><span class="fas fa-photo-video"></span> Insert Photo or File</button>
+            <button type="button" class="Button Button-color--black Editor--toggleFullscreen Editor-header-item">
+                <span class="Toggle--ifDisabled">
+                    <span class="fas fa-expand"></span>
+                    <span class="Text--hidden">@lang('oxygen/ui-base::editor.fullscreen')</span>
+                </span>
+                <span class="Toggle--ifEnabled">
+                    <span class="fas fa-times"></span>
+                    <span class="Text--hidden">@lang('oxygen/ui-base::editor.exit')</span>
+                </span>
+            </button>
+            <button type="submit" class="Button Button-color--black Form-submit Editor-header-item">
+                @lang('oxygen/ui-base::editor.save')
+            </button>
         </div>
     @endif
     <div class="Editor-content">
@@ -72,12 +74,6 @@
         <input type="hidden" class="contentPreviewCSRFToken" value="{{{ csrf_token() }}}">
         <input type="hidden" class="contentPreviewURL" value="{{{ URL::route($blueprint->getAction('postContent')->getName()) }}}">
         <input type="hidden" class="contentPreviewMethod" value="{{{ $blueprint->getAction('postContent')->getMethod() }}}">
-        <div class="Editor-footer">
-            <div class="Row--spacer"></div>
-            <button type="submit" class="Button Button-color--green Form-submit">
-                @lang('oxygen/ui-base::editor.save')
-            </button>
-        </div>
     @endif
 </div>
 

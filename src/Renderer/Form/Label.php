@@ -24,7 +24,7 @@ class Label implements RendererInterface {
         $labelAttributes['for'] = $label->getMeta()->name;
 
         if($label->getMeta()->hasDescription()) {
-            $return .= '<span ' . html_attributes(['class' => 'Form-label Tooltip flex-item', 'data-tooltip' => $label->getMeta()->description]) . '>';
+            $return .= '<span ' . html_attributes(['class' => 'Form-label Tooltip', 'data-tooltip' => $label->getMeta()->description]) . '>';
         }
 
         $return .= '<label ' . html_attributes($labelAttributes) . '>' . $label->getMeta()->label . '</label>';
