@@ -37,7 +37,10 @@
                 </button>
             </div>
             <div class="Row--spacer"></div>
-            <button type="button" class="Button Button-color--black Editor--insertMediaItem Editor-header-item"><span class="fas fa-photo-video"></span> Insert Photo or File</button>
+            <button type="button" class="Button Button-color--black Editor--insertMediaItem Editor-header-item">
+                <span class="icon"><span class="fas fa-photo-video"></span></span>
+                <span>Insert Photo or File</span>
+            </button>
             <button type="button" class="Button Button-color--black Editor--toggleFullscreen Editor-header-item">
                 <span class="Toggle--ifDisabled">
                     <span class="fas fa-expand"></span>

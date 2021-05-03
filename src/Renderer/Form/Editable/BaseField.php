@@ -74,7 +74,7 @@ abstract class BaseField implements RendererInterface {
 
         $list = implode('', $list);
 
-        return '<select' . html_attributes($attributes) . '>' . $list . '</select>';
+        return '<div class="select"><select' . html_attributes($attributes) . '>' . $list . '</select></div>';
     }
 
     protected function getSelectOption($displayName, $value, $selected) {

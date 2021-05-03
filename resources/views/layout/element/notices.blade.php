@@ -10,11 +10,7 @@
 
 <script>
     function bug(message) {
-        var notification = document.createElement("div");
-        notification.classList.add("Notification");
-        notification.classList.add("Notification--bug");
-        notification.innerHTML = "<h2><strong>Bug:</strong></h2><code>" + message + "</code>";
-        document.querySelector(".Notification-container").appendChild(notification);
+        window.alert('Bug: ' + message);
     }
     window.onerror = function(msg, url, line, col, error) {
         bug(msg);

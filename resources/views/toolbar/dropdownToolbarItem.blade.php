@@ -1,13 +1,19 @@
 <div class="Dropdown-container">
     @if($toolbarItem->shouldRenderButton)
         <div class="ButtonTabGroup">
+            <div class="control">
             <?php
                 echo $toolbarItem->button->render([
                     'model'          => $model,
                     'insideMainNav'  => $insideMainNav
                 ]);
             ?>
-            <span class="fa fa-{{{ $toolbarItem->icon }}} Icon--pushLeft Button Button-color--white"></span>
+            </div>
+            <div class="control">
+            <span class="Button Button-color--white">
+                <span class="fa fa-{{{ $toolbarItem->icon }}}"></span>
+            </span>
+            </div>
         </div>
     @else
         <?php
@@ -24,13 +30,15 @@
         </button>
     @endif
     <div class="{{{ (!$insideMainNav ? 'Dropdown--round ' : '') . 'Dropdown' }}}">
-        <?php
-            foreach($toolbarItem->itemsToDisplay as $item):
-                echo $item->render([
-                    'model'          => $model,
-                    'insideDropdown' => true
-                ]);
-            endforeach;
-        ?>
+        <div class="dropdown-content">
+            <?php
+                foreach($toolbarItem->itemsToDisplay as $item):
+                    echo $item->render([
+                        'model'          => $model,
+                        'insideDropdown' => true
+                    ]);
+                endforeach;
+            ?>
+        </div>
     </div>
 </div>

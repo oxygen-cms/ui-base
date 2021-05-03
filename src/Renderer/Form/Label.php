@@ -17,21 +17,23 @@ class Label implements RendererInterface {
         $return = '';
 
         $labelAttributes = [];
-        if(!$label->getMeta()->hasDescription()) {
-            $labelAttributes['class'] = 'Form-label';
-        }
+        $labelAttributes['class'] = 'Form-label';
 
         $labelAttributes['for'] = $label->getMeta()->name;
 
-        if($label->getMeta()->hasDescription()) {
-            $return .= '<span ' . html_attributes(['class' => 'Form-label Tooltip', 'data-tooltip' => $label->getMeta()->description]) . '>';
-        }
+//        <b-tooltip multilined position="is-right" type="is-dark" label="May be displayed next to the item, or used as alt-text for vision-impaired.">
+//                                <b-icon size="is-small" icon="question-circle"></b-icon>
+//                            </b-tooltip>
 
-        $return .= '<label ' . html_attributes($labelAttributes) . '>' . $label->getMeta()->label . '</label>';
+        $return .= '<label ' . html_attributes($labelAttributes) . '>' . $label->getMeta()->label;
 
         if($label->getMeta()->hasDescription()) {
+            $return .= '<span ' . html_attributes(['class' => 'Tooltip', 'data-tooltip' => $label->getMeta()->description]) . '>';
+            $return .= '<span class="icon"><span class="fas fa-question-circle"></span></span>';
             $return .= '</span>';
         }
+
+        $return .= '</label>';
 
         return $return;
     }

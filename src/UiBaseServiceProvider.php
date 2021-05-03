@@ -126,7 +126,6 @@ class UiBaseServiceProvider extends ServiceProvider {
         Label::setRenderer(new LabelRenderer());
 
         $this->addNoticesToLayout();
-        $this->addNotificationsToLayout();
 	}
 
     /**
@@ -138,18 +137,6 @@ class UiBaseServiceProvider extends ServiceProvider {
     protected function addNoticesToLayout() {
         $this->app['events']->listen('oxygen.layout.body.before', function() {
             echo $this->app['view']->make('oxygen/ui-base::layout.element.notices')->render();
-        });
-    }
-
-    /**
-     * Adds the notifications container to the layout.
-     *
-     * @return void
-     */
-
-    protected function addNotificationsToLayout() {
-        $this->app['events']->listen('oxygen.layout.body.before', function() {
-            echo $this->app['view']->make('oxygen/ui-base::layout.element.notifications')->render();
         });
     }
 

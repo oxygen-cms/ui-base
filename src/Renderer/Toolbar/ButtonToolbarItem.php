@@ -39,9 +39,9 @@ class ButtonToolbarItem implements RendererInterface {
         $renderLabel = function () use ($toolbarItem, $insideMainNav) {
             return
                 (($toolbarItem->icon !== null)
-                    ? '<span class="fa fa-' . e($toolbarItem->icon) . ' Icon--pushRight"></span>'
+                    ? '<span class="icon"><span class="fa fa-' . e($toolbarItem->icon) . '"></span></span>'
                     : '')
-                . e($toolbarItem->label);
+                . '<span>' . e($toolbarItem->label) . '</span>';
         };
 
         $addMargins = function ($arguments, &$attributes) {

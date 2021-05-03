@@ -1,7 +1,7 @@
 <?php
     use Oxygen\Core\Html\Header\Header;
     use Oxygen\Core\Html\Toolbar\ButtonToolbarItem;
-    
+
     $classes = $header->getClasses();
     $classes[] = 'Header';
     if($header->getType() === Header::TYPE_TINY) {
@@ -50,7 +50,10 @@
             <a
                 href="{{{ $header->getBackLink() }}}"
                 class="Button Button--back Link--smoothState">
-                @lang('oxygen/ui-base::ui.back')
+                <span class="icon is-small">
+                    <i class="fas fa-chevron-left"></i>
+                </span>
+                <span>@lang('oxygen/ui-base::ui.back')</span>
             </a>
         </div>
     @endif
