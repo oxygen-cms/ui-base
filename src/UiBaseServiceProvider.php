@@ -23,6 +23,7 @@ use Oxygen\Core\Html\Navigation\NavigationToggle;
 use Oxygen\Core\Html\Toolbar\SubmitToolbarItem;
 use Oxygen\Core\Html\Toolbar\Toolbar;
 use Oxygen\Core\Html\Toolbar\VoidButtonToolbarItem;
+use Oxygen\Preferences\PreferencesManager;
 use Oxygen\UiBase\Renderer\Form\Display\DatetimeField;
 use Oxygen\UiBase\Renderer\Form\Editable\CheckboxField;
 use Oxygen\UiBase\Renderer\Form\Editable\EditorField;
@@ -50,8 +51,6 @@ use Oxygen\UiBase\Renderer\Toolbar\Toolbar as ToolbarRenderer;
 use Oxygen\UiBase\Renderer\Header\Header as HeaderRenderer;
 use Oxygen\UiBase\Renderer\Editor\Editor as EditorRenderer;
 use Oxygen\UiBase\Renderer\Dialog\Dialog as DialogRenderer;
-use Oxygen\UiBase\Renderer\Navigation\Navigation as NavigationRenderer;
-use Oxygen\UiBase\Renderer\Navigation\NavigationToggle as NavigationToggleRenderer;
 use Oxygen\UiBase\Renderer\Toolbar\VoidButtonToolbarItem as VoidButtonToolbarItemRenderer;
 use Illuminate\Contracts\Routing\ResponseFactory as ResponseFactoryContract;
 use Oxygen\UiBase\Routing\ResponseFactory;
@@ -95,7 +94,7 @@ class UiBaseServiceProvider extends ServiceProvider {
         SubmitToolbarItem::setRenderer(new SubmitToolbarItemRenderer());
         Header::setRenderer(function() { return new HeaderRenderer($this->app['view']); });
         Toolbar::setRenderer(new ToolbarRenderer());
-        Editor::setRenderer(function() { return new EditorRenderer($this->app['view'], auth()->guard()->user()->getPreferences()); });
+        Editor::setRenderer(function() { return new EditorRenderer($this->app['view'], $this->app[PreferencesManager::class]); });
         Dialog::setRenderer(new DialogRenderer());
 //        Navigation::setRenderer(function() { return new NavigationRenderer($this->app['view']); });
 //        NavigationToggle::setRenderer(function() { return new NavigationToggleRenderer($this->app['view']); });
@@ -105,6 +104,7 @@ class UiBaseServiceProvider extends ServiceProvider {
         EditableField::setRenderer('toggle', new ToggleField());
         EditableField::setRenderer('editor', new EditorField());
         EditableField::setRenderer('editor-mini', new EditorField());
+        EditableField::setRenderer('editor-mini-json', new EditorField());
         EditableField::setRenderer('radio', new RadioField());
         EditableField::setRenderer('relationship', new RelationshipField());
         EditableField::setRenderer('select', new SelectField());
@@ -120,6 +120,7 @@ class UiBaseServiceProvider extends ServiceProvider {
         StaticField::setRenderer('textarea', new StaticTextareaField());
         StaticField::setRenderer('editor', new StaticTextareaField());
         StaticField::setRenderer('editor-mini', new StaticTextareaField());
+        StaticField::setRenderer('editor-mini-json', new StaticTextareaField());
 
         Row::setRenderer(new RowRenderer());
         Form::setRenderer(function() { return new FormRenderer($this->app['url']); });
@@ -156,7 +157,7 @@ class UiBaseServiceProvider extends ServiceProvider {
                 $app['url'],
                 request(),
                 function() {
-                    return $this->app['auth']->check() ? $this->app['auth']->user()->getPreferences()->get('pageLoad.smoothState.enabled') : true;
+                    return $this->app[PreferencesManager::class]->get('user.pageLoad::smoothState.enabled', true);
                 }
             );
         });

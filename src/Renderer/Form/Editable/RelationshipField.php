@@ -3,7 +3,9 @@
 
 namespace Oxygen\UiBase\Renderer\Form\Editable;
 
+use Oxygen\Core\Blueprint\BlueprintManager;
 use Oxygen\Core\Form\FieldMetadata;
+use Oxygen\UiBase\Renderer\Form\Display\RelationshipField as StaticRelationshipField;
 
 
 class RelationshipField extends BaseField {
@@ -31,6 +33,8 @@ class RelationshipField extends BaseField {
             $value = $field->getValue()->getId();
         }
 
-        return $this->getSelectTag($select->options, $value, $this->getFieldAttributes($select));
+        $display = new StaticRelationshipField(app(BlueprintManager::class), app('url'));
+
+        return $this->getSelectTag($select->options, $value, $this->getFieldAttributes($select)) . '<br /><br />' . $display->render($field, $arguments);
     }
 }

@@ -68,12 +68,12 @@ class ResponseFactory extends BaseResponseFactory implements ResponseFactoryCont
      * If $refresh is false then the user will be sent to the specified page.
      *
      * @param mixed $notification Notification to display.
-     * @param string $url         The URL to redirect to or null to just display the notification
+     * @param null|string $url         The URL to redirect to or null to just display the notification
      * @param array $parameters   Extra parameters
      * @return SymfonyResponse
      */
-    protected function createJsonResponse($notification, $url, $parameters) {
-        if($url == null) {
+    protected function createJsonResponse($notification, ?string $url, array $parameters) {
+        if($url === null) {
             return $this->makeCustomResponse(new JsonResponse($notification), $parameters);
         }
 

@@ -5,7 +5,8 @@ namespace Oxygen\UiBase\Renderer\Editor;
 use Illuminate\Contracts\View\Factory as View;
 
 use Oxygen\Core\Html\RendererInterface;
-use Oxygen\Preferences\Repository as Preferences;
+use Oxygen\Preferences\PreferenceNotFoundException;
+use Oxygen\Preferences\PreferencesManager;
 
 class Editor implements RendererInterface {
 
@@ -25,20 +26,19 @@ class Editor implements RendererInterface {
     protected $view;
 
     /**
-     * Preferences Repository
+     * Preferences
      *
-     * @var Preferences
+     * @var PreferencesManager
      */
-
     protected $preferences;
 
     /**
      * Injects dependencies into the Renderer.
      *
      * @param View $view View Environment
-     * @param Preferences $preferences Preferences Repository
+     * @param PreferencesManager $preferences user preferences
      */
-    public function __construct(View $view, Preferences $preferences = null) {
+    public function __construct(View $view, PreferencesManager $preferences) {
         $this->view = $view;
         $this->preferences = $preferences;
     }
@@ -48,6 +48,7 @@ class Editor implements RendererInterface {
      *
      * @param object $object Object to be rendered
      * @return void
+     * @throws PreferenceNotFoundException
      */
     public function addDefaultAttributes($object) {
         if(isset($object->attributes['class'])) {
@@ -55,16 +56,14 @@ class Editor implements RendererInterface {
         } else {
             $object->attributes['class'] = 'Editor';
         }
-        
+
         if($object->type == \Oxygen\Core\Html\Editor\Editor::TYPE_MAIN) {
             $object->attributes['class'] .= ' Editor--main';
         }
 
-        if($this->preferences !== null && $this->preferences->get('editor.theme') == 'dark') {
+        if($this->preferences->get('user.editor::theme') === 'dark') {
             $object->attributes['class'] .= ' Editor--dark';
         }
-
-        //$object->attributes['data-field'] = $object->name;
     }
 
     /**
@@ -99,6 +98,7 @@ class Editor implements RendererInterface {
      * @param object $object Object to render
      * @param array $arguments Extra arguments to customize the element.
      * @return string Rendered HTML
+     * @throws PreferenceNotFoundException
      */
     public function render($object, array $arguments) {
         $this->addDefaultAttributes($object);

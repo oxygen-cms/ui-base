@@ -15,10 +15,7 @@ class SelectField extends BaseField {
      * @return string
      */
     public function render($field, array $arguments) {
-        $options = $field->getMeta()->options;
-        if(is_callable($options)) {
-            $options = $options();
-        }
+        $options = $field->getMeta()->getOptions();
 
         return $this->getSelectTag($options, $field->getValue(), $this->getFieldAttributes($field->getMeta()));
     }

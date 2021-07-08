@@ -12,10 +12,6 @@
               >
                 @lang('oxygen/ui-base::editor.design')
             </button>
-            <!---
-                data-dialog-type="confirm"
-                data-dialog-message="@lang('oxygen/ui-base::editor.switchToDesign')">
-            -->
             <div class="ButtonTabGroup ButtonTabGroup--dark Editor-header-item">
                 <button
                   type="button"
