@@ -33,6 +33,16 @@
                 </button>
             </div>
             <div class="Row--spacer"></div>
+            <button type="button" class="Button Button-color--black Editor--toggleRenderLayout Editor-header-item" style="display: none">
+                <span class="Toggle--ifDisabled">
+                    <span class="icon"><span class="fas fa-puzzle-piece"></span></span>
+                    <span>Previewing Only Content</span>
+                </span>
+                <span class="Toggle--ifEnabled">
+                    <span class="icon"><span class="fa fa-file-o"></span></span>
+                    <span>Previewing Entire Page</span>
+                </span>
+            </button>
             <button type="button" class="Button Button-color--black Editor--insertMediaItem Editor-header-item">
                 <span class="icon"><span class="fas fa-photo-video"></span></span>
                 <span>Insert Photo or File</span>
@@ -67,12 +77,17 @@
                 'class' => 'Editor-textarea',
                 'rows' => $rows
             )) . '>' . htmlspecialchars($editor->value) . '</textarea>';
+
+            $contentPreviewURL = URL::route($blueprint->getAction('postContent')->getName());
+            if($editor->entity !== null) {
+                $contentPreviewURL .= '/' . $editor->entity->getId();
+            }
         ?>
     </div>
     @if($editor->type == Editor::TYPE_MAIN)
         <input type="hidden" class="contentPreviewCSRFToken" value="{{{ csrf_token() }}}">
-        <input type="hidden" class="contentPreviewURL" value="{{{ URL::route($blueprint->getAction('postContent')->getName()) }}}">
-        <input type="hidden" class="contentPreviewMethod" value="{{{ $blueprint->getAction('postContent')->getMethod() }}}">
+        <input type="hidden" class="contentPreviewURL" value="{{{ $contentPreviewURL }}}">
+        <input type="hidden" class="contentPreviewMethod" value="POST">
     @endif
 </div>
 

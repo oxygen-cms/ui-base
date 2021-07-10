@@ -9,9 +9,10 @@ class EditorField extends BaseField {
     /**
      * Renders the element.
      *
-     * @param object $field    Object to render
-     * @param array  $arguments Extra arguments to customize the element.
+     * @param object $field Object to render
+     * @param array $arguments Extra arguments to customize the element.
      * @return string
+     * @throws \Exception
      */
     public function render($field, array $arguments) {
         $attributes = array_merge(
@@ -28,6 +29,9 @@ class EditorField extends BaseField {
             $attributes,
             $field->getMeta()->options
         );
+        if($field->getEntity() !== null) {
+            $editor->entity = $field->getEntity();
+        }
 
         return $editor->render();
     }
