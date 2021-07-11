@@ -40,7 +40,7 @@
                 </span>
                 <span class="Toggle--ifEnabled">
                     <span class="icon"><span class="fa fa-file-o"></span></span>
-                    <span>Previewing Entire Page</span>
+                    <span>Previewing Entire {{{ $blueprint->getDisplayName() }}}</span>
                 </span>
             </button>
             <button type="button" class="Button Button-color--black Editor--insertMediaItem Editor-header-item">
@@ -78,9 +78,11 @@
                 'rows' => $rows
             )) . '>' . htmlspecialchars($editor->value) . '</textarea>';
 
-            $contentPreviewURL = URL::route($blueprint->getAction('postContent')->getName());
-            if($editor->entity !== null) {
-                $contentPreviewURL .= '/' . $editor->entity->getId();
+            if($editor->type == Editor::TYPE_MAIN) {
+                $contentPreviewURL = URL::route($blueprint->getAction('postContent')->getName());
+                if($editor->entity !== null) {
+                    $contentPreviewURL .= '/' . $editor->entity->getId();
+                }
             }
         ?>
     </div>
