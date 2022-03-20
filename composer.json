@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": ">=7.4.0",
-        "oxygen/core": "~0.12.0",
+        "oxygen/core": "~0.13.0",
         "oxygen/auth": "~0.7.1",
         "illuminate/pagination": "~6.0",
         "illuminate/support": "~6.0",
@@ -28,28 +28,16 @@
     },
     "config": {
         "platform": {
-            "php": "7.2.15"
+            "php": "7.4.28"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/oxygen-cms/laraguard-doctrine"
+        }
+    ],
     "minimum-stability": "dev",
-    "extra": {
-        "title": "Oxygen - UI Base",
-        "readme": "oxygen.md",
-        "changes": "changes.md",
-        "icon": "icon.png",
-        "images": [
-            "https://raw.githubusercontent.com/oxygen-cms/ui-base/master/docs/buttons.png",
-            "https://raw.githubusercontent.com/oxygen-cms/ui-base/master/docs/code-view.png",
-            "https://raw.githubusercontent.com/oxygen-cms/ui-base/master/docs/design-view.png"
-        ],
-        "providers": [
-            {
-                "name": "Core Views",
-                "class": "Oxygen\\CoreViews\\CoreViewsServiceProvider",
-                "description": "Look and Feel of the Administration Section"
-            }
-        ]
-    },
     "require-dev": {
         "phpstan/phpstan": "^0.12.18"
     }
