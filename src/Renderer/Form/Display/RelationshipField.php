@@ -31,13 +31,17 @@ class RelationshipField extends GenericField {
      * @return string
      */
     public function render($field, array $arguments) {
-        $blueprint = $this->blueprints->get($field->getMeta()->options['blueprint']);
-
         $hasRelationship = is_object($field->getValue());
 
         if(!$hasRelationship) {
             return '<em>None</em>';
         }
+
+        if(!isset($field->getMeta()->options['blueprint'])) {
+            return ($field->getMeta()->options['displayFn'])($field->getValue());
+        }
+
+        $blueprint = $this->blueprints->get($field->getMeta()->options['blueprint']);
 
         return
             $this->beginContainer() .
