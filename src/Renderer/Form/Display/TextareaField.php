@@ -13,6 +13,9 @@ class TextareaField extends GenericField {
      */
     public function render($field, array $arguments) {
         $value = $field->getTransformedOutputValue();
+        if(is_array($value)) {
+            $value = json_encode($value);
+        }
 
         if(empty($value)) {
             return $this->beginContainer() . '<small><i>None</i></small>' . $this->endContainer();
