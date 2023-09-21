@@ -46,7 +46,7 @@ class RelationshipField extends GenericField {
         return
             $this->beginContainer() .
             '<a
-              href="' . e($this->url->route($blueprint->getRouteName('getInfo'), $field->getValue()->getId())) . '"
+              href="' . e($this->url->route($blueprint->getRouteName('getUpdate'), $field->getValue()->getId())) . '"
               class="Button Button-color--white">
                 <span class="Icon Icon-external-link Icon--pushRight"></span>
                 View ' . e($blueprint->getDisplayName()) . '
