@@ -79,7 +79,7 @@ class UiBaseServiceProvider extends ServiceProvider {
 
         $this->publishes([
             __DIR__.'/../resources/views' => base_path('resources/views/vendor/oxygen/ui-base'),
-            __DIR__.'/../resources/lang' => base_path('resources/lang/vendor/oxygen/ui-base'),
+            __DIR__.'/../resources/lang' => $this->app->langPath('vendor/oxygen/ui-base'),
         ]);
 
         Paginator::defaultView('oxygen/ui-base::pagination.default');
