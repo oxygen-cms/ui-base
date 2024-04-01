@@ -15,8 +15,8 @@
     ],
     "require": {
         "php": "^8.1",
-        "oxygen/core": "dev-laravel10",
-        "oxygen/auth": "dev-laravel10",
+        "oxygen/core": "~0.15.0",
+        "oxygen/auth": "~0.8.0",
         "illuminate/pagination": "^10.0",
         "illuminate/support": "^10.0",
         "ext-json": "*"
